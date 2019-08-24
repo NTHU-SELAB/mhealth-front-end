@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
-import AddFoodForm from '@/pages/AddFoodForm.vue'
+import AddFoodPage from '@/pages/AddFoodPage.vue'
 
 Vue.use(Router)
 
@@ -15,9 +15,9 @@ export default new Router({
             component: MainPage,
             children: [
                 {
-                    path: '/add-food-form',
-                    name: 'add-food-form',
-                    component: AddFoodForm,
+                    path: '/add-food',
+                    name: 'add-food-page',
+                    component: AddFoodPage,
                 }
             ]
         }
