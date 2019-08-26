@@ -1,7 +1,7 @@
 <template>
     <div id="add-food-camera">
         <p>add food camera</p>
-        <a href="line://nv/camera"></a>
+        <a href="line://nv/camera">open camera</a>
     </div>
 </template>
 
