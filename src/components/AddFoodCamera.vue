@@ -5,7 +5,7 @@
             <div class="col-1"></div>
             <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
         </div>
-        
+        <button class="btn btn-danger" @click="closeWindow">closeWindow</button>
     </div>
 </template>
 
@@ -15,7 +15,14 @@ export default {
     name: 'AddFoodCamera',
     components: {
 
+    },
+
+    methods: {
+        closeWindow() {
+            liff.closeWindow()
+        }
     }
+
 }
 </script>
 

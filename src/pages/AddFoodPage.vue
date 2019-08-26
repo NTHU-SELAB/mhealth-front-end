@@ -33,6 +33,17 @@ export default {
         }
     },
 
+    mounted() {
+        liff.init(
+            data => {
+                const userId = data.context.userId;
+                console.log(userId)
+            }, err => {
+                console.log(err)
+            }
+        );
+    },
+
     components: {
         AddFoodManually,
         AddFoodCamera
