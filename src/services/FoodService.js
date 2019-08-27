@@ -1,12 +1,11 @@
 import Api from '@/services/Api.js'
 
-
 export default {
 
-    async postFoodManually(userID, foodName, foodWeight, calorie, fat, sugar, fiber, meal) {
+    async postFoodManually(userId, foodName, foodWeight, calorie, fat, sugar, fiber, meal) {
         const response = await Api().post('food/recordFood.php', {
             'record': 'record',
-            'userID': userID,
+            'userID': userId,
             'name': name,
             'weight': foodWeight,
             'calorie': calorie,
