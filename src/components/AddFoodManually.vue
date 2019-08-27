@@ -56,6 +56,7 @@ export default {
             sugar:'',
             calorie:'',
             fiber:'',
+            logs
         }
     },
     methods: {
@@ -78,6 +79,7 @@ export default {
                 )
             } catch (error) {
                 console.log(error)
+                this.logs = JSON.stringify(error)
             }
         },
 
