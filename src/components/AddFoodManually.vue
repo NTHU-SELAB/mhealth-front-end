@@ -66,7 +66,7 @@ export default {
 
         async addFood() {
             this.checkInput()
-            const userId = (await liff.getProfile()).userId
+            const userId = 'Uedd9e265d4663947057bdf33a6dec9e0' //(await liff.getProfile()).userId
             try {
                 const response = await FoodService.postFoodManually(
                     userId,
