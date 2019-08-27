@@ -5,9 +5,9 @@
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{timeSlot}}</button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" @click="changeSlot('早餐')">早餐</a>
-                <a class="dropdown-item" href="#">午餐</a>
-                <a class="dropdown-item" href="#">晚餐</a>
-                <a class="dropdown-item" href="#">點心</a>
+                <a class="dropdown-item" href="#" @click="changeSlot('午餐')">午餐</a>
+                <a class="dropdown-item" href="#" @click="changeSlot('晚餐')">晚餐</a>
+                <a class="dropdown-item" href="#" @click="changeSlot('點心')">點心</a>
             </div>
         </div>
         <input type="text" class="form-control"  placeholder="食物名" v-model="foodName">
@@ -56,7 +56,6 @@ export default {
             sugar:'',
             calorie:'',
             fiber:'',
-            logs:''
         }
     },
     methods: {
@@ -66,7 +65,6 @@ export default {
 
         async addFood() {
             const userId = (await liff.getProfile()).userId
-            this.logs = userId
             try {
                 const response = await FoodService.postFoodManually(
                     userId,
@@ -79,10 +77,8 @@ export default {
                     this.timeSlot
                 )
             } catch (error) {
-                this.logs = JSON.stringify(error)
+                console.log(error)
             }
-            
-            this.logs = JSON.stringify(response)
         },
 
         print() {
