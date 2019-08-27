@@ -4,7 +4,6 @@
             <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片</a></div>
             <div class="col-1"></div>
             <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
-            <camera></camera>
         </div>
     </div>
 </template>
@@ -16,7 +15,6 @@ import Camera from '@/components/Camera.vue'
 export default {
     name: 'AddFoodCamera',
     components: {
-        Camera
     },
 
     methods: {
