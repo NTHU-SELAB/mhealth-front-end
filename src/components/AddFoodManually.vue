@@ -34,7 +34,7 @@
         </div>
         <button class="btn btn-primary" @click="addFood()">新增食物</button>
         <!-- <button @click="print()">print</button>  -->
-        <p>{{logs}}</p>
+        <!-- <p>{{logs}}</p> -->
 
     </div>
 </template>
@@ -66,7 +66,7 @@ export default {
 
         async addFood() {
             this.checkInput()
-            const userId = 'Uedd9e265d4663947057bdf33a6dec9e0' //(await liff.getProfile()).userId
+            const userId = (await liff.getProfile()).userId
             try {
                 const response = await FoodService.postFoodManually(
                     userId,
@@ -78,9 +78,10 @@ export default {
                     this.fiber,
                     this.timeSlot
                 )
+                alert('新增飲食成功')
             } catch (error) {
                 console.log(error)
-                this.logs = JSON.stringify(error)
+                // this.logs = JSON.stringify(error)
             }
         },
 
