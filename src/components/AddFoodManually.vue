@@ -34,6 +34,7 @@
         </div>
         <button class="btn btn-primary" @click="addFood()">新增食物</button>
         <!-- <button @click="print()">print</button>  -->
+        <p>{{userId}}</p>
 
     </div>
 </template>
@@ -54,7 +55,8 @@ export default {
             fat:'',
             sugar:'',
             calorie:'',
-            fabric:''
+            fabric:'',
+            userId:''
         }
     },
     methods: {
@@ -62,14 +64,9 @@ export default {
             this.timeSlot = slot
         },
 
-        addFood() {
-            liff.getProfile()
-            .then(profile => {
-                const name = profile.displayName
-            })
-            .catch((err) => {
-                console.log('error', err);
-            });
+        async addFood() {
+            this.userId = (await liff.getProfile()).userId
+            
             // FoodService.postFoodManually(
             //     ,
             //     this.foodName,
