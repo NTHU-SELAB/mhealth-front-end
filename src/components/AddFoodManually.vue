@@ -33,7 +33,6 @@
         <input type="number" class="form-control" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fiber">
         </div>
         <button class="btn btn-primary" @click="addFood()">新增食物</button>
-        <!-- <button @click="print()">print</button>  -->
         <!-- <p>{{logs}}</p> -->
 
     </div>
@@ -78,6 +77,7 @@ export default {
                     this.fiber,
                     this.timeSlot
                 )
+                this.clearnInput()
                 alert('新增飲食成功')
             } catch (error) {
                 console.log(error)
@@ -85,22 +85,21 @@ export default {
             }
         },
 
+        clearnInput() {
+            this.timeSlot = '時段'
+            this.foodName = ''
+            this.foodWeight = ''
+            this.fat = ''
+            this.sugar = ''
+            this.calorie = ''
+            this.fiber = ''
+        },
+
         checkInput() {
             if (this.timeSlot == '時段') {
                 alert('請選擇時段')
             }
         },
-
-        print() {
-            // console.log(this.timeSlot)
-            // console.log(this.foodName)
-            // console.log(this.foodweight)
-            // console.log(this.fat)
-            // console.log(this.carbohydrate)
-            // console.log(this.calori)
-            // console.log(this.fiber)
-        }
-
     }
 
 
