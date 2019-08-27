@@ -56,7 +56,7 @@ export default {
             sugar:'',
             calorie:'',
             fiber:'',
-            logs
+            logs: ''
         }
     },
     methods: {
@@ -65,6 +65,7 @@ export default {
         },
 
         async addFood() {
+            this.checkInput()
             const userId = (await liff.getProfile()).userId
             try {
                 const response = await FoodService.postFoodManually(
@@ -83,6 +84,12 @@ export default {
             }
         },
 
+        checkInput() {
+            if (this.timeSlot == '時段') {
+                alert('請選擇時段')
+            }
+        },
+
         print() {
             // console.log(this.timeSlot)
             // console.log(this.foodName)
@@ -90,7 +97,7 @@ export default {
             // console.log(this.fat)
             // console.log(this.carbohydrate)
             // console.log(this.calori)
-            // console.log(this.fabric)
+            // console.log(this.fiber)
         }
 
     }
