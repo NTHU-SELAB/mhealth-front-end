@@ -30,11 +30,11 @@
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fabric">
+        <input type="number" class="form-control" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fiber">
         </div>
         <button class="btn btn-primary" @click="addFood()">新增食物</button>
         <!-- <button @click="print()">print</button>  -->
-        <p>{{userId}}</p>
+        <p>{{logs}}</p>
 
     </div>
 </template>
@@ -55,8 +55,8 @@ export default {
             fat:'',
             sugar:'',
             calorie:'',
-            fabric:'',
-            userId:''
+            fiber:'',
+            logs:''
         }
     },
     methods: {
@@ -65,15 +65,18 @@ export default {
         },
 
         async addFood() {
-            this.userId = (await liff.getProfile()).userId
-            
-            // FoodService.postFoodManually(
-            //     ,
-            //     this.foodName,
-            //     this.foodWeight,
-            //     calorie,
-
-            // )
+            const userId = (await liff.getProfile()).userId
+            const response = await FoodService.postFoodManually(
+                userId,
+                this.foodName,
+                this.foodWeight,
+                this.calorie,
+                this.fat,
+                this.sugar,
+                this.fiber,
+                this.timeSlot
+            )
+            this.logs = response.data
         },
 
         print() {

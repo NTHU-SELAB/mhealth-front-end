@@ -16,7 +16,7 @@ export default {
             'meal': meal,
             'recordTime': Date.now()/1000
         })
-        console.log(response.data)
+        return response
     },
 
 
