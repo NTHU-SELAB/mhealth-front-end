@@ -66,27 +66,33 @@ export default {
 
         async addFood() {
             const userId = (await liff.getProfile()).userId
-            const response = await FoodService.postFoodManually(
-                userId,
-                this.foodName,
-                this.foodWeight,
-                this.calorie,
-                this.fat,
-                this.sugar,
-                this.fiber,
-                this.timeSlot
-            )
-            this.logs = response.data
+            this.logs = userId
+            try {
+                const response = await FoodService.postFoodManually(
+                    userId,
+                    this.foodName,
+                    this.foodWeight,
+                    this.calorie,
+                    this.fat,
+                    this.sugar,
+                    this.fiber,
+                    this.timeSlot
+                )
+            } catch (error) {
+                this.logs = JSON.stringify(error)
+            }
+            
+            this.logs = JSON.stringify(response)
         },
 
         print() {
-            console.log(this.timeSlot)
-            console.log(this.foodName)
-            console.log(this.foodweight)
-            console.log(this.fat)
-            console.log(this.carbohydrate)
-            console.log(this.calori)
-            console.log(this.fabric)
+            // console.log(this.timeSlot)
+            // console.log(this.foodName)
+            // console.log(this.foodweight)
+            // console.log(this.fat)
+            // console.log(this.carbohydrate)
+            // console.log(this.calori)
+            // console.log(this.fabric)
         }
 
     }
