@@ -1,10 +1,12 @@
 <template>
     <div id="add-food-camera">
-        <div class="row justify-content-center" style="margin-top: 80px;">
+<!-- 
+       <div class="row justify-content-center" style="margin-top: 80px;">
             <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片</a></div>
             <div class="col-1"></div>
             <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
         </div>
+-->
         
         <div  class="row justify-content-center" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
