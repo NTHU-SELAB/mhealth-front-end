@@ -2,13 +2,13 @@
     <div id="add-food-manually">
         <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{timeSlot}}</button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" @click="changeSlot('早餐')">早餐</a>
-                <a class="dropdown-item" href="#" @click="changeSlot('午餐')">午餐</a>
-                <a class="dropdown-item" href="#" @click="changeSlot('晚餐')">晚餐</a>
-                <a class="dropdown-item" href="#" @click="changeSlot('點心')">點心</a>
-            </div>
+            <select class="browser-default custom-select" v-model="timeSlot">
+                <option timeSlot >時段</option>
+                <option>早餐</option>
+                <option >午餐</option>
+                <option >晚餐</option>
+                <option>點心</option>
+            </select>
         </div>
         <input type="text" class="form-control"  placeholder="食物名" v-model="foodName">
         </div>
@@ -32,7 +32,12 @@
         <div class="input-group mb-3">
         <input type="number" class="form-control" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fiber">
         </div>
-        <button class="btn btn-primary" @click="addFood()">新增食物</button>
+
+        <div>
+        <button class="btn btn-primary col-5" @click="addFood()">新增紀錄</button>
+        <a class="col-1"></a>
+        <button class="btn btn-primary col-5" @click="cancelManual()">取消</button>
+        </div>
         <!-- <p>{{logs}}</p> -->
 
     </div>
@@ -61,6 +66,7 @@ export default {
     methods: {
         changeSlot(slot) {
             this.timeSlot = slot
+            console.log(timeslot)
         },
 
         async addFood() {
@@ -100,6 +106,12 @@ export default {
                 alert('請選擇時段')
             }
         },
+
+        cancelManual() {
+            
+            console.log("cancel manual add food recored")
+            liff.closeWindow()
+        }
     }
 
 
