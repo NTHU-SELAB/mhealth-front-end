@@ -1,5 +1,5 @@
 <template>
-    <div id="add-food-page">
+    <div id="add-food-page" class="container">
         <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
                 <a :class="{'nav-link':true, 'active':currentPage == 'AddFoodManually'}" 
@@ -58,5 +58,9 @@ export default {
 </script>
 
 <style>
-
+#add-food-page {
+    background-color: #eeeeee;
+    padding-top: 10px;
+    height: 100vh;
+}
 </style>
