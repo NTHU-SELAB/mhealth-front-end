@@ -13,13 +13,13 @@
               <img class="card-img-top" src="https://i.imgur.com/WuVvwzl.jpg/100px180/?text=Image cap" alt="Card image cap">
               <!--image holder-->
               <div class="card-body">
-                 <select class="browser-default custom-select col-6">
+                 <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
                      <option selected>辨識結果</option>
                      <option value="1">奶油</option>
                      <option value="2">蛋糕</option>
                      <option value="3">冰淇淋</option>
                  </select>
-                 <select class="browser-default custom-select col-6">
+                 <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;">
                      <option selected>選擇食物</option>
                      <option value="1">奶油蛋糕</option>
                      <option value="2">戚風蛋糕</option>
@@ -36,9 +36,9 @@
                     </li>
                     <!--food weight and calori caculator-->
                     <li class="list-group-item">
-                        <button class="col-5 btn btn-primary " type="submit">新增紀錄</button>
+                        <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit">新增紀錄</button>
                         <a class="col-1"></a>
-                        <button class="col-5 btn btn-primary " type="submit" @click="cancelCamera()">取消</button>
+                        <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit" @click="cancelCamera()">取消</button>
                     </li>
                     <!--submit button-->
                </ul>

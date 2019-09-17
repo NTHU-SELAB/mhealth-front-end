@@ -2,7 +2,7 @@
     <div id="add-food-manually">
         <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <select class="browser-default custom-select" v-model="timeSlot">
+            <select class="browser-default custom-select" v-model="timeSlot" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
                 <option timeSlot >時段</option>
                 <option>早餐</option>
                 <option >午餐</option>
@@ -10,33 +10,33 @@
                 <option>點心</option>
             </select>
         </div>
-        <input type="text" class="form-control"  placeholder="食物名" v-model="foodName">
+        <input type="text" class="form-control" placeholder="食物名" v-model="foodName" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;">
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="食物重量(g)" aria-describedby="basic-addon2" v-model="foodWeight">
+        <input type="number" class="form-control" style="border:2px #ccc solid; border-radius:20px;" placeholder="食物重量(g)" aria-describedby="basic-addon2" v-model="foodWeight">
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="食物熱量(kcal)" aria-describedby="basic-addon2" v-model="calorie">
+        <input type="number" class="form-control" style="border:2px #ccc solid; border-radius:20px;" placeholder="食物熱量(kcal)" aria-describedby="basic-addon2" v-model="calorie">
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="粗脂肪(g)" aria-describedby="basic-addon2" v-model="fat">
+        <input type="number" class="form-control" style="border:2px #ccc solid; border-radius:20px;" placeholder="粗脂肪(g)" aria-describedby="basic-addon2" v-model="fat">
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="碳水化合物(g)" aria-describedby="basic-addon2" v-model="sugar">
+        <input type="number" class="form-control" style="border:2px #ccc solid; border-radius:20px;" placeholder="碳水化合物(g)" aria-describedby="basic-addon2" v-model="sugar">
         </div>
 
         <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fiber">
+        <input type="number" class="form-control" style="border:2px #ccc solid; border-radius:20px;" placeholder="膳食纖維(g)" aria-describedby="basic-addon2" v-model="fiber">
         </div>
 
         <div>
-        <button class="btn btn-primary col-5" @click="addFood()">新增紀錄</button>
+        <button class="btn btn-primary col-5"  style="border:2px #ccc solid; border-radius:20px;" @click="addFood()">新增紀錄</button>
         <a class="col-1"></a>
-        <button class="btn btn-primary col-5" @click="cancelManual()">取消</button>
+        <button class="btn btn-primary col-5" style="border:2px #ccc solid; border-radius:20px;" @click="cancelManual()">取消</button>
         </div>
         <!-- <p>{{logs}}</p> -->
 
