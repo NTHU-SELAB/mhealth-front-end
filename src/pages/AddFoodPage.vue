@@ -16,6 +16,8 @@
         </ul>
         <add-food-manually v-show="currentPage == 'AddFoodManually'"></add-food-manually>
         <add-food-camera v-show="currentPage == 'AddFoodCamera'"></add-food-camera>
+        <p>{{latitude}}</p>
+        <p>{{longitude}}</p>
     </div>
 </template>
 
@@ -29,7 +31,10 @@ export default {
 
     data() {
         return {
-            currentPage: 'AddFoodManually'
+            currentPage: 'AddFoodManually',
+            latitude: '',
+            longitude: ''
+
         }
     },
 
@@ -41,8 +46,9 @@ export default {
                 // console.log(err)
             }
         );
-        navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position.coords.latitude, position.coords.longitude);
+        navigator.geolocation.getCurrentPosition((position) =>{
+            this.latitude = position.coords.latitude
+            this.longitude = position.coords.longitude
         });
     },
 
