@@ -66,7 +66,6 @@ export default {
     methods: {
         changeSlot(slot) {
             this.timeSlot = slot
-            console.log(timeslot)
         },
 
         async addFood() {
@@ -108,8 +107,6 @@ export default {
         },
 
         cancelManual() {
-            
-            console.log("cancel manual add food recored")
             liff.closeWindow()
         }
     }

@@ -3,9 +3,10 @@
         <img :src="imageUrl" class="food-image" alt="">
         <div><span>{{shopName}} {{foodName}}</span></div>
         <div>
-            <span>熱量 </span>
             <span style="color:red;">{{calorie}} </span>
-            <span>大卡</span>
+            <span>大卡 </span>
+            <span>{{price}} </span>
+            <span>元</span>
         </div>
     </div>
 </template>
@@ -13,10 +14,10 @@
 
 <script>
 export default {
-    props: ['shopName', 'foodName', 'calorie'],
+    props: ['shopName', 'foodName', 'calorie', 'price', 'imageUrl'],
     data() {
         return {
-            imageUrl: 'https://www.nownews.com/wp-content/uploads/2019/07/1563504586-2cdb119e5ae9d0f59fdaf2b973d46411.png'
+            // imageUrl: 'https://www.nownews.com/wp-content/uploads/2019/07/1563504586-2cdb119e5ae9d0f59fdaf2b973d46411.png'
         }
     }
 }

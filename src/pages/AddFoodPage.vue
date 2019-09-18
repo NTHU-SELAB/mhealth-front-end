@@ -37,9 +37,8 @@ export default {
         liff.init(
             data => {
                 // const userId = data.context.userId;
-                
             }, err => {
-                console.log(err)
+                // console.log(err)
             }
         );
     },
