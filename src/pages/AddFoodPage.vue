@@ -41,6 +41,9 @@ export default {
                 // console.log(err)
             }
         );
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position.coords.latitude, position.coords.longitude);
+        });
     },
 
     components: {
