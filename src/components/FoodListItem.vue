@@ -1,8 +1,7 @@
 <template>
-    <div class="food-list-item">
+    <div class="food-list-item mb-2">
         <img :src="imageUrl" class="food-image" alt="">
-        <div><span>{{shopName}}</span></div>
-        <div><span>{{foodName}}</span></div>
+        <div><span>{{shopName}} {{foodName}}</span></div>
         <div>
             <span>熱量 </span>
             <span style="color:red;">{{calorie}} </span>
