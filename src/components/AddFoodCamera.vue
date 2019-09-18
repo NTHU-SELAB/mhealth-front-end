@@ -19,13 +19,11 @@
                      <option value="2">蛋糕</option>
                      <option value="3">冰淇淋</option>
                  </select>
-                 <select class="browser-default custom-select col-6">
+                 <select class="browser-default custom-select col-6" v-model="food">
                      <option selected>選擇食物</option>
-                     <option value="1">奶油蛋糕</option>
-                     <option value="2">戚風蛋糕</option>
-                     <option value="3">水果蛋糕</option>
-                     <option value="3">起司蛋糕</option>
-                     <option value="3">蜂蜜蛋糕</option>
+                     <option v-for="option in options" v-bind:key="option.value">
+                     {{option.text}}
+                     </option>
                  </select>
              </div>
              <!--food select-->
@@ -63,7 +61,15 @@ export default {
     data() {
         return {
             foodweight:0,
-            foodcalori:4
+            foodcalori:4,
+            food:'選擇食物',
+            options: [
+                { text: '奶油蛋糕', value: '1' },
+                { text: '戚風蛋糕', value: '2' },
+                { text: '水果蛋糕', value: '3' },
+                { text: '起司蛋糕', value: '4' },
+                { text: '蜂蜜蛋糕', value: '5' }
+            ]
         }
     },
     methods: {
