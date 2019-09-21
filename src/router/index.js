@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
 import AddFoodPage from '@/pages/AddFoodPage.vue'
 import RestaurantPage from '@/pages/RestaurantPage.vue'
+import RestaurantFoodPage from '@/pages/RestaurantFoodPage.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
                     path: '/restaurant',
                     name: 'restaurant-page',
                     component: RestaurantPage,
+                },
+                {
+                    path: '/restaurant/food',
+                    name: 'restaurant-food-page',
+                    component: RestaurantFoodPage,
                 }
             ]
         }
