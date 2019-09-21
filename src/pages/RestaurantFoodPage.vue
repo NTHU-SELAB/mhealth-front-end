@@ -49,10 +49,10 @@
             </div>
             <div class="col-6"></div>
 
-            <div class="col-5 mt-4">
+            <div class="col-5 mt-4 mb-4">
                 <button class="btn btn-primary" @click="addToFoodRecord()">新增飲食紀錄</button>
             </div>
-            <div class="col-5 mt-4">
+            <div class="col-5 mt-4 mb-4">
                 <a class="btn btn-primary" :href="googleMapUrl">Google 地圖</a>
             </div>
         </div>
