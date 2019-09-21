@@ -68,11 +68,11 @@ export default {
             location: '新竹市東區金山七街77-1號',
             phoneNumber: '0965106690',
             googleMapUrl: 'https://www.google.com/maps/place/bigreeny+%E6%96%99%E7%90%86%E5%AE%B6/@24.7767683,121.0200837,21z/data=!4m5!3m4!1s0x34683625b9a131d5:0x1a756a1694196533!8m2!3d24.7768622!4d121.0200571',
-            calorie: 856,
+            calorie: 625,
             price: 104,
-            fat: 0,
-            sugar: 0,
-            fiber: 0,
+            fat: 25,
+            sugar: 80,
+            fiber: 20,
             imageUrl: 'https://i.imgur.com/C5wnzsw.jpg'
         }
     }, 
