@@ -32,7 +32,7 @@
                     </li>
                     <!--food weight and calori caculator-->
                     <li class="list-group-item">
-                        <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit">新增紀錄</button>
+                        <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit" @click="addFoodRecord()">新增紀錄</button>
                         <a class="col-1"></a>
                         <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit" @click="cancelCamera()">取消</button>
                     </li>
@@ -74,6 +74,10 @@ export default {
         cancelCamera() {
             console.log("cancel camera add food")
             liff.closeWindow();
+        },
+
+        addFoodRecord() {
+            alert("新增飲食成功")
         }
 
     }
