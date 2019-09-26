@@ -10,14 +10,14 @@
         
         <div  class="row justify-content-center" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
-              <img class="card-img-top" src="https://i.imgur.com/WuVvwzl.jpg/100px180/?text=Image cap" alt="Card image cap">
+              <img class="card-img-top" src="https://i.imgur.com/6t5Jq6Z.jpg/100px180/?text=Image cap" alt="Card image cap">
               <!--image holder-->
               <div class="card-body">
                  <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
                      <option selected>辨識結果</option>
-                     <option value="1">奶油</option>
-                     <option value="2">蛋糕</option>
-                     <option value="3">冰淇淋</option>
+                     <option value="1">餃</option>
+                     <option value="2">餛飩</option>
+                     <option value="3">麵團</option>
                  </select>
                  <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;" v-model="foodName">
                      <option selected>{{foodName}}</option>
@@ -62,11 +62,11 @@ export default {
             foodcalori:4,
             foodName:'選擇食物',
             lists : [
-                {val:1,item:'奶油蛋糕'},
-                {val:2,item:'戚風蛋糕'},
-                {val:3,item:'水果蛋糕'},
-                {val:4,item:'起司蛋糕'},
-                {val:5,item:'蜂蜜蛋糕'},
+                {val:1,item:'冷凍豬肉水餃'},
+                {val:2,item:'冷凍豬肉韭菜水餃'},
+                {val:3,item:'冷凍豬肉蟹黃水餃'},
+                {val:4,item:'冷凍牛肉水餃'},
+                {val:5,item:'冷凍鮪魚水餃'},
             ]
         }
     },
