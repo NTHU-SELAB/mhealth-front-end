@@ -10,14 +10,14 @@
         
         <div  class="row justify-content-center" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
-              <img class="card-img-top" src="https://i.imgur.com/6t5Jq6Z.jpg/100px180/?text=Image cap" alt="Card image cap">
+              <img class="card-img-top" src="https://i.imgur.com/k8OgO79.png" alt="Card image cap">
               <!--image holder-->
               <div class="card-body">
                  <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
                      <option selected>辨識結果</option>
-                     <option value="1">餃</option>
-                     <option value="2">餛飩</option>
-                     <option value="3">麵團</option>
+                     <option value="1">麵包</option>
+                     <option value="2">三明治</option>
+                     <option value="3">吐司</option>
                  </select>
                  <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;" v-model="foodName">
                      <option selected>{{foodName}}</option>
@@ -27,8 +27,13 @@
              <!--food select-->
                <ul class="list-group list-group-flush">
                    <li class="list-group-item">
-                       <label>重量:{{foodweight}}(g) /熱量:{{foodweight*foodcalori}}(kcal)</label>
+                       <label>重量:{{foodweight}}(g) /熱量:{{Math.round(foodweight*foodcalori*100) /100}}(kcal)</label>
                        <input type="range" class="custom-range" min="0" max="500" v-model="foodweight">
+                    </li>
+                    <li id="food-info" class="list-group-item">
+                        <ul><label>脂肪:{{Math.round(foodweight*foodfat*100) /100}}(g)</label></ul>
+                        <ul><label>蛋白質:{{Math.round(foodweight*foodprotein*100) /100}}(g)</label></ul>
+                        <ul><label>碳水化合物:{{Math.round(foodweight*foodcarbon*100) /100}}(g)</label></ul>
                     </li>
                     <!--food weight and calori caculator-->
                     <li class="list-group-item">
@@ -58,15 +63,18 @@ export default {
     },
     data() {
         return {
-            foodweight:0,
-            foodcalori:4,
+            foodweight:20,
+            foodcalori:4.45,
+            foodprotein:0.125,
+            foodfat:0.06,
+            foodcarbon:0.85,
             foodName:'選擇食物',
             lists : [
-                {val:1,item:'冷凍豬肉水餃'},
-                {val:2,item:'冷凍豬肉韭菜水餃'},
-                {val:3,item:'冷凍豬肉蟹黃水餃'},
-                {val:4,item:'冷凍牛肉水餃'},
-                {val:5,item:'冷凍鮪魚水餃'},
+                {val:1,item:'法式吐司'},
+                {val:2,item:'熱壓吐司'},
+                {val:3,item:'蜜糖吐司'},
+                {val:4,item:'碳烤吐司'},
+                {val:5,item:'果醬吐司'},
             ]
         }
     },
@@ -106,6 +114,10 @@ export default {
 .open-camera-button > a:hover{
     text-decoration: none;
     color: white;
+}
+
+#food-info > ul {
+    padding-inline-start: 0px;
 }
 
 </style>
