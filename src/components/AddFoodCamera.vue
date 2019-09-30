@@ -19,7 +19,7 @@
                      <option value="2">三明治</option>
                      <option value="3">吐司</option>
                  </select>
-                 <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;" v-model="foodName">
+                 <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;" v-model="foodName" @change="FoodonChange()">
                      <option selected>{{foodName}}</option>
                      <option v-for="list in lists" :key="list.value">{{list.item}}</option>
                  </select>
@@ -64,10 +64,10 @@ export default {
     data() {
         return {
             foodweight:20,
-            foodcalori:4.45,
-            foodprotein:0.125,
-            foodfat:0.06,
-            foodcarbon:0.85,
+            foodcalori:0,
+            foodprotein:0,
+            foodfat:0,
+            foodcarbon:0,
             foodName:'選擇食物',
             lists : [
                 {val:1,item:'法式吐司'},
@@ -86,6 +86,14 @@ export default {
 
         addFoodRecord() {
             alert("新增飲食成功")
+        },
+
+        FoodonChange() {
+            console.log("food change")
+            this.foodcalori=4.45;
+            this.foodprotein=0.125;
+            this.foodfat=0.06;
+            this.foodcarbon=0.85;
         }
 
     }
