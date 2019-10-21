@@ -64,6 +64,6 @@ export default {
 #add-food-page {
     background-color: #eeeeee;
     padding-top: 10px;
-    height: 110vh;
+    height: 120vh;
 }
 </style>
