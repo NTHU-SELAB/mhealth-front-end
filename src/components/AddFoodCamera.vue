@@ -1,14 +1,14 @@
 <template>
     <div id="add-food-camera">
-<!-- 
-       <div class="row justify-content-center" style="margin-top: 80px;">
-            <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片</a></div>
+
+       <div class="row justify-content-center" v-if="!this.$route.query.image" style="margin-top: 80px;">
+            <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片{{this.$route.query.id}}</a></div>
             <div class="col-1"></div>
             <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
         </div>
--->
+
         
-        <div  class="row justify-content-center" style="margin-top: 30px;">
+        <div  class="row justify-content-center" v-if="this.$route.query.image" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
               <img class="card-img-top" src="https://i.imgur.com/k8OgO79.png" alt="Card image cap">
               <!--image holder-->
