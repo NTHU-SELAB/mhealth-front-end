@@ -12,22 +12,22 @@ export default new Router({
     base: __dirname,
     routes: [
         {
-            path: '/liff',
+            path: '/',
             name: 'main-page',
             component: MainPage,
             children: [
                 {
-                    path: '/liff/add-food',
+                    path: '/add-food',
                     name: 'add-food-page',
                     component: AddFoodPage,
                 },
                 {
-                    path: '/liff/restaurant',
+                    path: '/restaurant',
                     name: 'restaurant-page',
                     component: RestaurantPage,
                 },
                 {
-                    path: '/liff/restaurant/food',
+                    path: '/restaurant/food',
                     name: 'restaurant-food-page',
                     component: RestaurantFoodPage,
                 }
