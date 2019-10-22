@@ -10,7 +10,7 @@
         
         <div  class="row justify-content-center" v-if="this.$route.query.image" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
-              <img class="card-img-top" src="https://i.imgur.com/k8OgO79.png" alt="Card image cap">
+              <img class="card-img-top" :src="foodimage" alt="Card image cap">
               <!--image holder-->
               <div class="card-body">
                  <select class="browser-default custom-select col-6" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
@@ -63,6 +63,7 @@ export default {
     },
     data() {
         return {
+            foodimage:'https://mhealth-service.feveral.me/'+this.$route.query.image, 
             foodweight:20,
             foodcalori:0,
             foodprotein:0,
