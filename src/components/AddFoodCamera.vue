@@ -81,7 +81,10 @@ export default {
         },
 
         openCamera() {
-            window.location.href = "line://nv/camera"
+            liff.openWindow({
+                url:'line://nv/camera',
+                external:true
+            });
         },
 
         addFoodRecord() {
