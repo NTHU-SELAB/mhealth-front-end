@@ -82,7 +82,7 @@ export default {
 
         openCamera() {
             liff.openWindow({
-                url:'line://nv/camera',
+                url:'line://nv/cameraa',
                 external:true
             });
         },
