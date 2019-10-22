@@ -2,12 +2,11 @@
     <div id="add-food-camera">
 
        <div class="row justify-content-center" v-if="!this.$route.query.image" style="margin-top: 80px;">
-            <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片{{this.$route.query.id}}</a></div>
+            <div class="col-4 open-camera-button"><a href="#" @click="openCamera()">拍攝照片{{this.$route.query.id}}</a></div>
             <div class="col-1"></div>
             <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
         </div>
 
-        
         <div  class="row justify-content-center" v-if="this.$route.query.image" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
               <img class="card-img-top" :src="foodimage" alt="Card image cap">
@@ -42,12 +41,9 @@
                         <button class="col-5 btn btn-primary " style="border:2px #ccc solid; border-radius:20px;" type="submit" @click="cancelCamera()">取消</button>
                     </li>
                     <!--submit button-->
-               </ul>
-           </div>
-           
+                </ul>
+            </div>
         </div>
-
-        
     </div>
 
 
@@ -81,22 +77,24 @@ export default {
     },
     methods: {
         cancelCamera() {
-            console.log("cancel camera add food")
             liff.closeWindow();
+        },
+
+        openCamera() {
+            window.location.href = "line://nv/camera"
         },
 
         addFoodRecord() {
             alert("新增飲食成功")
         },
 
-        FoodonChange() {
+        foodonChange() {
             console.log("food change")
             this.foodcalori=4.45;
             this.foodprotein=0.125;
             this.foodfat=0.06;
             this.foodcarbon=0.85;
-        }
-
+        },
     }
 
 }
