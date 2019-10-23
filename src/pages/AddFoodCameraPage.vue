@@ -76,7 +76,19 @@ export default {
             liff.closeWindow();
         },
 
-        addFoodRecord() {
+        calculateMeal(date) {
+            if (3 <= date.getHours() && date.getHours() <= 11) return '早餐'
+            else if (11 <= date.getHours() && date.getHours() <= 15) return '午餐'
+            else return '晚餐'
+        },
+
+        async addFoodRecord() {
+            const userID = (await liff.getProfile()).userId;
+            const meal = calculateMeal(new Date())
+            await FoodService.postFoodRecord(
+                userID, this.foodimage, this.foodName, this.foodweight, this.foodcalori, this.foodfat,
+                this.foodcarbon, this.foodfiber, meal, Date.now()
+            )
             alert("新增飲食成功")
         },
 

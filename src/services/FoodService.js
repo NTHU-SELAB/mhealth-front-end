@@ -21,6 +21,13 @@ export default {
     async getFoodsByKeyword(keyword) {
         const response = await Api().get(`food?keyword=${keyword}`)
         return response.data.foods
+    },
+
+    async postFoodRecord(userID, image, name, weight, calorie, fat, sugar, fiber, meal, timstamp) {
+        const response = await Api().post('food/record', {
+            userID, image, name, weight, calorie, fat, sugar, fiber, meal, timstamp
+        })
+        return response
     }
 
 }
