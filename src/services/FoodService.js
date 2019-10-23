@@ -23,9 +23,9 @@ export default {
         return response.data.foods
     },
 
-    async postFoodRecord(userID, image, name, weight, calorie, fat, sugar, fiber, meal, timstamp) {
+    async postFoodRecord(userID, image, name, weight, calorie, fat, sugar, fiber, meal, timestamp) {
         const response = await Api().post('food/record', {
-            userID, image, name, weight, calorie, fat, sugar, fiber, meal, timstamp
+            userID, image, name, weight, calorie, fat, sugar, fiber, meal, timestamp
         })
         return response
     }
