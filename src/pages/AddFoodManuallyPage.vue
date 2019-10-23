@@ -69,7 +69,9 @@ export default {
         },
 
         async addFood() {
-            this.checkInput()
+            if (this.timeSlot == '時段') {
+                alert('請選擇時段')
+            }
             const userId = (await liff.getProfile()).userId
             try {
                 const response = await FoodService.postFoodManually(
@@ -98,12 +100,6 @@ export default {
             this.sugar = ''
             this.calorie = ''
             this.fiber = ''
-        },
-
-        checkInput() {
-            if (this.timeSlot == '時段') {
-                alert('請選擇時段')
-            }
         },
 
         cancelManual() {
