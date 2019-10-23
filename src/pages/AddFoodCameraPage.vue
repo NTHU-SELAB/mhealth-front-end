@@ -98,7 +98,7 @@ export default {
 
         onSubFoodChange() {
             this.subFoodList.forEach(f => {
-                if (f.name === subFoodName) {
+                if (f.name === this.subFoodName) {
                     this.foodcalori = f.carolie;
                     this.foodprotein = 0.4
                     this.foodfiber = f.fiber
