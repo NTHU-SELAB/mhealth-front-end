@@ -1,12 +1,6 @@
 <template>
     <div id="add-food-camera">
 
-        <!-- <div class="row justify-content-center" v-if="!this.$route.query.image" style="margin-top: 80px;">
-            <div class="col-4 open-camera-button"><a href="line://nv/camera">拍攝照片</a></div>
-            <div class="col-1"></div>
-            <div class="col-4 open-camera-button"><a href="line://nv/cameraRoll/single">相簿上傳</a></div>
-        </div> -->
-
         <div  class="row justify-content-center" style="margin-top: 30px;">
             <div class="card col-11" style="width: 18rem;">
             <img class="card-img-top" :src="foodimage" alt="Card image cap">
@@ -24,13 +18,13 @@
             <!--food select-->
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <label>重量:{{foodweight}}(g) /熱量:{{Math.round(foodweight*foodcalori*100) /100}}(kcal)</label>
+                    <label>重量:{{foodweight}}(g) /熱量:{{Math.round(foodweight*foodcalori) /100}}(kcal)</label>
                     <input type="range" class="custom-range" min="0" max="500" v-model="foodweight">
                     </li>
                     <li id="food-info" class="list-group-item">
-                        <ul><label>脂肪:{{Math.round(foodweight*foodfat*100) /100}}(g)</label></ul>
-                        <ul><label>蛋白質:{{Math.round(foodweight*foodprotein*100) /100}}(g)</label></ul>
-                        <ul><label>碳水化合物:{{Math.round(foodweight*foodcarbon*100) /100}}(g)</label></ul>
+                        <ul><label>脂肪:{{Math.round(foodweight*foodfat) /100}}(g)</label></ul>
+                        <ul><label>膳食纖維:{{Math.round(foodweight*foodfiber) /100}}(g)</label></ul>
+                        <ul><label>碳水化合物:{{Math.round(foodweight*foodcarbon) /100}}(g)</label></ul>
                     </li>
                     <!--food weight and calori caculator-->
                     <li class="list-group-item">
@@ -64,6 +58,7 @@ export default {
             foodcalori:0,
             foodprotein:0,
             foodfat:0,
+            foodfiber:0,
             foodcarbon:0,
             foodName: '選擇食物',
             subFoodName: '辨識結果',
@@ -93,8 +88,9 @@ export default {
             this.subFoodList.forEach(f => {
                 this.foodcalori = f.carolie;
                 this.foodprotein = 0.4
+                this.foodfiber = f.fiber
                 this.foodfat = f.fat;
-                this.foodcarbon = f.fiber;
+                this.foodcarbon = f.sugar;
             })
         },
     }
