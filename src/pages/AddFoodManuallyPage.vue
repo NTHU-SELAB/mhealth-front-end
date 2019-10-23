@@ -38,7 +38,7 @@
         <a class="col-1"></a>
         <button class="btn btn-primary col-5" style="border:2px #ccc solid; border-radius:20px;" @click="cancelManual()">取消</button>
         </div>
-        <!-- <p>{{logs}}</p> -->
+        <p>{{logs}}</p>
 
     </div>
 </template>
@@ -88,7 +88,7 @@ export default {
                 alert('新增飲食成功')
             } catch (error) {
                 console.log(error)
-                // this.logs = JSON.stringify(error)
+                this.logs = JSON.stringify(error)
             }
         },
 
