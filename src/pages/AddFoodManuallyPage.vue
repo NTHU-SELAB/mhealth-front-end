@@ -74,15 +74,17 @@ export default {
             }
             const userId = (await liff.getProfile()).userId
             try {
-                const response = await FoodService.postFoodManually(
+                const response = await FoodService.postFoodRecord(
                     userId,
+                    null,
                     this.foodName,
                     this.foodWeight,
                     this.calorie,
                     this.fat,
                     this.sugar,
                     this.fiber,
-                    this.timeSlot
+                    this.timeSlot,
+                    Date.now()
                 )
                 this.clearnInput()
                 alert('新增飲食成功')
