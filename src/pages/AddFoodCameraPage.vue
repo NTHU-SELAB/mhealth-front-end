@@ -98,11 +98,13 @@ export default {
 
         onSubFoodChange() {
             this.subFoodList.forEach(f => {
-                this.foodcalori = f.carolie;
-                this.foodprotein = 0.4
-                this.foodfiber = f.fiber
-                this.foodfat = f.fat;
-                this.foodcarbon = f.sugar;
+                if (f.name === subFoodName) {
+                    this.foodcalori = f.carolie;
+                    this.foodprotein = 0.4
+                    this.foodfiber = f.fiber
+                    this.foodfat = f.fat;
+                    this.foodcarbon = f.sugar;
+                }
             })
         },
     }
