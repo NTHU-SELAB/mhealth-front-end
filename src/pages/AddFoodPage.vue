@@ -14,15 +14,15 @@
                 </a>
             </li>
         </ul>
-        <add-food-manually v-show="currentPage == 'AddFoodManually'"></add-food-manually>
-        <add-food-camera v-show="currentPage == 'AddFoodCamera'"></add-food-camera>
+        <!-- <add-food-manually v-show="currentPage == 'AddFoodManually'"></add-food-manually>
+        <add-food-camera v-show="currentPage == 'AddFoodCamera'"></add-food-camera> -->
     </div>
 </template>
 
 <script>
 
-import AddFoodManually from '@/components/AddFoodManually.vue'
-import AddFoodCamera from '@/components/AddFoodCamera.vue'
+// import AddFoodManually from '@/components/AddFoodManually.vue'
+// import AddFoodCamera from '@/components/AddFoodCamera.vue'
 
 export default {
     name: 'addFoodPage',
