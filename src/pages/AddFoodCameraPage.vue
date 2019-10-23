@@ -36,6 +36,7 @@
                 </ul>
             </div>
         </div>
+        <div>{{log}}</div>
     </div>
 
 
@@ -63,7 +64,8 @@ export default {
             foodName: '選擇食物',
             subFoodName: '辨識結果',
             foodNameList: ['qwe', 'hquwai', 'qwkjopi'], 
-            subFoodList : ['法式吐司','熱壓吐司']
+            subFoodList : ['法式吐司','熱壓吐司'],
+            log: ''
         }
     },
 
@@ -84,7 +86,7 @@ export default {
 
         async addFoodRecord() {
             const userID = (await liff.getProfile()).userId;
-            const meal = calculateMeal(new Date())
+            const meal = this.calculateMeal(new Date())
             await FoodService.postFoodRecord(
                 userID, this.foodimage, this.foodName, this.foodweight, this.foodcalori, this.foodfat,
                 this.foodcarbon, this.foodfiber, meal, Date.now()
