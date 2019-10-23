@@ -1,4 +1,5 @@
 import Api from '@/services/Api.js'
+import qs from 'qs'
 
 export default {
 
