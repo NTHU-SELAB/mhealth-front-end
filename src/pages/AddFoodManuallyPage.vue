@@ -166,7 +166,7 @@ export default {
         <a class="col-1"></a>
         <button class="btn btn-primary col-5" style="border:2px #ccc solid; border-radius:20px;" @click="cancelManual()">取消</button>
         </div>
-        <!-- <p>{{logs}}</p> -->
+        <p>{{logs}}</p>
 
     </div>
 </template>
@@ -194,28 +194,31 @@ export default {
     methods: {
         changeSlot(slot) {
             this.timeSlot = slot
-            console.log(timeslot)
         },
 
         async addFood() {
-            this.checkInput()
+            if (this.timeSlot == '時段') {
+                alert('請選擇時段')
+            }
             const userId = (await liff.getProfile()).userId
             try {
-                const response = await FoodService.postFoodManually(
+                const response = await FoodService.postFoodRecord(
                     userId,
+                    null,
                     this.foodName,
                     this.foodWeight,
                     this.calorie,
                     this.fat,
                     this.sugar,
                     this.fiber,
-                    this.timeSlot
+                    this.timeSlot,
+                    Date.now()
                 )
                 this.clearnInput()
                 alert('新增飲食成功')
             } catch (error) {
                 console.log(error)
-                // this.logs = JSON.stringify(error)
+                this.logs = JSON.stringify(error)
             }
         },
 
@@ -229,15 +232,7 @@ export default {
             this.fiber = ''
         },
 
-        checkInput() {
-            if (this.timeSlot == '時段') {
-                alert('請選擇時段')
-            }
-        },
-
         cancelManual() {
-            
-            console.log("cancel manual add food recored")
             liff.closeWindow()
         }
     }

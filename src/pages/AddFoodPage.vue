@@ -78,22 +78,22 @@ export default {
                 </a>
             </li>
         </ul>
-        <add-food-manually v-show="currentPage == 'AddFoodManually'"></add-food-manually>
-        <add-food-camera v-show="currentPage == 'AddFoodCamera'"></add-food-camera>
+        <!-- <add-food-manually v-show="currentPage == 'AddFoodManually'"></add-food-manually>
+        <add-food-camera v-show="currentPage == 'AddFoodCamera'"></add-food-camera> -->
     </div>
 </template>
 
 <script>
 
-import AddFoodManually from '@/components/AddFoodManually.vue'
-import AddFoodCamera from '@/components/AddFoodCamera.vue'
+// import AddFoodManually from '@/components/AddFoodManually.vue'
+// import AddFoodCamera from '@/components/AddFoodCamera.vue'
 
 export default {
     name: 'addFoodPage',
 
     data() {
         return {
-            currentPage: 'AddFoodManually'
+            currentPage: 'AddFoodCamera',
         }
     },
 
@@ -101,11 +101,14 @@ export default {
         liff.init(
             data => {
                 // const userId = data.context.userId;
-                
             }, err => {
-                console.log(err)
+                // console.log(err)
             }
         );
+        // navigator.geolocation.getCurrentPosition((position) =>{
+        //     this.latitude = position.coords.latitude
+        //     this.longitude = position.coords.longitude
+        // });
     },
 
     components: {
@@ -125,7 +128,7 @@ export default {
 #add-food-page {
     background-color: #eeeeee;
     padding-top: 10px;
-    height: 110vh;
+    height: 120vh;
 }
 </style>
 >>>>>>> cbf7592b729c36e19e8df33e38a894b9a7a72343
