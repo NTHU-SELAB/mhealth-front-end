@@ -88,7 +88,7 @@ export default {
             const userID = (await liff.getProfile()).userId;
             const meal = this.calculateMeal(new Date())
             await FoodService.postFoodRecord(
-                userID, this.foodimage, this.foodName, this.foodweight, this.foodcalori, this.foodfat,
+                userID, this.foodimage, this.subFoodName, this.foodweight, this.foodcalori, this.foodfat,
                 this.foodcarbon, this.foodfiber, meal, Date.now()
             )
             alert("新增飲食成功")
