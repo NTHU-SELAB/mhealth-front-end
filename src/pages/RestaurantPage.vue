@@ -7,42 +7,42 @@
             <div class="col-6" @click="routeToRestaurantFood()">
                 <food-list-item 
                     :shopName="'bigreeny 料理．家'" :foodName="'桔醬雞片烙烤吐司套餐'" 
-                    :calorie="856" :price="104"
+                    :calorie="556" :price="104"
                     :imageUrl="'https://i.imgur.com/C5wnzsw.jpg'"
                     ></food-list-item>
             </div>
             <div class="col-6" @click="routeToRestaurantFood()">
                 <food-list-item 
                     :shopName="'腰果花砧板原食料理'" :foodName="'蘋果梅花豬套餐'" 
-                    :calorie="856" :price="430"
+                    :calorie="651" :price="430"
                     :imageUrl="'https://i.imgur.com/iurKo5u.jpg'">
                     </food-list-item>
             </div>
             <div class="col-6" @click="routeToRestaurantFood()">
                 <food-list-item 
                     :shopName="'小倉廚Kitchen loft'" :foodName="'天使羽毛豬'" 
-                    :calorie="856" :price="170"
+                    :calorie="662" :price="170"
                     :imageUrl="'https://i.imgur.com/bkRIUXL.jpg'">
                 </food-list-item>
             </div>
             <div class="col-6" @click="routeToRestaurantFood()">  
                 <food-list-item 
                     :shopName="'稲実（稻實）- 純米甘味專賣'" :foodName="'企鵝寶包'" 
-                    :calorie="856" :price="150"
+                    :calorie="298" :price="150"
                     :imageUrl="'https://i.imgur.com/GSK97R7.jpg'">
                 </food-list-item>
             </div>
             <div class="col-6" @click="routeToRestaurantFood()">
                 <food-list-item 
                     :shopName="'井家 TEA HOUSE'" :foodName="'酪梨起司塔可飯'" 
-                    :calorie="856" :price="290"
+                    :calorie="531" :price="290"
                     :imageUrl="'https://i.imgur.com/PYPMlfu.jpg'">
                 </food-list-item>
             </div>
             <div class="col-6" @click="routeToRestaurantFood()">
                 <food-list-item 
                     :shopName="'皿富器食 minfood'" :foodName="'花雕野菜'" 
-                    :calorie="856" :price="255"
+                    :calorie="498" :price="255"
                     :imageUrl="'https://i.imgur.com/376iFbj.jpg'">
                 </food-list-item>
             </div>
