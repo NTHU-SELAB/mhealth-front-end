@@ -19,6 +19,16 @@ export default {
         return response
     },
 
+    async getFoodRecords(userID, timestamp) {
+        const response = await Api().get(`food/record?userID=${userID}&timestamp=${timestamp}`)
+        return response.data.foodRecords        
+    },
+
+    async getFoodRecordToday(userID) {
+        const response = await Api().get(`food/record?userID=${userID}&timestamp=${Date.now()}`)
+        return response.data.foodRecords
+    },
+
     async getFoodsByKeyword(keyword) {
         const response = await Api().get(`food?keyword=${keyword}`)
         return response.data.foods
