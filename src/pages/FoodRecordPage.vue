@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="margin-top:15px;">
-        <ul class="nav nav-pills nav-fill" style="margin-bottom:15px;">
+        <ul class="nav nav-pills nav-fill" style="margin-bottom:10px;">
             <li class="nav-item">
                 <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
             </li>
@@ -18,59 +18,105 @@
             </li>
         </ul>
 
+        <GChart style="height:300px;width:100%;" v-show="isChartShow"
+            type="LineChart"
+            :data="chartContent()"
+            :options="chartOptions"
+            :resizeDebounce="500"
+            ref="chart"/>
+
         <div class="row food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
-            <div class="col-2"><img class="food-icon" src="../assets/food-icon.png" alt=""></div>
-            <div class="col-5 food-record-detail">
-                <div>時段：{{record.meal}}</div>
-                <div>名稱：{{record.name}}</div>
-                <div>重量：{{record.weight}}g</div>
+            <div class="col-3"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-6 food-record-detail">
+                        <div>時段：{{record.meal}}</div>
+                        <div>名稱：{{record.name}}</div>
+                        <div>重量：{{record.weight}}g</div>
+                    </div>
+                    <div class="col-6 food-record-detail">
+                        <div>脂肪：{{record.fat}}</div>
+                        <div>卡路里：{{record.calorie}}
+                        </div>
+                        <div>膳食纖維：{{record.fiber}}</div>
+                        <div>碳水化合物：{{record.sugar}}</div>
+                    </div>
+                    <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
+                </div>
             </div>
-            <div class="col-5 food-record-detail">
-                <div>卡路里：{{record.calorie}}</div>
-                <div>脂肪：{{record.fat}}</div>
-                <div>碳水化合物：{{record.sugar}}</div>
-                <div>膳食纖維：{{record.fiber}}</div>
-            </div>
-            <div class="col-10 offset-2 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
         </div>
     </div>
 </template>
 
 <script>
 
+import { GChart } from 'vue-google-charts'
+import LiffService from '@/services/LiffService.js'
 import FoodService from '@/services/FoodService.js'
 
 export default {
     name: 'food-record',
 
+    components: {
+        GChart
+    },
+
     data() {
         return {
             timeFilter: 'today',
-            foodRecords: []
+            foodRecords: [],
+            isChartShow: true,
+            chartDataHeader: ['Time', 'calorie'],
+            chartData: [],
+            chartOptions: {}
         }
     },
 
     async mounted() {
-
+        this.changeTimeFilter('today')
     },
 
     methods: {
-        changeTimeFilter(filter) {
+
+        chartContent() {
+            return [this.chartDataHeader, ...this.chartData]
+        },
+
+        async changeTimeFilter(filter) {
             this.timeFilter = filter
-            this.refreshFoddRecord()
+            if (this.timeFilter !== 'today') this.isChartShow = true
+            else this.isChartShow = false
+            await this.refreshFoddRecord()
+            this.refreshChart()
+        },
+
+        recordImage(imagePath) {
+            if (imagePath.indexOf('https://') === 0) {
+                return imagePath
+            } else return require('../assets/food-icon.png')
+        },
+
+        async refreshChart() {
+            const data = []
+            this.foodRecords.forEach((r) => {
+                data.push([new Date(r.recordTime), r.calorie])
+            })
+            this.chartData = data
+            this.chartData.push((this.chartData.pop()))
         },
         
         async refreshFoddRecord() {
+            const userId = await LiffService.getUserId()
             if (this.timeFilter === 'today') {
-                this.foodRecords = await FoodService.getFoodRecords('Uedd9e265d4663947057bdf33a6dec9e0', Date.now() - 1000*3600*24)
+                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24)
             } else if (this.timeFilter === 'week') {
-                this.foodRecords = await FoodService.getFoodRecords('Uedd9e265d4663947057bdf33a6dec9e0', Date.now() - 1000*3600*24*7)
+                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*7)
             } else if (this.timeFilter === 'month') {
-                this.foodRecords = await FoodService.getFoodRecords('Uedd9e265d4663947057bdf33a6dec9e0', Date.now() - 1000*3600*24*30)
+                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30)
             } else if (this.timeFilter === 'three-month') {
-                this.foodRecords = await FoodService.getFoodRecords('Uedd9e265d4663947057bdf33a6dec9e0', Date.now() - 1000*3600*24*30*3)
+                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30*3)
             } else if (this.timeFilter === 'year') {
-                this.foodRecords = await FoodService.getFoodRecords('Uedd9e265d4663947057bdf33a6dec9e0', Date.now() - 1000*3600*24*30*12)
+                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30*12)
             }
         }
     }
@@ -80,7 +126,7 @@ export default {
 
 <style>
 .food-icon {
-    margin-top: 35px;
+    margin-top: 10px;
     max-width: 100%;
 }
 
