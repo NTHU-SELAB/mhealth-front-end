@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="margin-top:15px;">
-        <ul class="nav nav-pills nav-fill" style="margin-bottom:10px;">
+        <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
                 <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
             </li>
@@ -18,14 +18,14 @@
             </li>
         </ul>
 
-        <GChart style="height:300px;width:100%;" v-show="isChartShow"
+        <GChart style="height:210px;width:100%;" v-show="isChartShow"
             type="LineChart"
             :data="chartContent()"
             :options="chartOptions"
             :resizeDebounce="500"
             ref="chart"/>
 
-        <div class="row food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
+        <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
             <div class="col-3"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
             <div class="col-9">
                 <div class="row">
@@ -66,9 +66,13 @@ export default {
             timeFilter: 'today',
             foodRecords: [],
             isChartShow: true,
-            chartDataHeader: ['Time', 'calorie'],
+            chartDataHeader: ['Time', '卡路里'],
             chartData: [],
-            chartOptions: {}
+            chartOptions: {
+                // legend: { position: 'none' }, 
+                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
+                hAxis: { gridlines: { color: 'none' }}
+            }
         }
     },
 
@@ -86,7 +90,7 @@ export default {
             this.timeFilter = filter
             if (this.timeFilter !== 'today') this.isChartShow = true
             else this.isChartShow = false
-            await this.refreshFoddRecord()
+            await this.refreshFoodRecord()
             this.refreshChart()
         },
 
@@ -98,14 +102,22 @@ export default {
 
         async refreshChart() {
             const data = []
+            let tmpCalorie = 0
+            let tmpDate = false
             this.foodRecords.forEach((r) => {
-                data.push([new Date(r.recordTime), r.calorie])
+                if (tmpDate && tmpDate.getDate() == new Date(r.recordTime).getDate()) {
+                    tmpCalorie += r.calorie
+                } else {
+                    if (tmpDate) data.push([new Date(r.recordTime), tmpCalorie])
+                    tmpDate = new Date(r.recordTime)
+                    tmpCalorie = 0
+                }
             })
             this.chartData = data
-            this.chartData.push((this.chartData.pop()))
+            this.chartData.push(this.chartData.pop())
         },
         
-        async refreshFoddRecord() {
+        async refreshFoodRecord() {
             const userId = await LiffService.getUserId()
             if (this.timeFilter === 'today') {
                 this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24)
@@ -118,7 +130,9 @@ export default {
             } else if (this.timeFilter === 'year') {
                 this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30*12)
             }
-        }
+        },
+
+        
     }
 }
 
