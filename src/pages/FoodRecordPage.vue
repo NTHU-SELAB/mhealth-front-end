@@ -69,7 +69,7 @@ export default {
             chartDataHeader: ['Time', '卡路里'],
             chartData: [],
             chartOptions: {
-                // legend: { position: 'none' }, 
+                legend: { position: 'none' }, 
                 vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
                 hAxis: { gridlines: { color: 'none' }}
             }
