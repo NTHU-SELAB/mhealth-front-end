@@ -6,6 +6,8 @@ import AddFoodCameraPage from '@/pages/AddFoodCameraPage.vue'
 import RestaurantPage from '@/pages/RestaurantPage.vue'
 import RestaurantFoodPage from '@/pages/RestaurantFoodPage.vue'
 import FoodRecordPage from '@/pages/FoodRecordPage.vue'
+import LandingPage from '@/pages/LandingPage.vue'
+import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 
 Vue.use(Router)
 
@@ -18,6 +20,16 @@ export default new Router({
             name: 'main-page',
             component: MainPage,
             children: [
+                {
+                    path: '/',
+                    name: 'landing-page',
+                    component: LandingPage,
+                },
+                {
+                    path: '/food-calendar',
+                    name: 'food-calendar-page',
+                    component: FoodCalendarPage,
+                },
                 {
                     path: '/add-food-manually',
                     name: 'add-food-page-manually',
