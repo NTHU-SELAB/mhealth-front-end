@@ -1,10 +1,14 @@
 <template>
     <div id="landing-page" :style="{opacity: allOpacity}">
         <div>
-            <h1 class="display-4 title" :style="{opacity: titleOpacity, 'padding-top': '225px'}">{{title}}</h1>
-            <hr class="my-4">
-            <h3 class="mb-4" style="font-weight: bold;">吾健康，關心你的健康</h3>
-            <button class="btn btn-primary btn-lg mt-4 startbutton" :style="{opacity: startButtonOpacity, 'margin-bottom': '230px'}">立即開始</button>
+            <h1 class="display-4 title mb-4" :style="{opacity: titleOpacity, 'padding-top': '233px'}">{{title}}</h1>
+            <!-- <hr class="my-4"> -->
+            <h3 class="mt-4 mb-4" style="font-weight: bold;">吾健康，關心你的健康</h3>
+            <button class="btn btn-primary btn-lg mt-4 startbutton"
+                    :style="{opacity: startButtonOpacity, 'margin-bottom': '245px'}"
+                    @click="start()">
+                    立即開始
+            </button>
         </div>
     </div>
 </template>
@@ -35,6 +39,11 @@ export default {
         setTimeout(() => {
             this.startButtonOpacity = 100;
         }, 3700)
+    },
+    methods: {
+        start() {
+            this.$router.push({name: 'food-calendar-page'})
+        }
     }
 }
 

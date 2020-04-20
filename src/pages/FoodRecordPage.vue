@@ -138,7 +138,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .food-icon {
     margin-top: 10px;
     max-width: 100%;
