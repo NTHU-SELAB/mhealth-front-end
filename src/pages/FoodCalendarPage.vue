@@ -1,7 +1,7 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="#">吾.健.康</a>
+            <a class="navbar-brand" href="/">吾.健.康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,14 +31,14 @@
             </div>
         </nav>
         <div class="container">
-            <GChart style="height:210px;width:100%;" v-show="isChartShow"
+            <GChart style="height:210px;width:100%;"
                 type="LineChart"
                 :data="chartContent()"
                 :options="chartOptions"
                 :resizeDebounce="500"
                 ref="chart"/>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in 20" v-bind:key="index">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="record in 30" v-bind:key="record.image_url">
                     <div class="card">
                         <div class="pl-4 pr-4 pt-4 pb-4"><img src="../assets/food-icon.png" class="card-img-top food-icon"></div>
                         <div class="card-body">
@@ -56,9 +56,17 @@
 </template>
 
 <script>
+import { GChart } from 'vue-google-charts'
+import foodCalendarData from '../mock/foodCalendarData.json'
+
 export default {
+    components: {
+        GChart
+    },
+
     data() {
         return {
+            foodRecords: [],
             chartDataHeader: ['Time', '卡路里'],
             chartData: [],
             chartOptions: {
@@ -69,13 +77,20 @@ export default {
         }
     },
     mounted() {
-
+        this.initChartData()
+        this.foodRecords = foodCalendarData
     },
 
     methods: {
         chartContent() {
             return [this.chartDataHeader, ...this.chartData]
         },
+
+        initChartData() {
+            for (let i = 0; i < 30; i++) {
+                this.chartData.push([new Date(Date.now()-86400000*i), 1400 + Math.floor(Math.random() * 450)])
+            }
+        }
     }
 }
 </script>
