@@ -1,47 +1,80 @@
 <template>
-    <div class="container" style="margin-top:15px;">
-        <ul class="nav nav-pills nav-fill">
-            <li class="nav-item">
-                <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" :class="{'active': timeFilter==='week'}" @click="changeTimeFilter('week')">一週</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" :class="{'active': timeFilter==='month'}" @click="changeTimeFilter('month')">一月</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" :class="{'active': timeFilter==='three-month'}" @click="changeTimeFilter('three-month')">三月</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
-            </li>
-        </ul>
+    <div id="food-record-page">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <a class="navbar-brand" href="../" >醫師鏈 Dr. Chain</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <GChart style="height:210px;width:100%;" v-show="isChartShow"
-            type="LineChart"
-            :data="chartContent()"
-            :options="chartOptions"
-            :resizeDebounce="500"
-            ref="chart"/>
+            <!--網頁目錄在router/index內-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../food-dairy">食物日誌</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../food-record">運動紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">體重預測</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">聯絡我們</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="輸入文字以搜尋..." aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜尋</button>
+                </form>
+            </div>
+        </nav>
+        <div class="container">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" :class="{'active': timeFilter==='week'}" @click="changeTimeFilter('week')">一週</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" :class="{'active': timeFilter==='month'}" @click="changeTimeFilter('month')">一月</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" :class="{'active': timeFilter==='three-month'}" @click="changeTimeFilter('three-month')">三月</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
+                </li>
+            </ul>
 
-        <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
-            <div class="col-3"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-6 food-record-detail">
-                        <div>時段：{{record.meal}}</div>
-                        <div>名稱：{{record.name}}</div>
-                        <div>重量：{{record.weight}}g</div>
-                    </div>
-                    <div class="col-6 food-record-detail">
-                        <div>脂肪：{{record.fat}}</div>
-                        <div>卡路里：{{record.calorie}}
+            <GChart style="height:210px;width:100%;" v-show="isChartShow"
+                type="LineChart"
+                :data="chartContent()"
+                :options="chartOptions"
+                :resizeDebounce="500"
+                ref="chart"/>
+
+            <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                <div class="col-3"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-6 food-record-detail">
+                            <div>時段：{{record.meal}}</div>
+                            <div>名稱：{{record.name}}</div>
+                            <div>重量：{{record.weight}}g</div>
                         </div>
-                        <div>膳食纖維：{{record.fiber}}</div>
-                        <div>碳水化合物：{{record.sugar}}</div>
+                        <div class="col-6 food-record-detail">
+                            <div>脂肪：{{record.fat}}</div>
+                            <div>卡路里：{{record.calorie}}
+                            </div>
+                            <div>膳食纖維：{{record.fiber}}</div>
+                            <div>碳水化合物：{{record.sugar}}</div>
+                        </div>
+                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
                     </div>
-                    <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
                 </div>
             </div>
         </div>
@@ -88,9 +121,12 @@ export default {
 
         async changeTimeFilter(filter) {
             this.timeFilter = filter
-            if (this.timeFilter !== 'today') this.isChartShow = true
-            else this.isChartShow = false
-            await this.refreshFoodRecord()
+            if (this.timeFilter !== 'today') 
+                this.isChartShow = true
+            else 
+                this.isChartShow = false
+            await 
+                this.refreshFoodRecord()
             this.refreshChart()
         },
 
@@ -102,8 +138,8 @@ export default {
 
         async refreshChart() {
             const data = []
-            let tmpCalorie = 0
-            let tmpDate = false
+            let tmpCalorie = 0      // 當天熱量
+            let tmpDate = false     // 當天日期
             this.foodRecords.forEach((r) => {
                 if (tmpDate && tmpDate.getDate() == new Date(r.recordTime).getDate()) {
                     tmpCalorie += r.calorie
@@ -119,16 +155,17 @@ export default {
         
         async refreshFoodRecord() {
             const userId = await LiffService.getUserId()
+            var dateNow = Date.now()
             if (this.timeFilter === 'today') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24)
+                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
             } else if (this.timeFilter === 'week') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*7)
+                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
             } else if (this.timeFilter === 'month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30)
+                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
             } else if (this.timeFilter === 'three-month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30*3)
+                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
             } else if (this.timeFilter === 'year') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, Date.now() - 1000*3600*24*30*12)
+                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
             }
         },
 

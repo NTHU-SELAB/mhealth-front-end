@@ -43,7 +43,7 @@
     </div>
 </template>
 
-<script>
+<script>  // LINE記錄飲食的選單
 import FoodService from '@/services/FoodService.js'
 
 export default {

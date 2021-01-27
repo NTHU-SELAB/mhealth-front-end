@@ -1,7 +1,7 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >醫師鏈 Dr. Chain</a>
+            <a class="navbar-brand" href="#" @click ="To_Landing_Page()">醫師鏈 Dr. Chain</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,13 +10,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="../">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
+                        <a class="nav-link" href="../food-record">食物日誌</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-record">運動紀錄</a>
+                        <a class="nav-link" href="../add-food-manually">運動紀錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">體重預測</a>
@@ -32,8 +32,15 @@
             </div>
         </nav>
 
+        <!--圖表-->
+        <!-- <div id="app" class="container">
+            <ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
+        </div> -->
+
+
+        <!--每天吃的食物紀錄-->
         <div class="container">
-            <GChart style="height:210px; width:100%; top = 20%;" v-show="true"
+            <GChart style="height:210px; width:100%;" v-show="isChartShow"
                 type="LineChart"
                 :data="chartContent()"
                 :options="chartOptions"
@@ -57,17 +64,14 @@
         </div>
 
     </div>
-    
 </template>
-
 
 <script>
 export default {
     data() {
         return {
             chartDataHeader: ['Time', '卡路里'],
-            chartData: [['Time', '卡路里'],
-                        [ "1234", "1222" ]],
+            chartData: [],
             chartOptions: {
                 legend: { position: 'none' }, 
                 vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
@@ -88,11 +92,12 @@ export default {
 }
 </script>
 
+
+
+
+
 <style>
 .food-icon {
     max-width: 100%;
 }
 </style>
-
-
-
