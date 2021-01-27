@@ -54,6 +54,8 @@ export default {
 #landing-page {
     background-image:url('../assets/landing-background.jpeg');
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
     background-position: center;
     transition-property: opacity;
