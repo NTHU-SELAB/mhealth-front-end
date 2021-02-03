@@ -41,7 +41,7 @@
             />
         </div>
 
-        <div class="container">
+        <!-- <div class="container">
             <GChart style="height:400px;width:100%;" v-show="true"       
                 type="LineChart"
                 :data="TestChartContent()"
@@ -49,7 +49,7 @@
                 :resizeDebounce="500"
                 ref = "chart"
             />
-        </div>
+        </div> -->
 
         <div class="container">
             <div class="row">

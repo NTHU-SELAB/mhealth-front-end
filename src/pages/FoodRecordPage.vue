@@ -13,13 +13,13 @@
                         <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
+                        <a class="nav-link" href="../food-dairy">個人資訊</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-record">運動紀錄</a>
+                        <a class="nav-link" href="../food-record">飲食紀錄</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">體重預測</a>
+                        <a class="nav-link" href="#">體重紀錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -57,9 +57,9 @@
                 :resizeDebounce="500"
                 ref="chart"/>
 
-            <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
-                <div class="col-3"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
-                <div class="col-9">
+            <!-- <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                <div class="col-2"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
+                <div class="col-5">
                     <div class="row">
                         <div class="col-6 food-record-detail">
                             <div>時段：{{record.meal}}</div>
@@ -70,6 +70,25 @@
                             <div>脂肪：{{record.fat}}</div>
                             <div>卡路里：{{record.calorie}}
                             </div>
+                            <div>膳食纖維：{{record.fiber}}</div>
+                            <div>碳水化合物：{{record.sugar}}</div>
+                        </div>
+                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-10 col-md-5 col-lg-3 mb-2 food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                    <div class="card">
+                        <div class="col-12">
+                            <div class="pl-2 pr-2 pt-2 pb-2"><img class="card-img-top food-icon" :src="recordImage(record.image)" alt=""></div>
+                        </div>
+                        <div class="col-12 food-record-detail">
+                            <div>時段：{{record.meal}}</div>
+                            <div>名稱：{{record.name}}</div>
+                            <div>重量：{{record.weight}}g</div>
+                            <div>脂肪：{{record.fat}}</div>
+                            <div>卡路里：{{record.calorie}}</div>
                             <div>膳食纖維：{{record.fiber}}</div>
                             <div>碳水化合物：{{record.sugar}}</div>
                         </div>
@@ -179,6 +198,7 @@ export default {
 .food-icon {
     margin-top: 10px;
     max-width: 100%;
+    height: 200px;
 }
 
 .food-record {
