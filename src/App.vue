@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// script for test
+// script for test1
 export default {
   name: 'app',
   components: {
