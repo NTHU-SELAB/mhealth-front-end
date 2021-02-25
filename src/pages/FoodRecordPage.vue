@@ -140,13 +140,19 @@ export default {
 
         async changeTimeFilter(filter) {
             this.timeFilter = filter
-            if (this.timeFilter !== 'today') 
+            if ( this.timeFilter !== 'today' ) 
                 this.isChartShow = true
             else 
                 this.isChartShow = false
             await 
                 this.refreshFoodRecord()
-            this.refreshChart()
+            if ( this.timeFilter === 'week' || this.timeFilter === 'month' || this.timeFilter === 'three-month' ) {
+                this.refreshChart_Week_Month()
+            }  // if
+            else if ( this.timeFilter === 'year' ) {
+                this.refreshChart_Year()
+            }  // else if
+            
         },
 
         recordImage(imagePath) {
@@ -155,21 +161,49 @@ export default {
             } else return require('../assets/food-icon.png')
         },
 
-        async refreshChart() {
+        async refreshChart_Week_Month() {
             const data = []
             let tmpCalorie = 0      // 當天熱量
             let tmpDate = false     // 當天日期
-            this.foodRecords.forEach((r) => {
-                if (tmpDate && tmpDate.getDate() == new Date(r.recordTime).getDate()) {
-                    tmpCalorie += r.calorie
-                } else {
-                    if (tmpDate) data.push([new Date(r.recordTime), tmpCalorie])
-                    tmpDate = new Date(r.recordTime)
+            this.foodRecords.forEach( ( r ) => {
+                if ( ! tmpDate ) {                   
+                    tmpDate = new Date( r.recordTime )
                     tmpCalorie = 0
-                }
+                }  // 初始化
+
+                if ( tmpDate.getDate() != new Date( r.recordTime ).getDate() ) {
+                    data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )
+                    tmpDate = new Date( r.recordTime )
+                    tmpCalorie = r.calorie
+                }  // if
+                else {
+                    tmpCalorie += r.calorie
+                }  // else
             })
-            this.chartData = data
-            this.chartData.push(this.chartData.pop())
+            data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )  // push 最後一筆資料
+            this.chartData = data.reverse()
+        },
+        async refreshChart_Year() {
+            const data = []
+            let tmpCalorie = 0      // 當天熱量
+            let tmpDate = false     // 當天日期
+            this.foodRecords.forEach( ( r ) => {
+                if ( ! tmpDate ) {                   
+                    tmpDate = new Date( r.recordTime )
+                    tmpCalorie = 0
+                }  // 初始化
+
+                if ( tmpDate.getMonth() != new Date( r.recordTime ).getMonth() ) {
+                    data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )
+                    tmpDate = new Date( r.recordTime )
+                    tmpCalorie = r.calorie
+                }  // if
+                else {
+                    tmpCalorie += r.calorie
+                }  // else
+            })
+            data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )  // push 最後一筆資料
+            this.chartData = data.reverse()
         },
         
         async refreshFoodRecord() {

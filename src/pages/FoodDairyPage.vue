@@ -13,13 +13,13 @@
                         <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
+                        <a class="nav-link" href="../food-dairy">個人資訊</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-record">運動紀錄</a>
+                        <a class="nav-link" href="../food-record">飲食紀錄</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" @click="LoadTestData()">體重預測</a>
+                        <a class="nav-link" href="#" @click="LoadTestData()">體重記錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -53,15 +53,33 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-10 col-sm-3 col-lg-2 mb-3" v-for="index in 6" v-bind:key="index">
+                <div class="col-12 col-sm-4 col-lg-3 mb-4" v-for="index in f_data" v-bind:key="index">
                     <div class="card">
-                        <div class="pl-4 pr-4 pt-4 pb-4">
-                            <img src="../assets/food-icon.png" class="card-img-top food-icon">
+                        <div v-if="index.name === '珍奶全糖加糖'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/milktea.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '甜甜圈'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/donut.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '巧克力珍奶'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/cho_milktea.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '炸雞排'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/chicken.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '薯條'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/frenchfries.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '洋芋片'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/potatochips.jpg" class="card-img-top food-icon">
+                        </div>
+                        <div v-else-if="index.name === '可樂'" class="pl-4 pr-4 pt-4 pb-4">
+                            <img src="../assets/coke.jpg" class="card-img-top food-icon">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title" style="margin-bottom: 3px;">香酥雞腿飯</h5>
-                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">4/20 晚餐</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">673大卡</p>
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{index.name}}</h5>
+                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{index.date}}</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{index.Calories}} 大卡</p>
                             <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
                         </div>
                     </div>
@@ -85,26 +103,56 @@ export default {
             // Array will be automatically processed with visualization.arrayToDataTable function
             testData : [],
             f_data : [ 
-                { name : "茶葉蛋", dateStr : "Dec 24, 2020", Calories : 77, timeStamp : 20201224 },
-                { name : "鮮筍肉包", dateStr : "Dec 24, 2020", Calories : 172, timeStamp : 20201224 },
-                { name : "四海遊龍", dateStr : "Dec 25, 2020", Calories : 1100, timeStamp : 20201224 }
+                { name : "甜甜圈", date : "2/7", Calories : 500 },
+                { name : "珍奶全糖加糖", date : "2/7", Calories : 720 },
+                { name : "甜甜圈", date : "2/7", Calories : 500 },
+                { name : "巧克力珍奶", date : "2/7", Calories : 735 },
+                { name : "炸雞排", date : "2/7", Calories : 550 },
+                { name : "洋芋片", date : "2/7", Calories : 484 },
+                { name : "薯條", date : "2/6", Calories : 445 },
+                { name : "可樂", date : "2/6", Calories : 190 },
+                { name : "甜甜圈", date : "2/6", Calories : 500 },
+                { name : "珍奶全糖加糖", date : "2/6", Calories : 720 },
+                { name : "炸雞排", date : "2/6", Calories : 550 },
+                { name : "薯條", date : "2/6", Calories : 445 },
+                { name : "可樂", date : "2/5", Calories : 190 },
+                { name : "珍奶全糖加糖", date : "2/5", Calories : 720 },
+                { name : "甜甜圈", date : "2/5", Calories : 500 },
+                { name : "炸雞排", date : "2/5", Calories : 550 },
+                { name : "洋芋片", date : "2/5", Calories : 484 },
+                { name : "炸雞排", date : "2/5", Calories : 550 },
+                { name : "珍奶全糖加糖", date : "2/4", Calories : 720 },
+                { name : "甜甜圈", date : "2/4", Calories : 500 },
+                { name : "炸雞排", date : "2/4", Calories : 550 },
+                { name : "巧克力珍奶", date : "2/4", Calories : 735 },
+                { name : "薯條", date : "2/3", Calories : 445 },
+                { name : "可樂", date : "2/3", Calories : 190 },
+                { name : "洋芋片", date : "2/3", Calories : 532 },
+                { name : "炸雞排", date : "2/3", Calories : 550 },
+                { name : "甜甜圈", date : "2/3", Calories : 500 },
+                { name : "珍奶全糖加糖", date : "2/3", Calories : 720 },
+                { name : "炸雞排", date : "2/2", Calories : 550 },
+                { name : "可樂", date : "2/2", Calories : 190 },
+                { name : "薯條", date : "2/2", Calories : 445 },
+                { name : "珍奶全糖加糖", date : "2/2", Calories : 720 },
+                { name : "甜甜圈", date : "2/2", Calories : 500 },
+                { name : "可樂", date : "2/2", Calories : 190 },
+                { name : "薯條", date : "2/1", Calories : 445 },
+                { name : "洋芋片", date : "2/1", Calories : 484 },
+                { name : "炸雞排", date : "2/1", Calories : 550 },
+                { name : "可樂", date : "2/1", Calories : 190 },
+                { name : "甜甜圈", date : "2/1", Calories : 500 },
+                { name : "珍奶全糖加糖", date : "2/1", Calories : 720 }
             ],
             chartDataHeader : ['Date', 'Calories'],
             chartData : [  
-                // [{ dateStr : "Dec 21, 2020" }, { Calories : 2020 }],
-                // [{ dateStr : "Dec 22, 2020" }, { Calories : 1821 }],
-                // [{ dateStr : "Dec 23, 2020" }, { Calories : 2637 }],
-                // [{ dateStr : "Dec 24, 2020" }, { Calories : 1887 }],
-                // [{ dateStr : "Dec 25, 2020" }, { Calories : 1565 }],
-                // [{ dateStr : "Dec 26, 2020" }, { Calories : 2333 }],
-                // [{ dateStr : "Dec 27, 2020" }, { Calories : 1911 }]
-                [ 'Dec 21, 2020', 2020 ],
-                [ 'Dec 22, 2020', 1821 ],
-                [ 'Dec 23, 2020', 2637 ],
-                [ 'Dec 24, 2020', 1887 ],
-                [ 'Dec 25, 2020', 1565 ],
-                [ 'Dec 26, 2020', 2333 ],
-                [ 'Dec 27, 2020', 1911 ]
+                [ 'Feb 1, 2021', 3010 ],
+                [ 'Feb 2, 2021', 4000 ],
+                [ 'Feb 3, 2021', 3355 ],
+                [ 'Feb 4, 2021', 3642 ],
+                [ 'Feb 5, 2021', 3158 ],
+                [ 'Feb 6, 2021', 3747 ],
+                [ 'Feb 7, 2021', 4219 ]
             ],
             chartOptions : {
                 chart: {
@@ -112,7 +160,7 @@ export default {
                     subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                 },
 
-                vAxis: { minValue: 0, format: '# kcal', ticks: [0, 1000, 2000, 3000], gridlines: { color: 'none' } },
+                vAxis: { minValue: 0, format: '# kcal', ticks: [0, 1000, 2000, 3000, 4000, 5000], gridlines: { color: 'none' } },
                 hAxis: { gridlines: { color: 'none' }}
             }
         }
