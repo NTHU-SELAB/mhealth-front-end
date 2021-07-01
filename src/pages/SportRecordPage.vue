@@ -1,5 +1,5 @@
 <template>
-    <div id="food-record-page" class="BG">
+    <div id="sport-record-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >醫師鏈 Dr. Chain</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,45 +57,21 @@
                 :resizeDebounce="500"
                 ref="chart"/>
             <div>
-                <div v-if="timeFilter !=='today'">每日平均攝取熱量：{{avgCaloriesPerDay}}大卡</div>
-                <div v-else>今日攝取熱量：{{avgCaloriesPerDay}}大卡</div>
+                <div v-if="timeFilter !=='today'">每日平均消耗熱量：{{avgCaloriesPerDay}}大卡</div>
+                <div v-else>今日消耗熱量：{{avgCaloriesPerDay}}大卡</div>
             </div>
-            <!-- <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
-                <div class="col-2"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
-                <div class="col-5">
-                    <div class="row">
-                        <div class="col-6 food-record-detail">
-                            <div>時段：{{record.meal}}</div>
-                            <div>名稱：{{record.name}}</div>
-                            <div>重量：{{record.weight}}g</div>
-                        </div>
-                        <div class="col-6 food-record-detail">
-                            <div>脂肪：{{record.fat}}</div>
-                            <div>卡路里：{{record.calorie}}
-                            </div>
-                            <div>膳食纖維：{{record.fiber}}</div>
-                            <div>碳水化合物：{{record.sugar}}</div>
-                        </div>
-                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
-                    </div>
-                </div>
-            </div> -->
             <div class="row">
-                <div class="col-12 col-md-8 col-lg-2 ml-0 mr-0 mb-2 food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                <div class="col-12 col-md-8 col-lg-2 ml-2 mr-2 mb-2 sport-record" v-for="record in sportRecords" v-bind:key="record.recordTime">
                     <div class="card">
                         <div class="col-12">
-                            <div class="pl-2 pr-2 pt-2 pb-2"><img class="card-img-top food-icon" :src="recordImage(record.image)" alt=""></div>
+                            <div class="pl-2 pr-2 pt-2 pb-2"><img class="card-img-top sport-icon" :src="recordImage(record.image)" alt=""></div>
                         </div>
-                        <div class="col-12 food-record-detail">
-                            <div>時段：{{record.meal}}</div>
+                        <div class="col-12 sport-record-detail">
                             <div>名稱：{{record.name}}</div>
-                            <div>重量：{{record.weight}} g</div>
-                            <div>脂肪：{{record.fat}} g</div>
-                            <div>卡路里：{{record.calorie}}大卡</div>
-                            <div>膳食纖維：{{record.fiber}} g</div>
-                            <div>碳水化合物：{{record.sugar}} g</div>
+                            <div>時長(分鐘)：{{record.totalTime}} g</div>
+                            <div>消耗熱量(卡路里)：{{record.calorie}}大卡</div>
                         </div>
-                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
+                        <div class="col-12 sport-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
                     </div>
                 </div>
             </div>
@@ -107,10 +83,10 @@
 
 import { GChart } from 'vue-google-charts'
 import LiffService from '@/services/LiffService.js'
-import FoodService from '@/services/FoodService.js'
+import SportService from '@/services/SportService.js'
 
 export default {
-    name: 'food-record',
+    name: 'sport-record',
 
     components: {
         GChart
@@ -120,9 +96,9 @@ export default {
         return {
             timeFilter: 'today',
             avgCaloriesPerDay : 0.0,
-            foodRecords: [],
+            sportRecords: [],
             isChartShow: true,
-            chartDataHeader: ['Time', '卡路里'],
+            chartDataHeader: ['Time', '消耗卡路里'],
             chartData: [],
             chartOptions: {
                 legend: { position: 'none' }, 
@@ -149,7 +125,7 @@ export default {
             else 
                 this.isChartShow = false
             await 
-                this.refreshFoodRecord()
+                this.refreshSportRecord()
             if ( this.timeFilter === 'today' || this.timeFilter === 'week' || this.timeFilter === 'month' ) {
                 this.refreshChart_Week_Month()
             }  // if
@@ -172,7 +148,7 @@ export default {
 
             let count_Day = 0       // 總天數
             let count_Cal = 0       // 總卡路里數
-            this.foodRecords.forEach( ( r ) => {
+            this.sportRecords.forEach( ( r ) => {
                 if ( ! tmpDate ) {
                     count_Day++             
                     tmpDate = new Date( r.recordTime )
@@ -204,7 +180,7 @@ export default {
 
             let count_Day = 0       // 總天數
             let count_Cal = 0       // 總卡路里數
-            this.foodRecords.forEach( ( r ) => {
+            this.sportRecords.forEach( ( r ) => {
                 if ( ! tmpDate ) {                
                     count_Day++
                     
@@ -233,19 +209,19 @@ export default {
             this.chartData = data.reverse()
         },
         
-        async refreshFoodRecord() {
+        async refreshSportRecord() {
             const userId = await LiffService.getUserId()
             var dateNow = Date.now()
             if (this.timeFilter === 'today') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
+                this.sportRecords = await SportService.getSportRecords(userId, dateNow - 1000*3600*24)
             } else if (this.timeFilter === 'week') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
+                this.sportRecords = await SportService.getSportRecords(userId, dateNow - 1000*3600*24*7)
             } else if (this.timeFilter === 'month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
+                this.sportRecords = await SportService.getSportRecords(userId, dateNow - 1000*3600*24*30)
             } else if (this.timeFilter === 'three-month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
+                this.sportRecords = await SportService.getSportRecords(userId, dateNow - 1000*3600*24*30*3)
             } else if (this.timeFilter === 'year') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
+                this.sportRecords = await SportService.getSportRecords(userId, dateNow - 1000*3600*24*30*12)
             }
         },
 
@@ -256,44 +232,23 @@ export default {
 </script>
 
 <style scoped>
-.food-icon {
+.sport-icon {
     margin-top: 10px;
     max-width: 100%;
     height: 115px;
 }
 
-.food-record {
+.sport-record {
     /* border: 1px black solid; */
     padding-top: 2px;
     padding-bottom: 2px;
     border-radius: 5px;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.19);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2), 1px 1px 1px 2px rgba(0, 0, 0, 0.19);
     margin-bottom: 7px;
 }
 
-.food-record-detail {
+.sport-record-detail {
     text-align: left;
     font-size: 13px;
 }
-
-.container {
-    background-color: white;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 15px;
-    padding-left: 15px;
-    width: 100%;
-    max-width: 1140px;      /*隨螢幕尺寸而變，當螢幕尺寸 ≥ 1200px 時是 1140px。*/
-}
-
-.nav-pills {
-    padding-top: 5pt;
-    padding-bottom: 5pt;
-}
-
-.BG {
-    background-color:skyblue ;
-    width: 100%;
-}
 </style>
-

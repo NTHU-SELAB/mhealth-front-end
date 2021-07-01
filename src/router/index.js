@@ -6,6 +6,7 @@ import AddFoodCameraPage from '@/pages/AddFoodCameraPage.vue'
 import RestaurantPage from '@/pages/RestaurantPage.vue'
 import RestaurantFoodPage from '@/pages/RestaurantFoodPage.vue'
 import FoodRecordPage from '@/pages/FoodRecordPage.vue'
+import SportRecordPage from '@/pages/SportRecordPage.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 import FoodDairyPage from '@/pages/FoodDairyPage.vue'
@@ -60,6 +61,11 @@ export default new Router({
                     path: '/food-dairy',
                     name: 'food-dairy',
                     component: FoodDairyPage,
+                },
+                {
+                    path: '/sport-record',
+                    name: 'sport-record',
+                    component: SportRecordPage,
                 }
             ]
         }
