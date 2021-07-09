@@ -9,6 +9,7 @@ import FoodRecordPage from '@/pages/FoodRecordPage.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 import FoodDairyPage from '@/pages/FoodDairyPage.vue'
+import ScanQRPage from '@/pages/ScanQRPage.vue'
 
 Vue.use(Router)
 
@@ -60,6 +61,10 @@ export default new Router({
                     path: '/food-dairy',
                     name: 'food-dairy',
                     component: FoodDairyPage,
+                },
+                {
+                    path: '/scan-qr',
+                    component: ScanQRPage
                 }
             ]
         }
