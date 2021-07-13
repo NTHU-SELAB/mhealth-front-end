@@ -4,7 +4,7 @@
 export default {
   data() {
       return {
-        qr_string = "qrcode"
+        qr_string: "qrcode"
       }
   },
 
