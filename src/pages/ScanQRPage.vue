@@ -1,13 +1,11 @@
 <template>
 <div id="scan-qr-page" class="container">
-  123456
+  <span>just a useless message</span>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'ScanQR',
-  components:{},
   data() {
       return {
         qr_string: "qrcode"
@@ -23,7 +21,7 @@ export default {
     // }
     alert("QR Code: " + this.qr_string)
   }
-};
+}
 </script>
 
 <style>
