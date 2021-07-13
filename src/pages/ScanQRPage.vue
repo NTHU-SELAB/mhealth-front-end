@@ -1,5 +1,6 @@
 <template>
 <div id="scan-qr-page" class="container">
+  123456
 </div>
 </template>
 
