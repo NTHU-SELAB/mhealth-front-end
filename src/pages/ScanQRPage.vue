@@ -1,4 +1,7 @@
-<template></template>
+<template>
+<div id="scan-qr-page" class="container">
+</div>
+</template>
 
 <script>
 export default {
@@ -15,7 +18,7 @@ export default {
     //     alert("QR Code: " + qr_string)
     //   });
     // }
-    alert("QR Code: " + qr_string)
+    alert("QR Code: " + this.qr_string)
   }
 };
 </script>
