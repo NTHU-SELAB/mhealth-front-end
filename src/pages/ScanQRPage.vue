@@ -6,6 +6,8 @@
 
 <script>
 export default {
+  name: 'ScanQR',
+  components:{},
   data() {
       return {
         qr_string: "qrcode"

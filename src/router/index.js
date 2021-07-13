@@ -64,7 +64,7 @@ export default new Router({
                 },
                 {
                     path: '/scan-qr',
-                    component: ScanQRPage
+                    component: ScanQRPage,
                 }
             ]
         }
