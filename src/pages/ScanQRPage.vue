@@ -20,22 +20,27 @@ export default {
   mounted() {
     liff.init({liffId: '1653910104-zxd7QNxL'}).then(() => {
       this.debug_text = "Initialization successful!"
+
+      if (!liff.isLoggedIn()) {
+        liff.login().then(() => {
+          this.Scan()
+        })
+      }
     })
+  },
 
-    if (!liff.isLoggedIn()) {
-      liff.login()
-    }
-
-    // alert("liff.scanCode: " + liff.scanCode)
-    if (liff.scanCode) {
-      liff.scanCode().then(result => {
-        this.qr_string = JSON.stringify(result)
-      }).catch(err => {
-        this.qr_string = err.stringify()
-      });
-    }
-    else {
-      this.qr_string = 'undefined'
+  methods: {
+    Scan: function() {
+      if (liff.scanCode) {
+        liff.scanCode().then(result => {
+          this.qr_string = JSON.stringify(result)
+        }).catch(err => {
+          this.qr_string = 'Error: ' + err.stringify()
+        })
+      }
+      else {
+        this.qr_string = 'undefined'
+      }
     }
   }
 }

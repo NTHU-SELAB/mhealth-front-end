@@ -1,5 +1,6 @@
 
 import config from '@/config.js'
+import liff from '@line/liff'
 
 export default {
     async getUserId() {
