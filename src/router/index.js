@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
+/*
 import AddFoodManuallyPage from '@/pages/AddFoodManuallyPage.vue'
 import AddFoodCameraPage from '@/pages/AddFoodCameraPage.vue'
 import RestaurantPage from '@/pages/RestaurantPage.vue'
@@ -10,6 +11,10 @@ import SportRecordPage from '@/pages/SportRecordPage.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 import FoodDairyPage from '@/pages/FoodDairyPage.vue'
+*/
+import AddMeal_Page from '@/pages/AddMeal_Page.vue'
+import Pushing_Page from '@/pages/Pushing_Page.vue'
+import Sign_In_Page from '@/pages/Sign_In_Page.vue'
 
 Vue.use(Router)
 
@@ -24,6 +29,24 @@ export default new Router({
             children: [
                 {
                     path: '/',
+                    name: 'sign-in-page',
+                    component : Sign_In_Page,                  
+                },
+                {
+                    path: '/pushing',
+                    // path: '/pushing-setting',
+                    name: 'pushing-page',
+                    component : Pushing_Page,
+                },
+                {
+                    path: '/add-meal',
+                    // path: '/pushing-setting',
+                    name: 'add-meal-page',
+                    component : AddMeal_Page,
+                }
+                /*
+                {
+                    path: '/landing',
                     name: 'landing-page',
                     component: LandingPage,
                 },
@@ -66,7 +89,8 @@ export default new Router({
                     path: '/sport-record',
                     name: 'sport-record',
                     component: SportRecordPage,
-                }
+                },
+                */
             ]
         }
     ]
