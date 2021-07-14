@@ -26,6 +26,9 @@ export default {
           this.Scan()
         })
       }
+      else {
+        this.Scan()
+      }
     })
   },
 
