@@ -37,12 +37,14 @@ export default {
       if (liff.scanCode) {
         liff.scanCode().then(result => {
           this.qr_string = JSON.stringify(result)
+          liff.closeWindow()
         }).catch(err => {
           this.qr_string = 'Error: ' + err.stringify()
         })
       }
       else {
         this.qr_string = 'undefined'
+        liff.closeWindow()
       }
     }
   }
