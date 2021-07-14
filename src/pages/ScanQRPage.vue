@@ -26,7 +26,7 @@ export default {
       });
     }
     else {
-      alert(liff.scanCode)
+      this.qr_string = 'undefined'
     }
   }
 }
