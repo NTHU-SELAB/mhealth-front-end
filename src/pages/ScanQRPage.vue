@@ -1,6 +1,8 @@
 <template>
 <div id="scan-qr-page" class="container">
   <span id="demo-span">{{ qr_string }}</span>
+  <br>
+  <span id="demo-span">{{ debug_text }}</span>
 </div>
 </template>
 
@@ -10,12 +12,19 @@ import liff from '@line/liff'
 export default {
   data() {
     return {
-      qr_string: "qrcode"
+      qr_string: "qrcode",
+      debug_text: ""
     }
   },
 
   mounted() {
-    liff.init({ liffId: 'myLiffId' });
+    liff.init({liffId: '1653910104-zxd7QNxL'}).then(() => {
+      this.debug_text = "Initialization successful!"
+    })
+
+    if (!liff.isLoggedIn()) {
+      liff.login()
+    }
 
     // alert("liff.scanCode: " + liff.scanCode)
     if (liff.scanCode) {
