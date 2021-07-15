@@ -1,11 +1,10 @@
 <template>
-    <div id="sign-in-page" :style="{opacity: allOpacity}">
-        <div>
-            <h1 class="display-4 title mb-4" :style="{opacity: titleOpacity, 'padding-top': '233px'}">{{title}}</h1>        
+    <div id="sign-in-page">
+        <div>       
             <div id="login-frame">
-                <h2 class="mt-4 mb-4" style="font-weight: bold;">登入頁面</h2>
-                <p><label class="label-input">LINE ID：</label><input v-model="user_account" class="text-field"></p>
-                <p><label class="label-input">密碼：</label><input v-model="user_password" class="text-field" type="password"></p>
+                <h2 class="mt-4 mb-4" style="font-weight: bold; font-size : 37px;">登入頁面</h2>
+                <p><label class="label-input">LINE ID</label><input v-model="user_account" class="text-field"></p>
+                <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
                 
                 <button id="btn-login" type="submit" @click = "login()">登入</button>
             </div>
@@ -51,7 +50,6 @@ export default {
     background: rgba(0, 0, 0, 0.3);
 }
 
-
 .title {
     transition-property: opacity;
     transition-duration: 1s;
@@ -66,33 +64,32 @@ export default {
 }
 
 #login-frame {
-width: 400px;
+width: 20%;
 height: 350px;
-padding: 13px;
 position: absolute;
-left: 50%;
-top: 50%;
-margin-left: -200px;
-margin-top: -200px;
+margin-top: 300px;
+margin-left: 40%;
+margin-right: 40%;
 background-color: cyan;
 border: 5px black solid;
-border-radius: 10px;
 text-align: center;
 }
 
 .label-input {
 font-size: 20px;
 font-family: 宋體;
-width: 100px;
+width: 40%;
+margin-left: 30%;
+margin-right: 30%;
 height: 28px;
 line-height: 28px;
-text-align: center;
 color: black;
+text-align: center;
 }
 
 .text-field {
 font-size: 20px;
-width: 278px;
+width: 200px;
 height: 28px;
 }
 
@@ -100,8 +97,9 @@ height: 28px;
 font-size: 20px;
 font-family: 宋體;
 width: 120px;
-height: 28px;
-margin-top: 5px;
+height: 30px;
+padding-top: 1px;
+margin-top: 10px;
 line-height: 28px;
 text-align: center;
 color: black;
