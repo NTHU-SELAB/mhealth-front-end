@@ -10,13 +10,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                  <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../pushing">餐點內容</a>
+                        <a class="nav-link" href="../meal-record">餐點內容</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="../add-meal">新增餐點</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">推播資訊</a>
+                        <a class="nav-link" href="../shop-info">店家資訊</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -98,8 +98,6 @@ export default {
     name : 'pushing-setting',
     data() {
         return {
-            page_state : "view",        // 瀏覽view、新增add、修改edit、刪除delete
-
             temp_Meal_ID : 0,           // ID int(11)
             temp_Name : "",             // 餐點名稱 char[20]        
             temp_Calories : 0,          // 熱量
@@ -114,8 +112,6 @@ export default {
             temp_Description : "",      // 餐點內容 char[100]
             temp_Image_Path : "",       // 圖片路徑 char[100]
             temp_Price : 0,
-
-            meals_data : [{name:"pizza"}]
         }
     },  // data()
 
@@ -199,7 +195,6 @@ export default {
     float:inline-start;
     margin-left: 50px;
     resize: none;
-    
 }
 
 #btn-adding {

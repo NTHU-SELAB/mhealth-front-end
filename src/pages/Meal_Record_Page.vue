@@ -1,5 +1,5 @@
 <template>
-    <div id = "pushing-setting-page" >
+    <div id = "meal-record-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >mhealth</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,13 +10,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../pushing">餐點內容</a>
+                        <a class="nav-link" href="../meal-record">餐點內容</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="../add-meal">新增餐點</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">推播資訊</a>
+                        <a class="nav-link" href="../shop-info">店家資訊</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -49,24 +49,7 @@ export default {
     name : 'pushing-setting',
     data() {
         return {
-            page_state : "view",        // 瀏覽view、新增add、修改edit、刪除delete
-
-            temp_Meal_ID : 0,           // ID int(11)
-            temp_Name : "",             // 餐點名稱 char[20]        
-            temp_Calories : 0,          // 熱量
-            temp_Carbohydrates : 0,     // 碳水化合物
-            temp_Sugar : 0,
-            temp_Protein : 0,           // 蛋白質
-            temp_Fat : 0,
-            temp_Saturated_Fat : 0,     // 飽和脂肪
-            temp_Trans_Fat : 0,         // 反式脂肪
-            temp_Sodium : 0,            // 鈉
-            temp_Size : 0,              // 餐點份量
-            temp_Description : "",      // 餐點內容 char[100]
-            temp_Image_Path : "",       // 圖片路徑 char[100]
-            temp_Price : 0,
-
-            meals_data : [{name:"pizza"}]
+            meal_data : []
         }
     },  // data()
 

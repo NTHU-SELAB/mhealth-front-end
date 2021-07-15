@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         login() {
-            this.$router.push( { name: 'pushing-page' } )
+            this.$router.push( { name: 'meal-record-page' } )
         }
     }
 }
