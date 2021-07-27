@@ -38,48 +38,48 @@
                 <form @submit="checkForm">
                     <p>                    
                         <label class="label-input">餐點名稱：</label>
-                        <input v-model="temp_Name" maxlength="20" type="text" class="input-text2" required />                
+                        <input v-model="temp_Meal.name" maxlength="20" type="text" class="input-text2" required />                
                         <label class="label-input">餐點價格：</label>
-                        <input v-model="temp_Price" class="input-text" type="number" min="0" step="1" required /> 元
+                        <input v-model="temp_Meal.price" class="input-text" type="number" min="0" step="1" required /> 元
                         <label class="label-input">餐點份量：</label>
-                        <input v-model="temp_Size" class="input-text" type="number" min="0" required /> 公克
+                        <input v-model="temp_Meal.size" class="input-text" type="number" min="0" required /> 公克
                     </p>               
                     <p><label class="label-input">餐點內容：</label></p>
                     <p><textarea v-model="temp_Description" maxlength="100" class="input-area"></textarea></p>
                     <div style="width:50%; float:left; padding-top: 15px; padding-bottom:15px;">                   
                         <p>
                             <label class="label-input">熱量：</label>
-                            <input v-model="temp_Calories" class="input-text" type="number" min="0" /> 大卡
+                            <input v-model="temp_Meal.calories" class="input-text" type="number" min="0" /> 大卡
                         </p>
                         <p>
                             <label class="label-input">蛋白質：</label>
-                            <input v-model="temp_Protein" class="input-text" type="number" min="0" />公克
+                            <input v-model="temp_Meal.protein" class="input-text" type="number" min="0" />公克
                         </p>           
                         <p>
                             <label class="label-input">碳水化合物：</label>
-                            <input v-model="temp_Calories" class="input-text" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.calories" class="input-text" type="number" min="0" /> 公克
                         </p>
                         <p>
                             <label class="label-input">糖：</label>
-                            <input v-model="temp_Sugar" class="input-text" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.sugar" class="input-text" type="number" min="0" /> 公克
                         </p>
                     </div>
                     <div style="width:50%; float:right; padding-top: 15px; padding-bottom:15px;">                   
                         <p>
                             <label class="label-input">脂肪：</label>
-                            <input v-model="temp_Fat" class="input-text" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.fat" class="input-text" type="number" min="0" /> 公克
                         </p>
                         <p>
                             <label class="label-input">飽和脂肪：</label>
-                            <input v-model="temp_Saturated_Fat" class="input-text" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.saturated_Fat" class="input-text" type="number" min="0" /> 公克
                         </p>
                         <p>
                             <label class="label-input">反式脂肪：</label>
-                            <input v-model="temp_Trans_Fat" class="input-text" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.trans_Fat" class="input-text" type="number" min="0" /> 公克
                         </p> 
                         <p>
                             <label class="label-input">鈉：</label>
-                            <input v-model="temp_Sodium" class="input-text" type="number" min="0" /> 毫克
+                            <input v-model="temp_Meal.sodium" class="input-text" type="number" min="0" /> 毫克
                         </p>        
                     </div>
                     <p><label class="label-input">餐點圖片：</label><input name="image" type="file" maxlength="100" class="input-text2"></p>                              
@@ -94,52 +94,42 @@
 </template>
 
 <script>
+import MealService from '@/services/MealService.js'
 export default {
-    name : 'pushing-setting',
+    name : 'pushing-data',
     data() {
         return {
-            temp_Meal_ID : 0,           // ID int(11)
-            temp_Name : "",             // 餐點名稱 char[20]        
-            temp_Calories : 0,          // 熱量
-            temp_Carbohydrates : 0,     // 碳水化合物
-            temp_Sugar : 0,
-            temp_Protein : 0,           // 蛋白質
-            temp_Fat : 0,
-            temp_Saturated_Fat : 0,     // 飽和脂肪
-            temp_Trans_Fat : 0,         // 反式脂肪
-            temp_Sodium : 0,            // 鈉
-            temp_Size : 0,              // 餐點份量
-            temp_Description : "",      // 餐點內容 char[100]
-            temp_Image_Path : "",       // 圖片路徑 char[100]
-            temp_Price : 0,
+            temp_Meal : {
+                shop_ID : "1",
+                name : "",             // 餐點名稱 char[20]        
+                calories : 0,          // 熱量
+                carbohydrates : 0,     // 碳水化合物
+                sugar : 0,
+                protein : 0,           // 蛋白質
+                fat : 0,
+                saturated_Fat : 0,     // 飽和脂肪
+                trans_Fat : 0,         // 反式脂肪
+                sodium : 0,            // 鈉
+                size : 0,              // 餐點份量
+                description : "",      // 餐點內容 char[100]     
+                price : 0,
+                image :`https://mhealth-service.feveral.me/${this.$route.query.image}`   // 圖片路徑 char[100]
+            }
         }
     },  // data()
 
     methods: {
         async Add_Meal() {
-            this.meals_data.push( { name : this.temp_Name } )
-            // this.meals_data.push( { name :
-            // this.temp_Meal_ID,           // ID int(11)
-            // this.temp_Name,              // 餐點名稱 char[20]        
-            // this.temp_Calories,          // 熱量
-            // this.temp_Carbohydrates,     // 碳水化合物
-            // this.temp_Sugar,
-            // this.temp_Protein,           // 蛋白質
-            // this.temp_Fat,
-            // this.temp_Saturated_Fat,     // 飽和脂肪
-            // this.temp_Trans_Fat,         // 反式脂肪
-            // this.temp_Sodium,            // 鈉
-            // this.temp_Size,              // 餐點份量
-            // this.temp_Description,       // 餐點內容 char[100]
-            // this.temp_Image_Path,        // 圖片路徑 char[100]
-            // this.temp_Price } )
-            // this.page_state = 'view'           
-        },
-        async Edit_Meal() {
-            
-        },
-        async Delete_Meal() {
-
+            try {
+                const response = await FoodService.postFoodRecord(
+                    this.temp_Meal            
+                )
+                this.clearnInput()
+                alert('新增餐點成功！')
+            } catch (error) {
+                console.log(error)
+                this.logs = JSON.stringify(error)
+            }       
         }
     }
 }

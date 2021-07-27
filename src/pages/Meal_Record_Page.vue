@@ -33,10 +33,15 @@
         </nav>
         <div class="view-page">
             <!--檢視頁面-->
-            <div class="adding-form" v-show="page_state == 'view'">
+            <div class="adding-form">
+                <div>
+                    <p>餐點資訊</p>
+                </div>
                 <div v-for="meal in meals_data" v-bind:key="meal">
                     <div>
+                        <p>ABC</p>
                         <p>餐點名稱：{{meal.name}}</p>
+                        <p>餐點熱量：{{meal.cal}}</p>
                     </div>
                 </div>
             </div>
@@ -45,13 +50,18 @@
 </template>
 
 <script>
-export default {
+import MealService from '@/services/MealService.js'
+export default {  
     name : 'pushing-setting',
     data() {
         return {
             meal_data : []
         }
     },  // data()
+    async mounted() {
+        await
+            this.Refresh_Meal_Records()
+    },
 
     methods: {
         async Edit_Meal() {
@@ -59,6 +69,10 @@ export default {
         },
         async Delete_Meal() {
 
+        },
+        async Refresh_Meal_Records() {
+            const meal_ID = 1
+            this.meal_data = await MealService.Get_Meal_Records( meal_ID )
         }
     }
 }
