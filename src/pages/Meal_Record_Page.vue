@@ -13,9 +13,6 @@
                         <a class="nav-link" href="../meal-record">餐點內容</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../add-meal">新增餐點</a>
-                    </li>
-                    <li class="nav-item active">
                         <a class="nav-link" href="../shop-info">店家資訊</a>
                     </li>
                     <li class="nav-item active">
@@ -33,15 +30,24 @@
         </nav>
         <div class="view-page">
             <!--檢視頁面-->
-            <div class="adding-form">
+            <div class="adding-form">               
+                <h1>餐點資訊</h1>
                 <div>
-                    <p>餐點資訊</p>
+                    <select v-model="selected_shop" @change="Get_Shop_List()">
+                        <option disabled value="">請選擇餐廳</option>
+                        <option v-for="name in shop_names" v-bind:key="name">{{name}}</option>
+                    </select>
                 </div>
-                <div v-for="meal in meals_data" v-bind:key="meal">
-                    <div>
-                        <p>ABC</p>
-                        <p>餐點名稱：{{meal.name}}</p>
-                        <p>餐點熱量：{{meal.cal}}</p>
+                <!--從下拉式清單選擇餐廳後印出它的餐點-->
+                <div v-if="shop_names.length > 0">
+                    <p>
+                        <button id="btn-adding" type="submit" @click="Add_Meal()">新增餐點</button>
+                    </p>
+                    <div v-for="meal in meals_data" v-bind:key="meal">
+                        <div>
+                            <p>餐點名稱：{{}}</p>
+                            <p>餐點熱量：{{}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,12 +56,14 @@
 </template>
 
 <script>
-import MealService from '@/services/MealService.js'
+// import MealService from '@/services/MealService.js'
 export default {  
     name : 'pushing-setting',
     data() {
         return {
-            meal_data : []
+            selected_shop : "",
+            shop_names : [],    // 從DB讀取到的餐廳清單
+            meals_data : [],      // 根據選擇的餐廳對應的餐點資訊         
         }
     },  // data()
     async mounted() {
@@ -64,15 +72,21 @@ export default {
     },
 
     methods: {
+        async Add_Meal() {
+            this.$router.push( { name: 'add-meal-page' } )
+        },
         async Edit_Meal() {
             
         },
         async Delete_Meal() {
 
         },
+        async Get_Shop_List() {
+            // 用 selected_shop 到 DB 查詢已選取的餐廳對應的餐點
+        },
         async Refresh_Meal_Records() {
-            const meal_ID = 1
-            this.meal_data = await MealService.Get_Meal_Records( meal_ID )
+            
+            
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div id = "shop-info-page" >
+    <div id = "add-new-shop" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >mhealth</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
 
             <!--網頁目錄在router/index內-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="../meal-record">餐點內容</a>
                     </li>
@@ -28,34 +28,58 @@
                 </form>
             </div>
         </nav>
-
         <div class="view-page">          
             <!--新增頁面-->
-            <div class="edit-form">
-                <h1 style="margin:10px; margin-bottom:20px">店家資訊</h1>
-                <div>
-                    <p>
-                        <button id="btn-adding" type="submit" @click="Add_Shop()">新增</button>
+            <div class="adding-form">
+                <h1 style="margin:10px; margin-bottom:20px">新增店家</h1>
+                <form>
+                    <p>                    
+                        <label class="label-input-add-shop">店家名稱：</label>
+                        <input v-model="shop_Name" maxlength="20" type="text" class="input-text-add-shop" required />  
                     </p>
-                </div>
+                    <p>              
+                        <label class="label-input-add-shop">店家地址：</label>
+                        <input v-model="shop_Address" class="input-text-add-shop" type="text" />
+                    </p>
+                    <p>
+                        <label class="label-input-add-shop">綁定的Beacon ID：</label>
+                        <select v-model="selected_beacon_ID">
+                            <option disabled value="">請選擇</option>
+                            <option v-for="id in beacon_IDs" v-bind:key="id">{{id}}</option>
+                        </select>
+                    </p>                                           
+                    <p style="text-align:center;">
+                        <button id="btn-adding" type="submit" @click="Add_Shop()">新增</button>
+                        <button id="btn-adding" type="reset">重設</button>
+                        <button id="btn-adding" type="button" @click="Cancel_and_Return()">取消</button>
+                    </p>
+                </form>  
             </div>
-        </div>
-              
+        </div>        
     </div>
 </template>
 
 <script>
+// import MealService from '@/services/MealService.js'
 export default {
-    name : 'pushing-setting',
+    name : 'pushing-data',
     data() {
         return {
-            shop_list : []
+            user_ID : "U77655323afc0252221566348b3558317",
+            shop_Name : "",
+            shop_Address : "",
+            beacon_IDs : ["000000001", "000000002", "000000003"],
+            selected_beacon_ID : ""
         }
     },  // data()
 
     methods: {
         async Add_Shop() {
-            this.$router.push( { name: 'add-new-shop-page' } )
+            // TODO 寫入 DB
+            this.$router.push( { name: 'shop-info-page' } )
+        },
+        async Cancel_and_Return() {
+            this.$router.push( { name: 'shop-info-page' } )
         }
     }
 }
@@ -74,15 +98,17 @@ export default {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.edit-form {
+
+.adding-form {
     padding: 15px;
     text-align: left;
     font-size: 20px;
 }
-.label-input {
+
+.label-input-add-shop {
     font-size: 20px;
     font-family: 宋體;
-    width: 120px;
+    width: 200px;
     height: 28px;
     margin-left: 50px;
     line-height: 28px;
@@ -90,12 +116,13 @@ export default {
     color: black;
     float:initial;
 }
-.input-text {
+.input-text-add-shop {
     font-size: 20px;
-    width: 200px;
-    float:inline-start;
+    width: 500px;
+    float:inherit;
 }
-#btn-edit {
+
+#btn-adding {
     font-size: 20px;
     font-family: 宋體;
     width: 120px;

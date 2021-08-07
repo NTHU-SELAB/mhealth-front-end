@@ -12,10 +12,11 @@ import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 import FoodDairyPage from '@/pages/FoodDairyPage.vue'
 */
-import AddMeal_Page from '@/pages/AddMeal_Page.vue'
+import Add_Meal_Page from '@/pages/Add_Meal_Page.vue'
 import Meal_Record_Page from '@/pages/Meal_Record_Page.vue'
 import Sign_In_Page from '@/pages/Sign_In_Page.vue'
 import Shop_Info_Page from '@/pages/Shop_Info_Page.vue'
+import Add_New_Shop_Page from '@/pages/Add_New_Shop_Page.vue'
 
 Vue.use(Router)
 
@@ -31,23 +32,28 @@ export default new Router({
                 {
                     path: '/',
                     name: 'sign-in-page',
-                    component : Sign_In_Page,                  
+                    component : Sign_In_Page               
                 },
                 {
                     path: '/meal-record',
                     // path: '/pushing-setting',
                     name: 'meal-record-page',
-                    component : Meal_Record_Page,
+                    component : Meal_Record_Page
                 },
                 {
                     path: '/add-meal',
                     name: 'add-meal-page',
-                    component : AddMeal_Page,
+                    component : Add_Meal_Page
                 },
                 {
                     path: '/shop-info',
                     name: 'shop-info-page',
-                    component : Shop_Info_Page,
+                    component : Shop_Info_Page
+                },
+                {
+                    path: '/add-new-shop',
+                    name: 'add-new-shop-page',
+                    component : Add_New_Shop_Page
                 }
                 /*
                 {
