@@ -60,7 +60,7 @@
 </template>
 
 <script>
-// import MealService from '@/services/MealService.js'
+import MealService from '@/services/MealService.js'
 export default {
     name : 'pushing-data',
     data() {
@@ -76,6 +76,8 @@ export default {
     methods: {
         async Add_Shop() {
             // TODO 寫入 DB
+            await MealService.Post_New_Shop( this.shop_Name, this.shop_Address, this.user_ID, this.beacon_ID )
+
             this.$router.push( { name: 'shop-info-page' } )
         },
         async Cancel_and_Return() {

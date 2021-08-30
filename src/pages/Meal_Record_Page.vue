@@ -43,10 +43,42 @@
                     <p>
                         <button id="btn-adding" type="submit" @click="Add_Meal()">新增餐點</button>
                     </p>
-                    <div v-for="meal in meals_data" v-bind:key="meal">
-                        <div>
-                            <p>餐點名稱：{{}}</p>
-                            <p>餐點熱量：{{}}</p>
+                    <div class="row" >
+                        <div class="col-12 col-sm-4 col-lg-3 mb-4" v-for="meal in meals_data" v-bind:key="meal">
+                            <div class="card">
+                                <div class="img_area">
+                                    <div v-if="meal.name === '豚丼'" class="pl-4 pr-4 pt-4 pb-4" @click="To_Edit_Page()">
+                                        <img src="../assets/pork_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '牛丼'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/beef_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '親子丼'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/pc_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '泡菜豚丼'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/beef_pickle_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '泡菜牛丼'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/beef_pickle_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '刺身丼'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/sashimi_don.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '牛肉咖哩飯'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/beef_curry.jpg" class="card-img-top food-icon">
+                                    </div>
+                                    <div v-else-if="meal.name === '味噌湯'" class="pl-4 pr-4 pt-4 pb-4">
+                                        <img src="../assets/miso_soup.jpg" class="card-img-top food-icon">
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title" style="margin-bottom: 3px;">{{meal.name}}</h3>
+                                    <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">價格：{{meal.price}} 元</p>
+                                    <p class="card-text" style="color: red;margin-bottom: 3px;">熱量：{{meal.calories}} 大卡</p>
+                                    <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,8 +94,16 @@ export default {
     data() {
         return {
             selected_shop : "",
-            shop_names : [],    // 從DB讀取到的餐廳清單
-            meals_data : [],      // 根據選擇的餐廳對應的餐點資訊         
+            shop_names : ["好吃的丼飯店"],    // 從DB讀取到的餐廳清單
+            // 根據選擇的餐廳對應的餐點資訊  
+            meals_data : [{ name : "豚丼", price : 90, calories : 723 },
+            { name : "牛丼", price : 100, calories : 772 },
+            { name : "親子丼", price : 90, calories : 758 },
+            { name : "泡菜豚丼", price : 100, calories : 785 },
+            { name : "泡菜牛丼", price : 110, calories : 811 },
+            { name : "刺身丼", price : 170, calories : 650 },
+            { name : "牛肉咖哩飯", price : 100, calories : 674 },
+            { name : "味噌湯", price : 25, calories : 93 }]            
         }
     },  // data()
     async mounted() {
@@ -87,6 +127,9 @@ export default {
         async Refresh_Meal_Records() {
             
             
+        },
+        async To_Edit_Page() {
+            this.$router.push( { name: 'edit-meal-page' } )
         }
     }
 }
@@ -132,5 +175,18 @@ export default {
     font-size: 20px;
     line-height: 20px;
     text-align: center;
+}
+.img_area {
+    width: 100%;
+    height: 260px;
+}
+
+.card {
+    height: 450px;
+    width: auto;
+}
+.card-body {
+    padding-bottom: 15px;
+    font-size: 20px;
 }
 </style>

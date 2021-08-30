@@ -38,8 +38,8 @@ export default {
         return response
     },
 
-    async Post_New_Shop( shop_Name, user_ID, beacon_ID ) {
-        const response = await Api().post( 'Shop/insert', { user_ID, shop_Name, beacon_ID } )
+    async Post_New_Shop( shop_Name, shop_Address, user_ID, beacon_ID ) {
+        const response = await Api().post( 'Shop/InsertShop.php', { userID : user_ID, shopAddress : shop_Address, shopName : shop_Name, beaconID : beacon_ID } )
         return response
     }
 }
