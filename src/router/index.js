@@ -17,6 +17,7 @@ import Meal_Record_Page from '@/pages/Meal_Record_Page.vue'
 import Sign_In_Page from '@/pages/Sign_In_Page.vue'
 import Shop_Info_Page from '@/pages/Shop_Info_Page.vue'
 import Add_New_Shop_Page from '@/pages/Add_New_Shop_Page.vue'
+import Edit_Meal_Page from '@/pages/Edit_Meal_Page.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
                     path: '/add-new-shop',
                     name: 'add-new-shop-page',
                     component : Add_New_Shop_Page
+                },
+                {
+                    path: '/edit-meal',
+                    name: 'edit-meal-page',
+                    component : Edit_Meal_Page
                 }
                 /*
                 {
