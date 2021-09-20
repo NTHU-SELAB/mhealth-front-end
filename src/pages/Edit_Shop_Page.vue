@@ -1,5 +1,5 @@
 <template>
-    <div id = "add-new-shop" >
+    <div id = "edit-shop" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,8 +31,8 @@
         <div class="view-page">          
             <!--新增頁面-->
             <div class="adding-form">
-                <h1 style="margin:10px; margin-bottom:20px">新增店家</h1>
-                <form @submit.prevent="Add_Shop()">
+                <h1 style="margin:10px; margin-bottom:20px">編輯店家</h1>
+                <form @submit.prevent="Update_Shop()">
                     <p>                    
                         <label class="label-input-add-shop">店家名稱：</label>
                         <input v-model="shop_Name" maxlength="20" type="text" class="input-text-add-shop" required />  
@@ -49,14 +49,14 @@
                         </select>
                     </p>                                           
                     <p style="text-align:center;">
-                        <button id="btn-adding" type="submit">新增</button>
+                        <button id="btn-adding" type="submit">儲存</button>
                         <button id="btn-adding" type="reset">重設</button>
                         <button id="btn-adding" type="button" @click="Cancel_and_Return()">取消</button>
                     </p>
                 </form>  
             </div>
         </div>    
-        <!-- <p>result = "{{res}}"</p>     -->
+        <!-- <p>result = "{{res.errorMsg}}"</p>     -->
     </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
     data() {
         return {
             user_ID : "U77655323afc0252221566348b3558317",
+            shop_ID : "",
             shop_Name : "",
             shop_Address : "",
             beacon_IDs : ["0000000001", "0000000002", "0000000003"],
@@ -74,68 +75,26 @@ export default {
             res : ""
         }
     },  // data()
+    async mounted() {
+        await this.Set_All_Vars()
+    },
 
     methods: {
-        async Add_Shop() {
-            // 寫入 DB            
-            var temp_res = await ShopService.Post_New_Shop( this.shop_Name, this.shop_Address, this.user_ID, this.selected_beacon_ID )
-            this.res = temp_res.errorMsg
-            // this.$router.push( { name: 'shop-info-page' } )
+        async Update_Shop() {
+            // TODO 寫入 DB
+            this.res = await ShopService.Update_Shop(  this.shop_ID, this.selected_beacon_ID, this.user_ID, this.shop_Name, this.shop_Address )
+            this.$router.push( { name: 'shop-info-page' } )
         },
         async Cancel_and_Return() {
             this.$router.push( { name: 'shop-info-page' } )
+        },
+        async Set_All_Vars() {
+            var shop = this.$route.params.shop
+            this.shop_Name = shop.shopName
+            this.shop_Address = shop.shopAddr
+            this.selected_beacon_ID = shop.beaconID
+            this.shop_ID = shop.shopID
         }
     }
 }
 </script>
-
-<style>
-.view-page {
-    height: auto;
-    min-height: 200px;
-    width: 80%;
-    min-width: 600px;
-    max-width: 1600px;
-    border: 2px black solid;
-    margin-right: 10%;
-    margin-left: 10%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.adding-form {
-    padding: 15px;
-    text-align: left;
-    font-size: 20px;
-}
-
-.label-input-add-shop {
-    font-size: 20px;
-    font-family: 宋體;
-    width: 200px;
-    height: 28px;
-    margin-left: 50px;
-    line-height: 28px;
-    text-align:left;
-    color: black;
-    float:initial;
-}
-.input-text-add-shop {
-    font-size: 20px;
-    width: 500px;
-    float:inherit;
-}
-
-#btn-adding {
-    font-size: 20px;
-    font-family: 宋體;
-    width: 120px;
-    height: 30px;
-    margin: 25px;
-    line-height: 28px;
-    text-align: center;
-    color: black;
-    border-radius: 6px;
-    border: 2px black solid;
-}
-</style>

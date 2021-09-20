@@ -1,45 +1,76 @@
 import Api from '@/services/Api.js'
-import qs from 'qs'
+// import qs from 'qs'
 
 export default {
+    async Insert_Meal( meal ) {
+        var json_Obj = {
+            'name' : meal.name,
+            'cal' : meal.calories,
+            'carb' : meal.carbohydrates,
+            'sugars' : meal.sugar,
+            'protein' : meal.protein,
+            'fat' : meal.fat,
+            'sFat' : meal.saturated_Fat,
+            'tFat' : meal.trans_Fat,
+            'sod' : meal.sodium,
+            'size' : meal.size,
+            'price' : meal.price,
+            'des' : meal.description
+        }
 
-    async Post_Meal_Manually( meal_ID, name, calories, carbohydrates, sugar, protein, fat, saturated_Fat, trans_Fat, sodium, size, description, price ) {
-        const response = await Api().post( 'Shop/InsertMeal.php', qs.stringify({
-            'meal' : meal_ID,
-            'name' : name,
-            'cal' : calories,
-            'carb' : carbohydrates,
-            'sugars' : sugar,
-            'protein' : protein,
-            'fat' : fat,
-            'sFat' : saturated_Fat,
-            'tFat' : trans_Fat,
-            'sod' : sodium,
-            'size' : size,
-            'price' : price,
-            'des' : description
-        }))
-        return response
+        json_Obj = JSON.stringify( json_Obj )
+
+        var formdata = new FormData()
+        formdata.append( "meal", json_Obj )
+        const response = await Api().post('Shop/InsertMeal.php', json_Obj )
+        return response.data
     },
-    async Get_Meal_Records( meal_ID ) {
-        const response = await Api().get(`Shop/record?mealID=${meal_ID}`)
-        return response.data.mealRecords
+    async Insert_Target( target ) {
+        var formdata = new FormData()
+        formdata.append( "shopID", target.shop_ID )
+        formdata.append( "targetAge", target.target_Age )
+        formdata.append( "targetGender", target.target_Gender )
+        formdata.append( "mealID", target.mealID )
+        const response = await Api().post('Shop/InsertTarget.php', formdata )
+        return response.data
     },
-
-    // async getFoodsByKeyword(keyword) {
-    //     const response = await Api().get(`food?keyword=${keyword}`)
-    //     return response.data.foods
-    // },
-
-    async Post_Meal_Record( meal_ID, name, calories, carbohydrates, sugar, protein, fat, saturated_Fat, trans_Fat, sodium, size, description, price ) {
-        const response = await Api().post('Shop/insert', {
-            meal_ID, name, calories, carbohydrates, sugar, protein, fat, saturated_Fat, trans_Fat, sodium, size, description, price
-        })
-        return response
+    async Get_Meal_By_Shop( shop_ID ) {
+        var formdata = new FormData()
+        formdata.append( "shopID", shop_ID )
+        const response = await Api().post(`Shop/GetMealsByShop.php`, formdata )
+        return response.data
     },
+    async Update_Meal( meal ) {
+        var json_Obj = {
+            'name' : meal.name,
+            'cal' : meal.calories,
+            'carb' : meal.carbohydrates,
+            'sugars' : meal.sugar,
+            'protein' : meal.protein,
+            'fat' : meal.fat,
+            'sFat' : meal.saturated_Fat,
+            'tFat' : meal.trans_Fat,
+            'sod' : meal.sodium,
+            'size' : meal.size,
+            'price' : meal.price,
+            'des' : meal.description
+        }
 
-    async Post_New_Shop( shop_Name, shop_Address, user_ID, beacon_ID ) {
-        const response = await Api().post( 'Shop/InsertShop.php', { userID : user_ID, shopAddress : shop_Address, shopName : shop_Name, beaconID : beacon_ID } )
-        return response
+        json_Obj = JSON.stringify( json_Obj )
+
+        var formdata = new FormData()
+        formdata.append( "meal", json_Obj )
+        const response = await Api().post('Shop/UpdateMeal.php', json_Obj )
+        return response.data
+    },
+    async Update_Target( target ) {
+        var formdata = new FormData()
+        formdata.append( "targetID", target.target_ID )
+        formdata.append( "shopID", target.shop_ID )
+        formdata.append( "targetAge", target.target_Age )
+        formdata.append( "targetGender", target.target_Gender )
+        formdata.append( "mealID", target.mealID )
+        const response = await Api().post('Shop/UpdateTarget.php', formdata )
+        return response.data
     }
 }

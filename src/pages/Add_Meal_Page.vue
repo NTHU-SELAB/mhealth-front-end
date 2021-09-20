@@ -1,7 +1,7 @@
 <template>
     <div id = "add-meal-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >mhealth</a>
+            <a class="navbar-brand" href="../" >Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,7 +32,7 @@
             <!--新增頁面-->
             <div class="adding-form">
                 <h1 style="margin:10px; margin-bottom:20px">新增餐點</h1>
-                <form>
+                <form @submit.prevent="Add_Meal()">
                     <p>                    
                         <label class="label-input-add-meal">餐點名稱：</label>
                         <input v-model="temp_Meal.name" maxlength="20" type="text" class="input-text-add-meal2" required />                
@@ -54,7 +54,7 @@
                         </p>           
                         <p>
                             <label class="label-input-add-meal">碳水化合物：</label>
-                            <input v-model="temp_Meal.calories" class="input-text-add-meal" type="number" min="0" /> 公克
+                            <input v-model="temp_Meal.carbohydrates" class="input-text-add-meal" type="number" min="0" /> 公克
                         </p>
                         <p>
                             <label class="label-input-add-meal">糖：</label>
@@ -79,20 +79,39 @@
                             <input v-model="temp_Meal.sodium" class="input-text-add-meal" type="number" min="0" /> 毫克
                         </p>        
                     </div>
-                    <p><label class="label-input-add-meal">餐點圖片：</label><input name="image" type="file" maxlength="100" class="input-text-add-meal2"></p>                              
+                    <p><label class="label-input-add-meal">餐點圖片：</label><input name="image" type="file" maxlength="100" class="input-text-add-meal2"></p>   
+                    <h1 style="margin:10px; margin-bottom:20px">餐點推薦</h1>
+                    <div>
+                        <p> 
+                                          
+                            <label class="label-input-add-meal">推薦年齡：</label>
+                            <select v-model="recommend_Meal.target_Age">
+                                <option disabled value="">請選擇</option>
+                                <option value="-1">不限年齡</option>
+                                <option v-for="n in 100" v-bind:key="n">{{n}}</option>
+                            </select> 
+                        </p>
+                        <p>            
+                            <label class="label-input-add-meal">推薦性別：</label>
+                            <input v-model="recommend_Meal.target_Gender" type="radio" value="male" /><label class="label-input-add-meal">男性</label>
+                            <input v-model="recommend_Meal.target_Gender" type="radio" value="female" /><label class="label-input-add-meal">女性</label>
+                            <input v-model="recommend_Meal.target_Gender" type="radio" value="none" /><label class="label-input-add-meal">不限性別</label>
+                        </p>
+                    </div>                       
                     <p style="text-align:center;">
-                        <button id="btn-adding" type="submit" @click="Add_Meal()">新增</button>  
+                        <button id="btn-adding" type="submit">新增</button>  
                         <button id="btn-adding" type="reset">重設</button>
                         <button id="btn-adding" type="button" @click="Cancel_and_Return()">取消</button>
                     </p>
                 </form>  
             </div>
+            <p>result = "{{res}}"</p>
         </div>        
     </div>
 </template>
 
 <script>
-// import MealService from '@/services/MealService.js'
+import MealService from '@/services/MealService.js'
 export default {
     name : 'pushing-data',
     data() {
@@ -113,14 +132,24 @@ export default {
                 description : "",      // 餐點內容 char[100]     
                 price : 0,
                 image :`https://mhealth-service.feveral.me/${this.$route.query.image}`   // 圖片路徑 char[100]
-            }
+            },
+
+            recommend_Meal : {
+                shop_ID : 1,
+                meal_ID : 0,
+                target_ID : 0,
+                target_Age : 0,
+                target_Gender : "none"
+            },
+            res : ""
         }
     },  // data()
 
     methods: {
         async Add_Meal() {
-            // TODO 寫入 DB
-            this.$router.push( { name: 'meal-record-page' } ) 
+            // 寫入 DB
+            this.res = await MealService.Insert_Meal( this.temp_Meal )
+            // this.$router.push( { name: 'meal-record-page' } ) 
         },
         async Cancel_and_Return() {
             this.$router.push( { name: 'meal-record-page' } )

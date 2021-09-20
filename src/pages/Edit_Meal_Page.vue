@@ -1,7 +1,7 @@
 <template>
     <div id = "edit-meal-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >mhealth</a>
+            <a class="navbar-brand" href="../" >Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,7 +32,7 @@
             <!--新增頁面-->
             <div class="adding-form">
                 <h1 style="margin:10px; margin-bottom:20px">編輯餐點</h1>
-                <form>
+                <form @submit.prevent="Update_Meal()">
                     <p>                    
                         <label class="label-input-add-meal">餐點名稱：</label>
                         <input v-model="temp_Meal.name" maxlength="20" type="text" class="input-text-add-meal2" required />                
@@ -95,11 +95,11 @@
                             <label class="label-input-add-meal">推薦性別：</label>
                             <input v-model="recommend_Meal.target_Gender" type="radio" value="male" /><label class="label-input-add-meal">男性</label>
                             <input v-model="recommend_Meal.target_Gender" type="radio" value="female" /><label class="label-input-add-meal">女性</label>
-                            <input v-model="recommend_Meal.target_Gender" type="radio" value="none" /><label class="label-input-add-meal">無</label>
+                            <input v-model="recommend_Meal.target_Gender" type="radio" value="none" /><label class="label-input-add-meal">不限性別</label>
                         </p>
                     </div>
                     <p style="text-align:center;">
-                        <button id="btn-adding" type="submit" @click="Add_Meal()">儲存</button>
+                        <button id="btn-adding" type="submit">儲存</button>
                         <button id="btn-adding" type="button" @click="Cancel_and_Return()">取消</button>
                     </p>
                 </form>
@@ -141,14 +141,33 @@ export default {
             }
         }
     },  // data()
+    async mounted() {
+        await this.Set_All_Vars()
+    },
 
     methods: {
-        async Add_Meal() {
+        async Update_Meal() {
             // TODO 寫入 DB
             this.$router.push( { name: 'meal-record-page' } ) 
         },
         async Cancel_and_Return() {
             this.$router.push( { name: 'meal-record-page' } )
+        },
+        async Set_All_Vars() {
+            var meal = this.$route.params.meal
+            this.temp_Meal.name = meal.mealName
+            this.temp_Meal.calories = meal.calorie
+            this.temp_Meal.carbohydrates = meal.carbohydrate
+            this.temp_Meal.sugar = meal.sugars
+            this.temp_Meal.protein = meal.protein
+            this.temp_Meal.fat = meal.fat
+            this.temp_Meal.saturated_Fat = meal.satFat
+            this.temp_Meal.trans_Fat = meal.transFat
+            this.temp_Meal.sodium = meal.sodium
+            this.temp_Meal.size = meal.size
+            this.temp_Meal.description = meal.des
+            this.temp_Meal.price = meal.price
+            this.temp_Meal.image = meal.img
         }
     }
 }

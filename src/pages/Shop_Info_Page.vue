@@ -1,7 +1,7 @@
 <template>
     <div id = "shop-info-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >mhealth</a>
+            <a class="navbar-brand" href="../" >Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,24 +38,48 @@
                         <button id="btn-adding" type="submit" @click="Add_Shop()">新增</button>
                     </p>
                 </div>
-            </div>
-        </div>
-              
+                <div class="row">
+                    <div class="col-12 col-sm-4 col-lg-12 mb-1 pt-2" style="border: 1px black solid;" v-for="shop in shop_List" v-bind:key="shop">
+                        <div>
+                            <h3>{{shop.shopName}}</h3>
+                            
+                            <p>地址：{{shop.shopAddr}}</p>
+                            <p>Beacon ID：{{shop.beaconID}}</p>
+                        </div>
+                        <div>
+                            <button id="btn-adding" @click="To_Eidt_Shop_Page( shop )">修改</button>
+                            <button id="btn-adding">刪除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                         
+        </div>             
     </div>
 </template>
 
 <script>
+import ShopService from '@/services/ShopService.js'
 export default {
     name : 'pushing-setting',
     data() {
         return {
-            shop_list : []
+            user_ID : "U77655323afc0252221566348b3558317",
+            shop_List : []
         }
     },  // data()
-
+    async mounted() {
+        await this.Get_Shop_List()
+    },
     methods: {
         async Add_Shop() {
             this.$router.push( { name: 'add-new-shop-page' } )
+        },
+        async Get_Shop_List() {
+            var temp_List = await ShopService.Get_Shop_By_Owner( this.user_ID )
+            this.shop_List = temp_List.shopList
+        },
+        async To_Eidt_Shop_Page( shop ) {
+            this.$router.push( { name: 'edit-shop-page', params : { shop } } )
         }
     }
 }
