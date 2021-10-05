@@ -18,7 +18,7 @@
 export default {
     data() {
         return {
-            title: '醫師鏈 Dr. Chain',
+            title: '聊健康 Health Chat',
             allOpacity: 0,
             titleOpacity: 100,
             startButtonOpacity: 0 
