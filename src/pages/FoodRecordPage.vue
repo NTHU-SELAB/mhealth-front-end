@@ -1,7 +1,7 @@
 <template>
     <div id="food-record-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >醫師鏈 Dr. Chain</a>
+            <a class="navbar-brand" href="../" >聊健康 Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -13,13 +13,22 @@
                         <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">個人資訊</a>
+                        <a class="nav-link" href="../food-dairy">食物日誌</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="../food-record">飲食紀錄</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">體重紀錄</a>
+                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../water-record">飲水紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>

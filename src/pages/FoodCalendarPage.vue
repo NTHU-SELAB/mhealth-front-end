@@ -1,7 +1,7 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >醫師鏈 Dr. Chain</a>
+            <a class="navbar-brand" href="../" >聊健康 Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,10 +16,19 @@
                         <a class="nav-link" href="../food-dairy">食物日誌</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-record">運動紀錄</a>
+                        <a class="nav-link" href="../food-record">飲食紀錄</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">體重預測</a>
+                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../water-record">飲水紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -33,23 +42,13 @@
         </nav>
 
         <div class="container">
-            <GChart style="height:210px; width:100%; top = 20%;" v-show="true"
-                type="LineChart"
-                :data="chartContent()"
-                :options="chartOptions"
-                :resizeDebounce="500"
-                ref="chart"/>
+            <p>{{yearToday()}}/{{monthToday()}}</p>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in 6" v-bind:key="index">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in daysMonth" v-bind:key="index">
                     <div class="card">
-                        <div class="pl-4 pr-4 pt-4 pb-4">
-                            <img src="../assets/food-icon.png" class="card-img-top food-icon">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-bottom: 3px;">香酥雞腿飯</h5>
-                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">4/20 晚餐</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">673大卡</p>
-                            <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
+                        <div class="card-body" @click="routeToCalendarDetail(index,monthToday(),yearToday())">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{monthToday()}}/{{index}}</h5>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">1937大卡</p>
                         </div>
                     </div>
                 </div>
@@ -78,12 +77,38 @@ export default {
     mounted() {
 
     },
-
+    computed:{
+        daysMonth(){
+            var time = new Date();
+            var month = time.getMonth();
+            var year = time.getFullYear();
+            var days = [31,28,31,30,31,30,31,31,30,31,30,31];
+            if(((year%4==0 && year%100!=0) || year%400==0) && month==1)
+                return 29;
+            else
+                return days[month];
+        }
+    },
     methods: {
         chartContent() {
             return [this.chartDataHeader, ...this.chartData]
+        },
+        routeToCalendarDetail(index,m,y){
+            this.$router.push(`/calendar-detail/${y}/${m}/${index}`)
+        },
+        yearToday(){
+            var time = new Date();
+            var year = time.getFullYear();
+            //var yy = (year).toString();
+            return year;
+        },
+        monthToday(){
+            var time = new Date();
+            var month = time.getMonth();
+            //var yy = (year).toString();
+            return month+1;
         }
-        
+
     }
 }
 </script>
