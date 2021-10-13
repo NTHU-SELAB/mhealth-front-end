@@ -24,8 +24,8 @@ export default {
         return response.data.foodRecords        
     },
 
-    async getFoodRecordToday(userID) {
-        const response = await Api().get(`food/record?userID=${userID}&timestamp=${Date.now()}`)
+    async getFoodRecordsByDay(userID, timestamp) {
+        const response = await Api().get(`food/record/today?userID=${userID}&timestamp=${timestamp}`)
         return response.data.foodRecords
     },
 

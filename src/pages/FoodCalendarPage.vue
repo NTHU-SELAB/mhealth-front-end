@@ -48,7 +48,7 @@
                     <div class="card">
                         <div class="card-body" @click="routeToCalendarDetail(index,monthToday(),yearToday())">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{monthToday()}}/{{index}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">1937大卡</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay(index)}}大卡</p>
                         </div>
                     </div>
                 </div>
@@ -61,9 +61,13 @@
 
 
 <script>
+import LiffService from '@/services/LiffService.js'
+import FoodService from '@/services/FoodService.js'
 export default {
     data() {
         return {
+            user_ID : "U77655323afc0252221566348b3558317",
+            foodRecords : [],
             chartDataHeader: ['Time', '卡路里'],
             chartData: [['Time', '卡路里'],
                         [ "1234", "1222" ]],
@@ -107,6 +111,16 @@ export default {
             var month = time.getMonth();
             //var yy = (year).toString();
             return month+1;
+        },
+        calorieDay(index){
+            var time = new Date();
+            var date = time.getDate();
+            var totalCalorie = 0;
+            this.foodRecords = FoodService.getFoodRecordsByDay(user_ID,time+1000*60*60*24*(index-date));
+            for(var record in foodRecords){
+                totalCalorie += record.calorie;
+            }
+            return totalCalorie;
         }
 
     }
