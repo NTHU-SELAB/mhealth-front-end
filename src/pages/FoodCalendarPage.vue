@@ -42,18 +42,20 @@
         </nav>
 
         <div class="container">
-            <p>{{yearToday()}}/{{monthToday()}}</p>
+            <p>{{year}}/{{month+1}}</p>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in daysMonth" v-bind:key="index">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
                     <div class="card">
-                        <div class="card-body" @click="routeToCalendarDetail(index,monthToday(),yearToday())">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{monthToday()}}/{{index}}</h5>
+                        <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
                             <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay(index)}}大卡</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <button type="button" @click="changeToLastMonth()">上個月</button>
+        <button type="button" @click="changeToNextMonth()">下個月</button>
 
     </div>
     
@@ -68,61 +70,59 @@ export default {
         return {
             user_ID : "U77655323afc0252221566348b3558317",
             foodRecords : [],
-            chartDataHeader: ['Time', '卡路里'],
-            chartData: [['Time', '卡路里'],
-                        [ "1234", "1222" ]],
-            chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
-            }
+            year : 0,
+            month : 0,
+            days : 31
         }
     },
     mounted() {
-
-    },
-    computed:{
-        daysMonth(){
-            var time = new Date();
-            var month = time.getMonth();
-            var year = time.getFullYear();
-            var days = [31,28,31,30,31,30,31,31,30,31,30,31];
-            if(((year%4==0 && year%100!=0) || year%400==0) && month==1)
-                return 29;
-            else
-                return days[month];
-        }
+        this.calendarSet();
     },
     methods: {
-        chartContent() {
-            return [this.chartDataHeader, ...this.chartData]
-        },
         routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail/${y}/${m}/${index}`)
         },
-        yearToday(){
+        calendarSet(){
             var time = new Date();
-            var year = time.getFullYear();
-            //var yy = (year).toString();
-            return year;
-        },
-        monthToday(){
-            var time = new Date();
-            var month = time.getMonth();
-            //var yy = (year).toString();
-            return month+1;
+            this.month = time.getMonth();
+            this.year = time.getFullYear();
+            this.correctDays();
         },
         calorieDay(index){
-            var time = new Date();
-            var date = time.getDate();
+            var time = new Date(this.year,this.month,index);
             var totalCalorie = 0;
-            this.foodRecords = FoodService.getFoodRecordsByDay(user_ID,time+1000*60*60*24*(index-date));
-            for(var record in foodRecords){
+            //this.user_ID = await LiffService.getUserId()
+            //this.foodRecords = await FoodService.getFoodRecordsByDay(user_ID,time);
+            for(var record in this.foodRecords){
                 totalCalorie += record.calorie;
             }
             return totalCalorie;
+        },
+        changeToLastMonth(){
+            if(this.month == 0){
+                this.month = 11;
+                this.year = this.year-1;
+            }
+            else
+                this.month = this.month-1;
+            this.correctDays();
+        },
+        changeToNextMonth(){
+            if(this.month == 11){
+                this.month = 0;
+                this.year = this.year+1;
+            }
+            else
+                this.month = this.month+1;
+            this.correctDays();
+        },
+        correctDays(){
+            var dayInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+            if(((this.year%4==0 && this.year%100!=0) || this.year%400==0) && this.month==1)
+                this.days=29;
+            else
+                this.days = dayInMonth[this.month];
         }
-
     }
 }
 </script>

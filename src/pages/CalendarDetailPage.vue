@@ -49,16 +49,16 @@
                 :resizeDebounce="500"
                 ref="chart"/>-->
             <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 mb-3" v-for="index in 3" v-bind:key="index">
+                <div class="col-12 col-sm-6 col-lg-3 mb-3" v-for="meal in mealList" v-bind:key="meal">
                     <div class="card">
                         <div class="pl-4 pr-4 pt-4 pb-4">
                             <p>{{getM}}/{{getD}}</p>
                             <img src="../assets/food-icon.png" class="card-img-top food-icon">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title" style="margin-bottom: 3px;">香酥雞腿飯</h5>
-                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{getM}}/{{getD}}晚餐</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">673大卡</p>
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{meal.name}}</h5>
+                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{getM}}/{{getD}}{{meal.meal}}</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{meal.calorie}}</p>
                             <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
                         </div>
                     </div>
@@ -72,21 +72,18 @@
 
 
 <script>
+import FoodService from '@/services/FoodService.js'
+import LiffService from '@/services/LiffService.js'
+
 export default {
     data() {
         return {
-            chartDataHeader: ['Time', '卡路里'],
-            chartData: [['Time', '卡路里'],
-                        [ "1234", "1222" ]],
-            chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
-            }
+            userId : "U77655323afc0252221566348b3558317",
+            mealList : []
         }
     },
     mounted() {
-
+        this.refreshMealList();
     },
     computed:{
         getD(){
@@ -97,11 +94,15 @@ export default {
         },
         getY(){
             return this.$route.params.year;
-        }
+        },
+        
     },
     methods: {
-        chartContent() {
-            return [this.chartDataHeader, ...this.chartData]
+        async refreshMealList(){
+            let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day);
+            //this.userId = LiffService.getUserId()
+            this.mealList = FoodService.getFoodRecordsByDay(userId,time);
+            //console.log(time);
         }
     }
 }
