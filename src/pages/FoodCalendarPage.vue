@@ -1,125 +1,137 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="/">吾.健.康</a>
+            <a class="navbar-brand" href="../" >聊健康 Health Chat</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!--網頁目錄在router/index內-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">首頁<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active btn-primary" style="border-radius: 10px;">
-                        <a class="nav-link" href="#">食物日誌</a>
+                        <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">運動紀錄</a>
+                        <a class="nav-link" href="../food-dairy">食物日誌</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">體重預測</a>
+                        <a class="nav-link" href="../food-record">飲食紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../water-record">飲水紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">聯絡我們</a>
                     </li>
                 </ul>
-                <form class="form-inline">
+                <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="輸入文字以搜尋..." aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">搜尋</button>
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜尋</button>
                 </form>
-                <img class="ml-2" src="https://i7.pngguru.com/preview/527/663/825/logo-person-user-person-icon.jpg"
-                        style="max-width: 3%; border-radius: 20px;">
-                <!-- <div class="navbar-right"><img src="https://i7.pngguru.com/preview/527/663/825/logo-person-user-person-icon.jpg" alt="" style="max-width: 100%;"></div> -->
             </div>
         </nav>
+
         <div class="container">
-            <div class="spinner-border text-primary" role="status" v-if="isloading" style="margin-top: 200px;">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <GChart style="height:210px;width:100%;"
-                type="LineChart"
-                v-if="!isloading"
-                class="food-calender-content"
-                :style="{opacity: contentOpacity}"
-                :data="chartContent()"
-                :options="chartOptions"
-                :resizeDebounce="500"
-                ref="chart"/>
-            <div class="row food-calender-content" :style="{opacity: contentOpacity}">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="record in foodRecords" v-bind:key="record.image_url">
-                    <div class="card" data-toggle="modal" data-target="#staticBackdrop">
-                        <div class="pl-4 pr-4 pt-4 pb-4"><img :src="record.image_url" class="card-img-top food-icon"></div>
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{record.name}}</h5>
-                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{record.date}} {{record.meal}}</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{record.calorie}}大卡</p>
-                            <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
+            <p>{{year}}/{{month+1}}</p>
+            <div class="row">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
+                    <div class="card">
+                        <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay(index)}}大卡</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <food-record-detail></food-record-detail>
+        <button type="button" @click="changeToLastMonth()">上個月</button>
+        <button type="button" @click="changeToNextMonth()">下個月</button>
+
     </div>
+    
 </template>
 
+
 <script>
-import { GChart } from 'vue-google-charts'
-import foodCalendarData from '../mock/foodCalendarData.json'
-import foodRecordDetail from '@/components/foodRecordDetail.vue'
-
+import LiffService from '@/services/LiffService.js'
+import FoodService from '@/services/FoodService.js'
 export default {
-    components: {
-        GChart,
-        foodRecordDetail
-    },
-
     data() {
         return {
-            isloading: true,
-            contentOpacity: 0,
-            foodRecords: [],
-            chartDataHeader: ['Time', '卡路里'],
-            chartData: [],
-            chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
-            }
+            user_ID : "U77655323afc0252221566348b3558317",
+            foodRecords : [],
+            year : 0,
+            month : 0,
+            days : 31
         }
     },
     mounted() {
-        this.initChartData()
-        this.foodRecords = foodCalendarData
-        setTimeout(() => {
-            this.isloading = false;
-            this.contentOpacity = 100;
-        }, 1300)
+        this.calendarSet();
     },
-
     methods: {
-        chartContent() {
-            return [this.chartDataHeader, ...this.chartData]
+        routeToCalendarDetail(index,m,y){
+            this.$router.push(`/calendar-detail/${y}/${m}/${index}`)
         },
-
-        initChartData() {
-            for (let i = 0; i < 30; i++) {
-                this.chartData.push([new Date(Date.now()-86400000*i), 1400 + Math.floor(Math.random() * 450)])
+        calendarSet(){
+            var time = new Date();
+            this.month = time.getMonth();
+            this.year = time.getFullYear();
+            this.correctDays();
+        },
+        calorieDay(index){
+            var time = new Date(this.year,this.month,index);
+            var totalCalorie = 0;
+            //this.user_ID = await LiffService.getUserId()
+            //this.foodRecords = await FoodService.getFoodRecordsByDay(user_ID,time);
+            for(var record in this.foodRecords){
+                totalCalorie += record.calorie;
             }
+            return totalCalorie;
+        },
+        changeToLastMonth(){
+            if(this.month == 0){
+                this.month = 11;
+                this.year = this.year-1;
+            }
+            else
+                this.month = this.month-1;
+            this.correctDays();
+        },
+        changeToNextMonth(){
+            if(this.month == 11){
+                this.month = 0;
+                this.year = this.year+1;
+            }
+            else
+                this.month = this.month+1;
+            this.correctDays();
+        },
+        correctDays(){
+            var dayInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+            if(((this.year%4==0 && this.year%100!=0) || this.year%400==0) && this.month==1)
+                this.days=29;
+            else
+                this.days = dayInMonth[this.month];
         }
     }
 }
 </script>
 
-<style scope>
+<style>
 .food-icon {
     max-width: 100%;
 }
-
-.food-calender-content {
-    transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
 </style>
+
+
+

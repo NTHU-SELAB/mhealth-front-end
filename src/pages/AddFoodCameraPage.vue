@@ -54,7 +54,7 @@ export default {
 
     data() {
         return {
-            foodimage:`https://mhealth-service.feveral.me/${this.$route.query.image}`, 
+            foodimage:`https://selab1.cs.nthu.edu.tw/${this.$route.query.image}`, 
             foodweight:20,
             foodcalori:0,
             foodprotein:0,
@@ -63,7 +63,7 @@ export default {
             foodcarbon:0,
             foodName: '選擇食物',
             subFoodName: '辨識結果',
-            foodNameList: ['qwe', 'hquwai', 'qwkjopi'], 
+            foodNameList: ['食物名稱1', '食物名稱2', '食物名稱3'], 
             subFoodList : ['法式吐司','熱壓吐司'],
             log: ''
         }
