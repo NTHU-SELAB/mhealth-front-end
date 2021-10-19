@@ -68,37 +68,37 @@ import FoodService from '@/services/FoodService.js'
 export default {
     data() {
         return {
-            user_ID : "U77655323afc0252221566348b3558317",
+            userID : "" ,
             foodRecords : [],
             year : 0,
             month : 0,
             days : 31
         }
     },
-    mounted() {
-        this.calendarSet();
+    async mounted() {
+        await this.calendarSet();
     },
     methods: {
-        routeToCalendarDetail(index,m,y){
+        async routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail/${y}/${m}/${index}`)
         },
-        calendarSet(){
+        async calendarSet(){
             var time = new Date();
             this.month = time.getMonth();
             this.year = time.getFullYear();
             this.correctDays();
         },
-        calorieDay(index){
+        async calorieDay(index){
             var time = new Date(this.year,this.month,index);
             var totalCalorie = 0;
-            //this.user_ID = await LiffService.getUserId()
-            //this.foodRecords = await FoodService.getFoodRecordsByDay(user_ID,time);
+            this.userID = await LiffService.getUserId()
+            this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
             for(var record in this.foodRecords){
                 totalCalorie += record.calorie;
             }
             return totalCalorie;
         },
-        changeToLastMonth(){
+        async changeToLastMonth(){
             if(this.month == 0){
                 this.month = 11;
                 this.year = this.year-1;
@@ -107,7 +107,7 @@ export default {
                 this.month = this.month-1;
             this.correctDays();
         },
-        changeToNextMonth(){
+        async changeToNextMonth(){
             if(this.month == 11){
                 this.month = 0;
                 this.year = this.year+1;
@@ -116,7 +116,7 @@ export default {
                 this.month = this.month+1;
             this.correctDays();
         },
-        correctDays(){
+        async correctDays(){
             var dayInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
             if(((this.year%4==0 && this.year%100!=0) || this.year%400==0) && this.month==1)
                 this.days=29;

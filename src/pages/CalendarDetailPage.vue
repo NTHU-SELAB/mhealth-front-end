@@ -78,12 +78,12 @@ import LiffService from '@/services/LiffService.js'
 export default {
     data() {
         return {
-            userId : "U77655323afc0252221566348b3558317",
+            userID : "",
             mealList : []
         }
     },
-    mounted() {
-        this.refreshMealList();
+    async mounted() {
+        await this.refreshMealList();
     },
     computed:{
         getD(){
@@ -95,13 +95,12 @@ export default {
         getY(){
             return this.$route.params.year;
         },
-        
     },
     methods: {
         async refreshMealList(){
             let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day);
-            //this.userId = LiffService.getUserId()
-            this.mealList = FoodService.getFoodRecordsByDay(userId,time);
+            this.userID = await LiffService.getUserId()
+            this.mealList = await FoodService.getFoodRecordsByDay(this.userID,time);
             //console.log(time);
         }
     }
