@@ -30,6 +30,7 @@ export default {
     },
 
     async getFoodsByKeyword(keyword) {
+		console.log(keyword)
         const response = await Api().get(`food?keyword=${keyword}`)
         return response.data.foods
     },
