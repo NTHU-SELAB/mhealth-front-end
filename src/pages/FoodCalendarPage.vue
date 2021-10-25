@@ -96,10 +96,10 @@ export default {
             for(var i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
-                this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
-                this.foodRecords.forEach((r) => {
-                    totalCalorie += r.calorie;
-                });
+                //this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
+                //this.foodRecords.forEach((r) => {
+                //    totalCalorie += r.calorie;
+                //});
                 cals.push(totalCalorie);
             }
             this.calorieDay = cals
