@@ -48,7 +48,7 @@
                     <div class="card">
                         <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{this.calorieDay[index]}}大卡</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay[index]}}大卡</p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,6 @@ export default {
     },
     async mounted() {
         await this.calendarSet();
-        await this.countCalorieDay();
     },
     methods: {
         routeToCalendarDetail(index,m,y){
@@ -89,8 +88,10 @@ export default {
             this.month = time.getMonth();
             this.year = time.getFullYear();
             this.correctDays();
+            await this.countCalorieDay();
         },
         async countCalorieDay(){
+            const cals = []
             this.userID = await LiffService.getUserId()
             for(let i=0; i<days; i++){
                 let time = new Date(this.year,this.month,i+1);
@@ -99,9 +100,9 @@ export default {
                 for(var record in this.foodRecords){
                     totalCalorie += record.calorie;
                 }
-                this.calorieDay.push(totalCalorie);
+                cals.push(totalCalorie);
             }
-            //return totalCalorie;
+            this.calorieDay = cals
         },
         async changeToLastMonth(){
             if(this.month == 0){
@@ -111,6 +112,7 @@ export default {
             else
                 this.month = this.month-1;
             this.correctDays();
+            await this.countCalorieDay();
         },
         async changeToNextMonth(){
             if(this.month == 11){
@@ -120,6 +122,7 @@ export default {
             else
                 this.month = this.month+1;
             this.correctDays();
+            await this.countCalorieDay();
         },
         async correctDays(){
             var dayInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
