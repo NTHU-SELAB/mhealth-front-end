@@ -90,14 +90,14 @@ export default {
             this.correctDays();
             await this.countCalorieDay();
         },
-        async countCalorieDay(){
-            var cals = []
+        async countCalorieDay(){    
+            const cals = []
             this.userID = await LiffService.getUserId()
-            for(let i=0; i<this.days; i++){
+            for(var i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
                 this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
-                for(var record in this.foodRecords){
+                for(record in this.foodRecords){
                     totalCalorie += record.calorie;
                 }
                 cals.push([i+1,totalCalorie]);
