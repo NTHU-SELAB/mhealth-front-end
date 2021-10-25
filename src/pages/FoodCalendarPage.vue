@@ -91,7 +91,7 @@ export default {
             await this.countCalorieDay();
         },
         async countCalorieDay(){
-            const cals = []
+            var cals = []
             this.userID = await LiffService.getUserId()
             for(let i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
