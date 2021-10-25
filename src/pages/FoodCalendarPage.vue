@@ -44,11 +44,11 @@
         <div class="container">
             <p>{{year}}/{{month+1}}</p>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="item in calorieDay" v-bind:key="item[0]">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
                     <div class="card">
-                        <div class="card-body" @click="routeToCalendarDetail(item[0],month+1,year)">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{item[0]}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{item[1]}}大卡</p>
+                        <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay[index-1]}}大卡</p>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ export default {
                 this.foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 });
-                cals.push([i+1,totalCalorie]);
+                cals.push(totalCalorie);
             }
             this.calorieDay = cals
         },
