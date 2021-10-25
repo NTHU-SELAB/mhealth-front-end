@@ -1,7 +1,7 @@
 <template>
     <div id="food-record-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >聊健康 Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -67,10 +67,9 @@
                 :resizeDebounce="500"
                 ref="chart"/>
             <div>
-                <!--
-                <div v-if="timeFilter !=='today'">本日平均血壓：{{avgCaloriesPerDay}}大卡</div>
-                <div v-else>今日攝取熱量：{{avgCaloriesPerDay}}大卡</div>
-                -->
+                <div v-if="timeFilter !=='today'">每日平均血壓：{{avgBloodPressurePerDay}}mmHg</div>
+                <div v-else>今日平均血壓：{{avgBloodPressurePerDay}}mmHg</div>
+                <div>註:平均血壓=(收縮壓 + 2 x 舒張壓)/3</div>
             </div>
         </div>
     </div>
@@ -83,7 +82,7 @@ import LiffService from '@/services/LiffService.js'
 import FoodService from '@/services/FoodService.js'
 
 export default {
-    name: 'food-record',
+    name: 'bloodpressure-record',
 
     components: {
         GChart
@@ -92,14 +91,14 @@ export default {
     data() {
         return {
             timeFilter: 'today',
-            avgCaloriesPerDay : 0.0,
-            foodRecords: [],
+            avgBloodPressurePerDay : 0.0,
+            healthRecords: [],
             isChartShow: true,
-            chartDataHeader: ['Time', '卡路里'],
+            chartDataHeader: ['Time', '平均血壓'],
             chartData: [],
             chartOptions: {
                 legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
+                vAxis: { minValue: 0, format: '# mmHg', gridlines: { color: 'none' } },
                 hAxis: { gridlines: { color: 'none' }}
             }
         }
@@ -206,19 +205,19 @@ export default {
             this.chartData = data.reverse()
         },
         
-        async refreshFoodRecord() {
+        async refreshHealthRecord() {
             const userId = await LiffService.getUserId()
             var dateNow = Date.now()
             if (this.timeFilter === 'today') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
+                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
             } else if (this.timeFilter === 'week') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
+                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
             } else if (this.timeFilter === 'month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
+                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
             } else if (this.timeFilter === 'three-month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
+                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
             } else if (this.timeFilter === 'year') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
+                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
             }
         },
 
