@@ -93,7 +93,7 @@ export default {
         async countCalorieDay(){
             var cals = []
             this.userID = await LiffService.getUserId()
-            for(let i=0; i<this.days; i++){
+            for(let i=0; i<31; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
                 this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
