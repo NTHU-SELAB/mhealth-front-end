@@ -48,7 +48,7 @@
                     <div class="card">
                         <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay(index)}}大卡</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{this.calorieDay[index]}}大卡</p>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ export default {
         return {
             userID : "" ,
             foodRecords : [],
+            calorieDay : [],
             year : 0,
             month : 0,
             days : 31
@@ -77,26 +78,30 @@ export default {
     },
     async mounted() {
         await this.calendarSet();
+        await this.countCalorieDay();
     },
     methods: {
-        async routeToCalendarDetail(index,m,y){
+        routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail/${y}/${m}/${index}`)
         },
         async calendarSet(){
-            var time = new Date();
+            let time = new Date();
             this.month = time.getMonth();
             this.year = time.getFullYear();
             this.correctDays();
         },
-        async calorieDay(index){
-            var time = new Date(this.year,this.month,index);
-            var totalCalorie = 0;
+        async countCalorieDay(){
             this.userID = await LiffService.getUserId()
-            this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
-            for(var record in this.foodRecords){
-                totalCalorie += record.calorie;
+            for(let i=0; i<days; i++){
+                let time = new Date(this.year,this.month,i+1);
+                let totalCalorie = 0;
+                this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
+                for(var record in this.foodRecords){
+                    totalCalorie += record.calorie;
+                }
+                this.calorieDay.push(totalCalorie);
             }
-            return totalCalorie;
+            //return totalCalorie;
         },
         async changeToLastMonth(){
             if(this.month == 0){
