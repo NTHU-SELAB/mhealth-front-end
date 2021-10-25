@@ -44,11 +44,11 @@
         <div class="container">
             <p>{{year}}/{{month+1}}</p>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="item in calorieDay" v-bind:key="item.day">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="item in calorieDay" v-bind:key="item[0]">
                     <div class="card">
-                        <div class="card-body" @click="routeToCalendarDetail(item.day,month+1,year)">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{item.day}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{item.cal}}大卡</p>
+                        <div class="card-body" @click="routeToCalendarDetail(item[0],month+1,year)">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{item[0]}}</h5>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{item[1]}}大卡</p>
                         </div>
                     </div>
                 </div>
@@ -93,14 +93,14 @@ export default {
         async countCalorieDay(){
             var cals = []
             this.userID = await LiffService.getUserId()
-            for(let i=0; i<31; i++){
+            for(let i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
                 this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
                 for(var record in this.foodRecords){
                     totalCalorie += record.calorie;
                 }
-                cals.push({day : i+1,cal : totalCalorie});
+                cals.push([i+1,totalCalorie]);
             }
             this.calorieDay = cals
         },
