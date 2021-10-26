@@ -53,7 +53,7 @@
                     <div class="card">
                         <div class="pl-4 pr-4 pt-4 pb-4">
                             <p>{{getM}}/{{getD}}</p>
-                            <img class="card-img-top food-icon" :src="recordImage(record.image)">
+                            <img class="card-img-top food-icon" :src="recordImage(meal.image)">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{meal.name}}</h5>
