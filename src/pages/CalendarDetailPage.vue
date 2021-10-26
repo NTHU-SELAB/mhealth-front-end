@@ -97,7 +97,7 @@ export default {
     },
     methods: {
         async refreshMealList(){
-            let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day+1).getTime();
+            let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day).getTime();
             const userID = await LiffService.getUserId()
             this.mealList = await FoodService.getFoodRecordsByDay(userID,time);
             //console.log(time);
