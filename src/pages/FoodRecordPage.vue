@@ -159,8 +159,7 @@ export default {
                 this.isChartShow = true
             else 
                 this.isChartShow = false
-            await 
-                this.refreshFoodRecord()
+            await this.refreshFoodRecord()
             if ( this.timeFilter === 'today' || this.timeFilter === 'week' || this.timeFilter === 'month' ) {
                 this.refreshChart_Week_Month()
             }  // if
