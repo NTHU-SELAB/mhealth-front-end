@@ -54,6 +54,7 @@
             </div>
         </div>
         <button type="button" @click="changeToLastMonth()">上個月</button>
+        <button type="button" @click="countCalorieDay()">載入食物日曆</button>
         <button type="button" @click="changeToNextMonth()">下個月</button>
 
     </div>
@@ -80,8 +81,7 @@ export default {
         }
     },
     async mounted() {
-        await this.calendarSet();
-        this.dataReady = true
+        this.calendarSet();
     },
     methods: {
         routeToCalendarDetail(index,m,y){
@@ -100,7 +100,7 @@ export default {
             const userID = await LiffService.getUserId()
             var foodRecords = []
             for(var i=0; i<this.days; i++){
-                let time = new Date(this.year,this.month,i+1).getTime();
+                let time = new Date(this.year,this.month,i+2).getTime();
                 let totalCalorie = 0;
                 foodRecords = await FoodService.getFoodRecordsByDay(userID,time);
                 foodRecords.forEach((r) => {
@@ -115,6 +115,7 @@ export default {
                     this.dataReady3=true
                 */
             }
+            this.dataReady = true
             //this.calorieDay = cals
         },
         async changeToLastMonth(){
