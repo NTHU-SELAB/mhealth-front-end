@@ -67,7 +67,7 @@ import FoodService from '@/services/FoodService.js'
 export default {
     data() {
         return {
-            dataReady : true,
+            dataReady : false,
             //dataReady1: false,
             //dataReady2: false,
             //dataReady3: false,
@@ -81,7 +81,7 @@ export default {
     },
     async mounted() {
         await this.calendarSet();
-        //this.dataReady = true
+        this.dataReady = true
     },
     methods: {
         routeToCalendarDetail(index,m,y){
@@ -95,7 +95,8 @@ export default {
             await this.countCalorieDay();
         },
         async countCalorieDay(){    
-            const cals = []
+            //const cals = []
+            this.calorieDay = []
             const userID = await LiffService.getUserId()
             var foodRecords = []
             for(var i=0; i<this.days; i++){
@@ -105,7 +106,7 @@ export default {
                 foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 })
-                cals.push(200);
+                this.calorieDay.push(200);
                 /*if(i==0)
                     this.dataReady1=true
                 if(i==10)
@@ -114,7 +115,7 @@ export default {
                     this.dataReady3=true
                 */
             }
-            this.calorieDay = cals
+            //this.calorieDay = cals
         },
         async changeToLastMonth(){
             if(this.month == 0){
