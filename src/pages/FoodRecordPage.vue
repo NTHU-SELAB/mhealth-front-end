@@ -144,7 +144,7 @@ export default {
 
     async mounted() {
         this.changeTimeFilter('today')
-        this.dataReady = true
+        //this.dataReady = true
     },
 
     methods: {
@@ -206,6 +206,7 @@ export default {
 
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
+            this.dataReady = true
         },
         async refreshChart_ThreeMonths_Year() {
             const data = []
@@ -241,6 +242,7 @@ export default {
 
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
+            this.dataReady = true
         },
         
         async refreshFoodRecord() {
