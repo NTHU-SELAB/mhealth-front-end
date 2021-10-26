@@ -1,5 +1,5 @@
 <template>
-    <div id="food-record-page">
+    <div id="food-record-page" v-if="dataReady">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,6 +131,7 @@ export default {
             avgCaloriesPerDay : 0.0,
             foodRecords: [],
             isChartShow: true,
+            dataReady : false,
             chartDataHeader: ['Time', '卡路里'],
             chartData: [],
             chartOptions: {
@@ -143,6 +144,7 @@ export default {
 
     async mounted() {
         this.changeTimeFilter('today')
+        this.dataReady = true
     },
 
     methods: {
