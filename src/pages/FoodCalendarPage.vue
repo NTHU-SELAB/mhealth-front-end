@@ -67,7 +67,7 @@ import FoodService from '@/services/FoodService.js'
 export default {
     data() {
         return {
-            dataReady : false,
+            dataReady : true,
             //dataReady1: false,
             //dataReady2: false,
             //dataReady3: false,
@@ -81,7 +81,7 @@ export default {
     },
     async mounted() {
         await this.calendarSet();
-        this.dataReady = true
+        //this.dataReady = true
     },
     methods: {
         routeToCalendarDetail(index,m,y){
@@ -105,7 +105,7 @@ export default {
                 foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 })
-                cals.push(totalCalorie);
+                cals.push(200);
                 /*if(i==0)
                     this.dataReady1=true
                 if(i==10)
