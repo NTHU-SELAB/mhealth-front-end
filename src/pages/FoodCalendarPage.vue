@@ -92,7 +92,6 @@ export default {
             this.month = time.getMonth();
             this.year = time.getFullYear();
             await this.correctDays();
-            await this.countCalorieDay();
         },
         async countCalorieDay(){    
             //const cals = []
