@@ -161,10 +161,10 @@ export default {
                 this.isChartShow = false
             await this.refreshFoodRecord()
             if ( this.timeFilter === 'today' || this.timeFilter === 'week' || this.timeFilter === 'month' ) {
-                this.refreshChart_Week_Month()
+                await this.refreshChart_Week_Month()
             }  // if
             else if ( this.timeFilter === 'three-month' || this.timeFilter === 'year' ) {
-                this.refreshChart_ThreeMonths_Year()
+                await this.refreshChart_ThreeMonths_Year()
             }  // else if
             
         },

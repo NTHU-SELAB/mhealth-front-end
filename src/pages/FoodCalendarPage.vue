@@ -106,7 +106,7 @@ export default {
                 foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 })
-                this.calorieDay.push(200);
+                this.calorieDay.push(totalCalorie);
                 /*if(i==0)
                     this.dataReady1=true
                 if(i==10)
