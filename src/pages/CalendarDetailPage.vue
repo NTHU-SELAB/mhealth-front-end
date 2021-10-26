@@ -78,7 +78,6 @@ import LiffService from '@/services/LiffService.js'
 export default {
     data() {
         return {
-            userID : "",
             mealList : []
         }
     },
@@ -98,9 +97,9 @@ export default {
     },
     methods: {
         async refreshMealList(){
-            let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day);
-            this.userID = await LiffService.getUserId()
-            this.mealList = await FoodService.getFoodRecordsByDay(this.userID,time);
+            let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day).getTime();
+            const userID = await LiffService.getUserId()
+            this.mealList = await FoodService.getFoodRecordsByDay(userID,time);
             //console.log(time);
         }
     }
