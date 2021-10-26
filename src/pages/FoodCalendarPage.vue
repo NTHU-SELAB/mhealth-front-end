@@ -43,11 +43,11 @@
         <div class="container" v-if="dataReady">
             <p>{{year}}/{{month+1}}</p>
             <div class="row">
-                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
+                <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="(item,index) in calorieDay" v-bind:key="index">
                     <div class="card">
-                        <div class="card-body" @click="routeToCalendarDetail(index,month+1,year)">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index}}</h5>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{calorieDay[index-1]}}大卡</p>
+                        <div class="card-body" @click="routeToCalendarDetail(index+1,month+1,year)">
+                            <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index+1}}</h5>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{item}}大卡</p>
                         </div>
                     </div>
                 </div>
