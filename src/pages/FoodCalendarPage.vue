@@ -1,5 +1,5 @@
 <template>
-    <div id="food-calendar-page" v-if="dataReady">
+    <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,8 +40,16 @@
                 </form>
             </div>
         </nav>
-
-        <div class="container">
+        <div v-if="dataReady1">
+            <p>完成1個data</p>
+        </div> 
+        <div v-if="dataReady2">
+            <p>完成10個data</p>
+        </div> 
+        <div v-if="dataReady3">
+            <p>完成20個data</p>
+        </div> 
+        <div class="container"  v-if="dataReady">
             <p>{{year}}/{{month+1}}</p>
             <div class="row">
                 <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
@@ -69,6 +77,9 @@ export default {
     data() {
         return {
             dataReady : false,
+            dataReady1: false,
+            dataReady2: false,
+            dataReady3: false,
             userID : "" ,
             foodRecords : [],
             calorieDay : [],
@@ -103,6 +114,12 @@ export default {
                     totalCalorie += r.calorie;
                 });
                 cals.push(totalCalorie);
+                if(i==0)
+                    this.dataReady1=true
+                if(i==10)
+                    this.dataReady2=true
+                if(i==20)
+                    this.dataReady3=true
             }
             this.calorieDay = cals
         },
