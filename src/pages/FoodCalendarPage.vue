@@ -40,16 +40,7 @@
                 </form>
             </div>
         </nav>
-        <div v-if="dataReady1">
-            <p>完成1個data</p>
-        </div> 
-        <div v-if="dataReady2">
-            <p>完成10個data</p>
-        </div> 
-        <div v-if="dataReady3">
-            <p>完成20個data</p>
-        </div> 
-        <div class="container"  v-if="dataReady">
+        <div class="container" v-if="dataReady">
             <p>{{year}}/{{month+1}}</p>
             <div class="row">
                 <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="index in days" v-bind:key="index">
@@ -77,11 +68,11 @@ export default {
     data() {
         return {
             dataReady : false,
-            dataReady1: false,
-            dataReady2: false,
-            dataReady3: false,
+            //dataReady1: false,
+            //dataReady2: false,
+            //dataReady3: false,
             userID : "" ,
-            foodRecords : [],
+            //foodRecords : [],
             calorieDay : [],
             year : 0,
             month : 0,
@@ -100,26 +91,28 @@ export default {
             let time = new Date();
             this.month = time.getMonth();
             this.year = time.getFullYear();
-            this.correctDays();
+            await this.correctDays();
             await this.countCalorieDay();
         },
         async countCalorieDay(){    
             const cals = []
+            var foodRecords = []
             this.userID = await LiffService.getUserId()
             for(var i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
-                this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
-                this.foodRecords.forEach((r) => {
+                foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
+                foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 });
                 cals.push(totalCalorie);
-                if(i==0)
+                /*if(i==0)
                     this.dataReady1=true
                 if(i==10)
                     this.dataReady2=true
                 if(i==20)
                     this.dataReady3=true
+                */
             }
             this.calorieDay = cals
         },
