@@ -55,12 +55,16 @@
                             <p>{{getM}}/{{getD}}</p>
                             <img class="card-img-top food-icon" :src="recordImage(meal.image)">
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-bottom: 3px;">{{meal.name}}</h5>
-                            <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{getM}}/{{getD}}{{meal.meal}}</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{meal.calorie}}大卡</p>
-                            <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
+                        <div class="col-10 food-record-detail">
+                            <div>{{getM}}/{{getD}}{{meal.meal}}</div>
+                            <div>名稱：{{meal.name}}</div>
+                            <div>重量：{{meal.weight}} g</div>
+                            <div>脂肪：{{meal.fat}} g</div>
+                            <div>卡路里：{{meal.calorie}}大卡</div>
+                            <div>膳食纖維：{{meal.fiber}} g</div>
+                            <div>碳水化合物：{{meal.sugar}} g</div>
                         </div>
+                        <div class="col-12 food-record-detail">記錄時間：{{new Date(meal.recordTime).toLocaleString()}}</div>
                     </div>
                 </div>
             </div>
