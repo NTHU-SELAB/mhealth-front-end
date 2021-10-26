@@ -1,5 +1,5 @@
 <template>
-    <div id="food-calendar-page">
+    <div id="food-calendar-page" v-if="dataReady">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@ import FoodService from '@/services/FoodService.js'
 export default {
     data() {
         return {
+            dataReady : false,
             userID : "" ,
             foodRecords : [],
             calorieDay : [],
@@ -78,6 +79,7 @@ export default {
     },
     async mounted() {
         await this.calendarSet();
+        this.dataReady = true
     },
     methods: {
         routeToCalendarDetail(index,m,y){
@@ -97,9 +99,9 @@ export default {
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
                 this.foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
-                //this.foodRecords.forEach((r) => {
-                //    totalCalorie += r.calorie;
-                //});
+                this.foodRecords.forEach((r) => {
+                    totalCalorie += r.calorie;
+                });
                 cals.push(totalCalorie);
             }
             this.calorieDay = cals
