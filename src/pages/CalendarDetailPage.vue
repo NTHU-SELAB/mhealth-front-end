@@ -53,12 +53,12 @@
                     <div class="card">
                         <div class="pl-4 pr-4 pt-4 pb-4">
                             <p>{{getM}}/{{getD}}</p>
-                            <img src="../assets/food-icon.png" class="card-img-top food-icon">
+                            <img class="card-img-top food-icon" :src="recordImage(record.image)">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{meal.name}}</h5>
                             <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">{{getM}}/{{getD}}{{meal.meal}}</p>
-                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{meal.calorie}}</p>
+                            <p class="card-text" style="color: red;margin-bottom: 3px;">{{meal.calorie}}大卡</p>
                             <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
                         </div>
                     </div>
@@ -101,7 +101,12 @@ export default {
             const userID = await LiffService.getUserId()
             this.mealList = await FoodService.getFoodRecordsByDay(userID,time);
             //console.log(time);
-        }
+        },
+        recordImage(imagePath) {
+            if (imagePath.indexOf('https://') === 0) {
+                return imagePath
+            } else return require('../assets/food-icon.png')
+        },
     }
 }
 </script>
