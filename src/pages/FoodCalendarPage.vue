@@ -100,9 +100,9 @@ export default {
             const userID = await LiffService.getUserId()
             var foodRecords = []
             for(var i=0; i<this.days; i++){
-                let time = new Date(this.year,this.month,i+1);
+                let time = new Date(this.year,this.month,i+1).getTime();
                 let totalCalorie = 0;
-                foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
+                foodRecords = await FoodService.getFoodRecordsByDay(userID,time);
                 foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
                 })
