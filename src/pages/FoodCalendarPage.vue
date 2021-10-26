@@ -71,7 +71,7 @@ export default {
             //dataReady1: false,
             //dataReady2: false,
             //dataReady3: false,
-            userID : "" ,
+            //userID : "" ,
             //foodRecords : [],
             calorieDay : [],
             year : 0,
@@ -96,15 +96,15 @@ export default {
         },
         async countCalorieDay(){    
             const cals = []
+            const userID = await LiffService.getUserId()
             var foodRecords = []
-            this.userID = await LiffService.getUserId()
             for(var i=0; i<this.days; i++){
                 let time = new Date(this.year,this.month,i+1);
                 let totalCalorie = 0;
                 foodRecords = await FoodService.getFoodRecordsByDay(this.userID,time);
                 foodRecords.forEach((r) => {
                     totalCalorie += r.calorie;
-                });
+                })
                 cals.push(totalCalorie);
                 /*if(i==0)
                     this.dataReady1=true
