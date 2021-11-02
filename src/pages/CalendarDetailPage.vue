@@ -103,7 +103,7 @@ export default {
         async refreshMealList(){
             let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day).getTime();
             const userID = await LiffService.getUserId()
-            this.mealList = await FoodService.getFoodRecordsByDay(userID,time + 9*60*60*1000);
+            this.mealList = await FoodService.getFoodRecordsByDay(userID,time);
             //console.log(time);
         },
         recordImage(imagePath) {

@@ -89,7 +89,7 @@ export default {
             const meal = this.calculateMeal(new Date())
             await FoodService.postFoodRecord(
                 userID, this.foodimage, this.subFoodName, this.foodweight, this.foodcalori, this.foodfat,
-                this.foodcarbon, this.foodfiber, meal, Date.now()
+                this.foodcarbon, this.foodfiber, meal, Date.now()+8*60*60*1000
             )
             alert("新增飲食成功")
         },

@@ -84,7 +84,7 @@ export default {
                     this.sugar,
                     this.fiber,
                     this.timeSlot,
-                    Date.now()
+                    Date.now()+8*60*60*1000
                 )
                 this.clearnInput()
                 alert('新增飲食成功')
