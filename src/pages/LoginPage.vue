@@ -24,6 +24,7 @@
     methods: {
       login(){
         //-- write login authencation logic here! --
+        console.log("login")
         if( this.userName == 'selab' && this.password == 'selab'){
             localStorage.setItem('token','Imlogin')
             this.$router.push('../');
