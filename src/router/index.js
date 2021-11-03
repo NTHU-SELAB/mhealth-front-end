@@ -19,7 +19,7 @@ import TemperatureRecordPage from '@/pages/TemperatureRecordPage.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: __dirname,
     routes: [
@@ -113,3 +113,18 @@ export default new Router({
         }
     ]
 })
+/*
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login') {
+        next();
+    } else {
+        let token = localStorage.getItem('Authorization');
+        if (token === 'null' || token === '') {
+            next('/login');
+        } else {
+            next();
+        }
+    }
+});
+*/
+export default router;
