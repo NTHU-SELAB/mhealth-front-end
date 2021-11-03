@@ -19,7 +19,7 @@ router.beforeEach(function (to, from, next) {
     } else {
       if (to.path !== '/login' && to.path !== '/food-calendar' && to.path !== '/add-food-manually'
         && to.path !== '/add-food-camera' && to.path !== '/food-record' && to.path !== '/calendar-detail/:year/:month/:day'){
-        next('/login');
+        next({name:'login-page'});
       }
       else{
         next();
