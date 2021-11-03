@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         start() {
-            this.$router.push({name: 'food-calendar-page'})
+            this.$router.push({name: 'food-calendar-web-page'})
         }
     }
 }
