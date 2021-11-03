@@ -24,10 +24,9 @@
     methods: {
       login(){
         //-- write login authencation logic here! --
-        let auth = false;
-        if( this.userName === 'selab' && this.password === 'selab'){
+        if( this.userName == 'selab' && this.password == 'selab'){
             localStorage.setItem('token','Imlogin')
-            this.$router.push('/');
+            this.$router.push('../');
         }else{
             alert('login failed')
         } 
