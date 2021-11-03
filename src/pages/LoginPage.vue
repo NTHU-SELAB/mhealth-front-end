@@ -49,6 +49,9 @@ export default {
             ]
         }
     },
+    mounted(){
+        window.vue = this
+    },
     methods: {
         login() {
             let msg = this.user_account
