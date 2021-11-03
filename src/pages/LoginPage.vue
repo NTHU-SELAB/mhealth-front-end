@@ -8,14 +8,12 @@
                 <select v-model="user_account">
                     <option value="">請選擇</option>
                     <option v-for="account in accounts_lists" v-bind:key=account value="{{ account.userId }}">{{account.name}}</option>
-                </select>
-                </p>
+                </select></p>
+                <p>{{this.user_account}}</p>
                 <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
                 
                 <button id="btn-login" type="submit" @click = "login()">登入</button>
             </div>
-
-
         </div>
     </div>
 </template>
