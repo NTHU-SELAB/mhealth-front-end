@@ -3,15 +3,18 @@ import Router from 'vue-router'
 import MainPage from '@/pages/MainPage.vue'
 import AddFoodManuallyPage from '@/pages/AddFoodManuallyPage.vue'
 import AddFoodCameraPage from '@/pages/AddFoodCameraPage.vue'
-import RestaurantPage from '@/pages/RestaurantPage.vue'
-import RestaurantFoodPage from '@/pages/RestaurantFoodPage.vue'
+//import RestaurantPage from '@/pages/RestaurantPage.vue'
+//import RestaurantFoodPage from '@/pages/RestaurantFoodPage.vue'
 import FoodRecordPage from '@/pages/FoodRecordPage.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
-import FoodDairyPage from '@/pages/FoodDairyPage.vue'
+//import FoodDairyPage from '@/pages/FoodDairyPage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
-
 import CalendarDetailPage from '@/pages/CalendarDetailPage'
+
+import FoodRecordWebPage from '@/pages/FoodRecordWebPage.vue'
+import FoodCalendarWebPage from '@/pages/FoodCalendarWebPage.vue'
+import CalendarDetailWebPage from '@/pages/CalendarDetailWebPage'
 import ExerciseRecordPage from '@/pages/ExerciseRecordPage.vue'
 import WaterRecordPage from '@/pages/WaterRecordPage.vue'
 import BloodPressureRecordPage from '@/pages/BloodPressureRecordPage.vue'
@@ -29,7 +32,7 @@ const router = new Router({
             component: MainPage,
             children: [
                 {
-                    path: '/',
+                    path: '/land',
                     name: 'landing-page',
                     component: LandingPage,
                 },
@@ -61,49 +64,44 @@ const router = new Router({
                 },
                 //pages for web
                 {
-                    path: '/login',
+                    path: '/',
                     name: 'login-page',
                     component: LoginPage,
                 },
                 {
-                    path: '/restaurant',
-                    name: 'restaurant-page',
-                    component: RestaurantPage,
+                    path: '/food-calendar-web',
+                    name: 'food-calendar-web-page',
+                    component: FoodCalendarWebPage,
                 },
                 {
-                    path: '/restaurant/food',
-                    name: 'restaurant-food-page',
-                    component: RestaurantFoodPage,
+                    path: '/calendar-detail-web/:year/:month/:day',
+                    name: 'calendar-detail-web',
+                    component: CalendarDetailWebPage,
                 },
                 {
-                    path: '/food-dairy',
-                    name: 'food-dairy',
-                    component: FoodDairyPage,
+                    path: '/food-record-web',
+                    name: 'food-record-web',
+                    component: FoodRecordWebPage,
                 },
                 {
-                    path: '/exercise-record',
-                    name: 'exercise-record',
+                    path: '/exercise-record-web',
+                    name: 'exercise-record-web',
                     component: ExerciseRecordPage,
                 },
                 {
-                    path: '/water-record',
-                    name: 'water-record',
+                    path: '/water-record-web',
+                    name: 'water-record-web',
                     component: WaterRecordPage,
                 },
                 {
-                    path: '/temperature-record',
-                    name: 'temperature-record',
+                    path: '/temperature-record-web',
+                    name: 'temperature-record-web',
                     component: TemperatureRecordPage,
                 },
                 {
-                    path: '/bloodpressure-record',
-                    name: 'bloodpressure-record',
+                    path: '/bloodpressure-record-web',
+                    name: 'bloodpressure-record-web',
                     component: BloodPressureRecordPage,
-                },
-                {
-                    path: '/calendar-detail/:year/:month/:day',
-                    name: 'calendar-detail',
-                    component: CalendarDetailPage,
                 },
                 {
                     path: '*',

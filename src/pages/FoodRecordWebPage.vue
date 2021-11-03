@@ -1,5 +1,5 @@
 <template>
-    <div id="food-record-page">
+    <div id="food-record-page" v-if="dataReady">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <a class="navbar-brand" href="../land" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,8 +65,47 @@
                 :resizeDebounce="500"
                 ref="chart"/>
             <div>
-                <div v-if="timeFilter !=='today'">每日平均消耗熱量：{{avgCaloriesPerDay}}大卡</div>
-                <div v-else>今日消耗熱量：{{avgCaloriesPerDay}}大卡</div>
+                <div v-if="timeFilter !=='today'">每日平均攝取熱量：{{avgCaloriesPerDay}}大卡</div>
+                <div v-else>今日攝取熱量：{{avgCaloriesPerDay}}大卡</div>
+            </div>
+            <!-- <div class="row food-record mt-2" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                <div class="col-2"><img class="food-icon" :src="recordImage(record.image)" alt=""></div>
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col-6 food-record-detail">
+                            <div>時段：{{record.meal}}</div>
+                            <div>名稱：{{record.name}}</div>
+                            <div>重量：{{record.weight}}g</div>
+                        </div>
+                        <div class="col-6 food-record-detail">
+                            <div>脂肪：{{record.fat}}</div>
+                            <div>卡路里：{{record.calorie}}
+                            </div>
+                            <div>膳食纖維：{{record.fiber}}</div>
+                            <div>碳水化合物：{{record.sugar}}</div>
+                        </div>
+                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-3 mb-2 food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                    <div class="card">
+                        <div class="col-12">
+                            <div class="pl-2 pr-2 pt-2 pb-2"><img class="card-img-top food-icon" :src="recordImage(record.image)" alt=""></div>
+                        </div>
+                        <div class="col-10 food-record-detail">
+                            <div>時段：{{record.meal}}</div>
+                            <div>名稱：{{record.name}}</div>
+                            <div>重量：{{record.weight}} g</div>
+                            <div>脂肪：{{record.fat}} g</div>
+                            <div>卡路里：{{record.calorie}}大卡</div>
+                            <div>膳食纖維：{{record.fiber}} g</div>
+                            <div>碳水化合物：{{record.sugar}} g</div>
+                        </div>
+                        <div class="col-12 food-record-detail">記錄時間：{{new Date(record.recordTime).toLocaleString()}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -91,6 +130,7 @@ export default {
             avgCaloriesPerDay : 0.0,
             foodRecords: [],
             isChartShow: true,
+            dataReady : false,
             chartDataHeader: ['Time', '卡路里'],
             chartData: [],
             chartOptions: {
@@ -102,7 +142,8 @@ export default {
     },
 
     async mounted() {
-        this.changeTimeFilter('today')
+        await this.changeTimeFilter('today')
+        this.dataReady = true
     },
 
     methods: {
@@ -117,8 +158,7 @@ export default {
                 this.isChartShow = true
             else 
                 this.isChartShow = false
-            await 
-                this.refreshFoodRecord()
+            await this.refreshFoodRecord()
             if ( this.timeFilter === 'today' || this.timeFilter === 'week' || this.timeFilter === 'month' ) {
                 this.refreshChart_Week_Month()
             }  // if
@@ -165,6 +205,7 @@ export default {
 
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
+            //this.dataReady = true
         },
         async refreshChart_ThreeMonths_Year() {
             const data = []
@@ -200,6 +241,7 @@ export default {
 
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
+            //this.dataReady = true
         },
         
         async refreshFoodRecord() {
