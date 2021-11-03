@@ -26,10 +26,10 @@ export default {
     },
     methods: {
         login() {
-            if(user_password=='selab')
+            if(this.user_password=='selab')
                 this.$router.push( { name: 'landing-page' } )
             else
-                alert("Wrong Password")
+                alert("Wrong Password") 
         }
     }
 }
@@ -39,11 +39,11 @@ export default {
 <style scoped>
 
 #sign-in-page {
-    background-image:url('../assets/landing-background.jpeg');
+    /* background-image:url('../assets/landing-background.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    transition-property: opacity;
+    transition-property: opacity;*/
     transition-duration: 1.2s;
     transition-timing-function: ease-in-out;
     color: black;
