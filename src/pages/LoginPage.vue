@@ -4,14 +4,11 @@
             <div id="login-frame">
                 <h2 class="mt-4 mb-4" style="font-weight: bold; font-size : 37px;">登入頁面</h2>
                 <p><label class="label-input">LINE ID</label>
-                <!--<input v-model="user_account" class="text-field">-->
                 <select v-model="user_account">
                     <option value="">請選擇</option>
                     <option v-for="account in accounts_lists" v-bind:key=account v-bind:value="account.userId">{{account.name}}</option>
                 </select></p>
-                <p>{{this.user_account}}</p>
                 <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
-                
                 <button id="btn-login" type="submit" @click = "login()">登入</button>
             </div>
         </div>
@@ -47,13 +44,8 @@ export default {
             ]
         }
     },
-    mounted(){
-        window.vue = this
-    },
     methods: {
         login() {
-            let msg = this.user_account
-            console.log(msg)
             if(this.user_password=='selab')
                 this.$router.push( { name: 'landing-page' } )
             else
