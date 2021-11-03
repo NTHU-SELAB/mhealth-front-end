@@ -20,13 +20,16 @@ export default {
     data() {
         return {
             title: '智慧e療健康',
-            user_account : 'U77655323afc0252221566348b3558317',
-            user_password : 'selab'
+            user_account : '',
+            user_password : ''
         }
     },
     methods: {
         login() {
-            this.$router.push( { name: 'landing-page' } )
+            if(user_password=='selab')
+                this.$router.push( { name: 'landing-page' } )
+            else
+                alert("Wrong Password")
         }
     }
 }
@@ -36,11 +39,11 @@ export default {
 <style scoped>
 
 #sign-in-page {
-    /* background-image:url('../assets/landing-background.jpeg');
+    background-image:url('../assets/landing-background.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    transition-property: opacity;*/
+    transition-property: opacity;
     transition-duration: 1.2s;
     transition-timing-function: ease-in-out;
     color: black;
