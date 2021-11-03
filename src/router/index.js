@@ -84,23 +84,23 @@ const router = new Router({
                     component: FoodRecordWebPage,
                 },
                 {
-                    path: '/exercise-record-web',
-                    name: 'exercise-record-web',
+                    path: '/exercise-record',
+                    name: 'exercise-record',
                     component: ExerciseRecordPage,
                 },
                 {
-                    path: '/water-record-web',
-                    name: 'water-record-web',
+                    path: '/water-record',
+                    name: 'water-record',
                     component: WaterRecordPage,
                 },
                 {
-                    path: '/temperature-record-web',
-                    name: 'temperature-record-web',
+                    path: '/temperature-record',
+                    name: 'temperature-record',
                     component: TemperatureRecordPage,
                 },
                 {
-                    path: '/bloodpressure-record-web',
-                    name: 'bloodpressure-record-web',
+                    path: '/bloodpressure-record',
+                    name: 'bloodpressure-record',
                     component: BloodPressureRecordPage,
                 },
                 {
