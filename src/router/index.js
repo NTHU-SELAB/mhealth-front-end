@@ -9,6 +9,7 @@ import FoodRecordPage from '@/pages/FoodRecordPage.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import FoodCalendarPage from '@/pages/FoodCalendarPage.vue'
 import FoodDairyPage from '@/pages/FoodDairyPage.vue'
+import LoginPage from '@/pages/LoginPage.vue'
 
 import CalendarDetailPage from '@/pages/CalendarDetailPage'
 import ExerciseRecordPage from '@/pages/ExerciseRecordPage.vue'
@@ -32,6 +33,7 @@ export default new Router({
                     name: 'landing-page',
                     component: LandingPage,
                 },
+                //pages for line
                 {
                     path: '/food-calendar',
                     name: 'food-calendar-page',
@@ -48,6 +50,22 @@ export default new Router({
                     component: AddFoodCameraPage,
                 },
                 {
+                    path: '/food-record',
+                    name: 'food-record',
+                    component: FoodRecordPage,
+                },
+                {
+                    path: '/calendar-detail/:year/:month/:day',
+                    name: 'calendar-detail',
+                    component: CalendarDetailPage,
+                },
+                //pages for web
+                {
+                    path: '/login',
+                    name: 'login-page',
+                    component: LoginPage,
+                },
+                {
                     path: '/restaurant',
                     name: 'restaurant-page',
                     component: RestaurantPage,
@@ -56,11 +74,6 @@ export default new Router({
                     path: '/restaurant/food',
                     name: 'restaurant-food-page',
                     component: RestaurantFoodPage,
-                },
-                {
-                    path: '/food-record',
-                    name: 'food-record',
-                    component: FoodRecordPage,
                 },
                 {
                     path: '/food-dairy',
@@ -91,6 +104,10 @@ export default new Router({
                     path: '/calendar-detail/:year/:month/:day',
                     name: 'calendar-detail',
                     component: CalendarDetailPage,
+                },
+                {
+                    path: '*',
+                    redirect: '/',
                 }
             ]
         }

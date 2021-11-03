@@ -7,6 +7,7 @@
             </button>
 
             <!--網頁目錄在router/index內-->
+            <!--
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -39,6 +40,7 @@
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜尋</button>
                 </form>
             </div>
+            -->
         </nav>
         <div class="container" v-if="dataReady">
             <p>{{year}}/{{month+1}}</p>

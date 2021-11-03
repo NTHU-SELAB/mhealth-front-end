@@ -7,6 +7,7 @@
             </button>
 
             <!--網頁目錄在router/index內-->
+            <!--
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -38,7 +39,9 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="輸入文字以搜尋..." aria-label="Search">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜尋</button>
                 </form>
+
             </div>
+            -->
         </nav>
 
         <div class="container">
