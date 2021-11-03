@@ -51,7 +51,8 @@ export default {
     },
     methods: {
         login() {
-            console.log(this.user_account)
+            let msg = this.user_account
+            console.log(msg)
             if(this.user_password=='selab')
                 this.$router.push( { name: 'landing-page' } )
             else
