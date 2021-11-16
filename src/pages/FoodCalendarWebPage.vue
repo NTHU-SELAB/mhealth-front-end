@@ -10,25 +10,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:food-calendar-web, params:{userID:this.userID}}">飲食日曆</router-link>
+                        <router-link class="nav-link" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:food-record-web, params:{userID:this.userID}}">飲食紀錄</router-link>
+                        <router-link class="nav-link" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:exercise-record, params:{userID:this.userID}}">運動紀錄</router-link>
+                        <router-link class="nav-link" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:water-record, params:{userID:this.userID}}">飲水紀錄</router-link>
+                        <router-link class="nav-link" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:temperature-record, params:{userID:this.userID}}">體溫紀錄</router-link>
+                        <router-link class="nav-link" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:bloodpressure-record, params:{userID:this.userID}}">血壓紀錄</router-link>
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:login-page}">登出</router-link>
+                        <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
                     <!--
                     <li class="nav-item active">
