@@ -38,6 +38,7 @@
         <p>{{this.warn}}</p>
         <p>{{this.pictureURL}}</p>
         <p>{{this.hasWarn}}</p>
+        <p>{{this.data}}</p>
         </div>
         <div class="container" v-if="dataReady">
             <img :src="pictureURL">
@@ -66,6 +67,7 @@ export default {
             warn : "",
             pictureURL :"",
             hasWarn : false,
+            data:[1],
         }
     },
 
@@ -80,12 +82,13 @@ export default {
             this.userID = this.$route.params.userID
         },
         async getBloodPressure(){
-            let bloodPressure = await FoodService.getBloodPressure(this.userID)
+            var bloodPressure = await FoodService.getBloodPressure(this.userID)
             if(bloodPressure.HasWarn==1){
                 this.hasWarn = true
                 this.warn = bloodPressure.HealthWarn
             }
             this.pictureURL = bloodPressure.GraphURL
+            this.data = bloodPressure
         },
     }
 }
