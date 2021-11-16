@@ -56,5 +56,35 @@ export default {
         formdata.append( "queryTime", t)
         const response = await Api1().post('graph/blood_pressure_warn.php',formdata)
         return response.data    
-    }
+    },
+    async getWater(userID){
+        var formdata = new FormData()
+        formdata.append( "userID", userID )
+        formdata.append( "getGraph", 1)
+        let timeNow = new Date()
+        let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
+        formdata.append( "queryTime", t)
+        const response = await Api1().post('graph/water_warn.php',formdata)
+        return response.data    
+    },
+    async getTemperature(userID){
+        var formdata = new FormData()
+        formdata.append( "userID", userID )
+        formdata.append( "getGraph", 1)
+        let timeNow = new Date()
+        let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
+        formdata.append( "queryTime", t)
+        const response = await Api1().post('graph/temperature_warn.php',formdata)
+        return response.data    
+    },
+    async getSportPicture(userID){
+        var formdata = new FormData()
+        formdata.append( "userID", userID )
+        formdata.append( "getGraph", 1)
+        let timeNow = new Date()
+        let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
+        formdata.append( "queryTime", t)
+        const response = await Api1().post('graph/sport.php',formdata)
+        return response.data    
+    },
 }
