@@ -1,5 +1,5 @@
 <template>
-    <div id="sign-in-page">
+    <div id="sign-in-page" v-if="readyLogin">
         <div>       
             <div id="login-frame">
                 <h2 class="mt-4 mb-4" style="font-weight: bold; font-size : 37px;">登入頁面</h2>
@@ -43,11 +43,14 @@ export default {
                 {userId:'Uee345a4d3f9efb85a7ae2d1608895d82',name:'Chelsy 真華'},
                 {userId:'Ufda8d1787b0074dd932c401fc9df793e',name:'亞泰電機技師事務所'},
             ]*/
-            accounts_lists: []
+            accounts_lists: [],
+            readyLogin : false
         }
     },
     async mounted(){
         await this.refreshAccountList()
+        await this.showLogin()
+        console.log("showLogin")
     },
     methods: {
         login() {
@@ -55,6 +58,9 @@ export default {
                 this.$router.push( { name: 'landing-page' } )
             else
                 alert("Wrong Password") 
+        },
+        async showLogin(){
+            this.readyLogin = true
         },
         async refreshAccountList(){
             var tempList = await FoodService.getAllUserInfo()
