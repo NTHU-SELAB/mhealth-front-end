@@ -50,8 +50,10 @@ export default {
     async getBloodPressure(){
         var formdata = new FormData()
         formdata.append( "userID", this.userID )
-        formdata.append( "getGraph", true)
-        formdata.append( "queryTime", Date.now())
+        formdata.append( "getGraph", 1)
+        let timeNow = new Date()
+        let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
+        formdata.append( "queryTime", t)
         const response = await Api1().post('graph/blood_pressure_warn.php',formdata)
         return response.data    
     }
