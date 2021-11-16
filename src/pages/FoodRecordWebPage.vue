@@ -247,15 +247,15 @@ export default {
             const userId = await LiffService.getUserId()
             var dateNow = Date.now()
             if (this.timeFilter === 'today') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
+                this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24)
             } else if (this.timeFilter === 'week') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
+                this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24*7)
             } else if (this.timeFilter === 'month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
+                this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24*30)
             } else if (this.timeFilter === 'three-month') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
+                this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24*30*3)
             } else if (this.timeFilter === 'year') {
-                this.foodRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
+                this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24*30*12)
             }
         },
 
