@@ -86,6 +86,7 @@ export default {
             timeFilter: 'today',
             avgCaloriesPerDay : 0.0,
             foodRecords: [],
+            userID : '',
             isChartShow: true,
             chartDataHeader: ['Time', '卡路里'],
             chartData: [],
@@ -98,6 +99,7 @@ export default {
     },
 
     async mounted() {
+        await this.refreshUserID()
         this.changeTimeFilter('today')
     },
 
@@ -106,7 +108,9 @@ export default {
         chartContent() {
             return [this.chartDataHeader, ...this.chartData]
         },
-
+        async refreshUserID(){
+            this.userID = this.$route.params.userID
+        },
         async changeTimeFilter(filter) {
             this.timeFilter = filter
             if ( this.timeFilter !== 'today' ) 
