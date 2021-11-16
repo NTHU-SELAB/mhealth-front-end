@@ -35,7 +35,7 @@
         </nav>
         <div class="container" v-if="dataReady">
             <img :src="pictureURL">
-            <p>{{this.data}}</p>
+            <!--<p>{{this.data}}</p>-->
         </div>
     </div>
 </template>
