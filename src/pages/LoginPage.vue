@@ -47,7 +47,7 @@ export default {
         }
     },
     async mounted(){
-        this.refreshAccountList()
+        await this.refreshAccountList()
     },
     methods: {
         login() {
