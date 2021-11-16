@@ -37,37 +37,6 @@
         <div class="container">
             <img :src="pictureURL">
             <p v-if="hasWarn">{{this.warn}}</p>
-            <!--
-            <ul class="nav nav-pills nav-fill">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='week'}" @click="changeTimeFilter('week')">一週</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='month'}" @click="changeTimeFilter('month')">一個月</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='three-month'}" @click="changeTimeFilter('three-month')">三個月</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
-                </li>
-            </ul>
-            
-            <GChart style="height:210px;width:100%;" v-show="isChartShow"
-                type="LineChart"
-                :data="chartContent()"
-                :options="chartOptions"
-                :resizeDebounce="500"
-                ref="chart"/>
-            <div>
-                <div v-if="timeFilter !=='today'">每日平均血壓：{{avgBloodPressurePerDay}}mmHg</div>
-                <div v-else>今日平均血壓：{{avgBloodPressurePerDay}}mmHg</div>
-                <div>註:平均血壓=(收縮壓 + 2 x 舒張壓)/3</div>
-            </div>
-            -->
         </div>
     </div>
 </template>
@@ -96,7 +65,7 @@ export default {
 
     async mounted() {
         await this.refreshUserID()
-        await this.getBloodPressure()
+        this.getBloodPressure()
     },
 
     methods: {
@@ -111,12 +80,6 @@ export default {
             }
             this.pictureURL = bloodPressure.GraphURL
         },
-        recordImage(imagePath) {
-            if (imagePath.indexOf('https://') === 0) {
-                return imagePath
-            } else return require('../assets/food-icon.png')
-        },
-        
     }
 }
 
