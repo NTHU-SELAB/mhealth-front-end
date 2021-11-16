@@ -47,9 +47,9 @@ export default {
         const response = await Api1().post('lineUser/queryUserInfo.php')
         return response.data    
     },
-    async getBloodPressure(){
+    async getBloodPressure(userID){
         var formdata = new FormData()
-        formdata.append( "userID", this.userID )
+        formdata.append( "userID", userID )
         formdata.append( "getGraph", 1)
         let timeNow = new Date()
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
