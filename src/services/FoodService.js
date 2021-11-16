@@ -40,6 +40,11 @@ export default {
             userID, image, name, weight, calorie, fat, sugar, fiber, meal, timestamp
         })
         return response
-    }
+    },
 
+    async getAllUserInfo(){
+        var formdata = new FormData()
+        const response = await Api().post('lineUser/queryUserInfo.php')
+        return response.data    
+    }
 }

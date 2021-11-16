@@ -6,7 +6,7 @@
                 <p><label class="label-input">LINE ID</label>
                 <select v-model="user_account">
                     <option value="">請選擇</option>
-                    <option v-for="account in accounts_lists" v-bind:key=account v-bind:value="account.userId">{{account.name}}</option>
+                    <option v-for="account in accounts_lists" v-bind:key=account v-bind:value="account.lineID">{{account.name}}</option>
                 </select></p>
                 <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
                 <button id="btn-login" type="submit" @click = "login()">登入</button>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import FoodService from '../services/FoodService'
 // 吾健康網頁 之 開始畫面
 export default {
     data() {
@@ -23,7 +24,7 @@ export default {
             title: '智慧e療健康',
             user_account : '',
             user_password : '',
-            accounts_lists:[
+            /*accounts_lists:[
                 {userId:'U0110609f3c48837dfb9df7374e3aebab',name:'cyhuangtw'},
                 {userId:'U172daf328b95252095d060276e834fe9',name:'劉煥澤'},
                 {userId:'U75c4b2e55fa747525f77df0ce12f0045',name:'大強(盛,舜,斌)'},
@@ -41,8 +42,12 @@ export default {
                 {userId:'Uedd9e265d4663947057bdf33a6dec9e0',name:'楊宗翰'},
                 {userId:'Uee345a4d3f9efb85a7ae2d1608895d82',name:'Chelsy 真華'},
                 {userId:'Ufda8d1787b0074dd932c401fc9df793e',name:'亞泰電機技師事務所'},
-            ]
+            ]*/
+            accounts_lists: []
         }
+    },
+    async mounted(){
+        this.refreshAccountList()
     },
     methods: {
         login() {
@@ -50,6 +55,10 @@ export default {
                 this.$router.push( { name: 'landing-page' } )
             else
                 alert("Wrong Password") 
+        },
+        async refreshAccountList(){
+            var tempList = await FoodService.getAllUserInfo()
+            this.accounts_lists = tempList
         }
     }
 }
