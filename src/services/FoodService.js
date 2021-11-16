@@ -1,4 +1,5 @@
 import Api from '@/services/Api.js'
+import Api1 from '@/services/Api1.js'
 import qs from 'qs'
 
 export default {
@@ -43,8 +44,7 @@ export default {
     },
 
     async getAllUserInfo(){
-        var formdata = new FormData()
-        const response = await Api().post('lineUser/queryUserInfo.php')
+        const response = await Api1().post('lineUser/queryUserInfo.php')
         return response.data    
     }
 }
