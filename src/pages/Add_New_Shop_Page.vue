@@ -1,7 +1,7 @@
 <template>
     <div id = "add-new-shop" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,7 +80,11 @@ export default {
             // 寫入 DB            
             var temp_res = await ShopService.Post_New_Shop( this.shop_Name, this.shop_Address, this.user_ID, this.selected_beacon_ID )
             this.res = temp_res.errorMsg
-            // this.$router.push( { name: 'shop-info-page' } )
+            if ( temp_res.errorID == 0 )
+                alert( "新增成功！" )
+            else
+                alert( "Error ID : " + temp_res.errorID + "\nError Msg : " + temp_res.errorMsg )
+            this.$router.push( { name: 'shop-info-page' } )
         },
         async Cancel_and_Return() {
             this.$router.push( { name: 'shop-info-page' } )

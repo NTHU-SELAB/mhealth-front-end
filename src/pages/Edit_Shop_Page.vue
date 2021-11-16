@@ -1,7 +1,7 @@
 <template>
     <div id = "edit-shop" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -83,6 +83,10 @@ export default {
         async Update_Shop() {
             // TODO 寫入 DB
             this.res = await ShopService.Update_Shop(  this.shop_ID, this.selected_beacon_ID, this.user_ID, this.shop_Name, this.shop_Address )
+            if ( this.res.errorID == 0 )
+                alert( "修改成功！" )
+            else
+                alert( "Error ID : " + this.res.errorID + "\nError Msg : " + this.res.errorMsg )
             this.$router.push( { name: 'shop-info-page' } )
         },
         async Cancel_and_Return() {

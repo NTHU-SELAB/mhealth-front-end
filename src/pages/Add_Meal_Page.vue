@@ -1,7 +1,7 @@
 <template>
     <div id = "add-meal-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,7 +42,7 @@
                         <input v-model="temp_Meal.size" class="input-text-add-meal" type="number" min="0" required /> 公克
                     </p>               
                     <p><label class="label-input-add-meal">餐點內容：</label></p>
-                    <p><textarea v-model="temp_Meal.Description" maxlength="100" class="input-area-add-meal"></textarea></p>
+                    <p><textarea v-model="temp_Meal.description" maxlength="100" class="input-area-add-meal"></textarea></p>
                     <div style="width:50%; float:left; padding-top: 15px; padding-bottom:15px;">                   
                         <p>
                             <label class="label-input-add-meal">熱量：</label>
@@ -79,33 +79,51 @@
                             <input v-model="temp_Meal.sodium" class="input-text-add-meal" type="number" min="0" /> 毫克
                         </p>        
                     </div>
-                    <p><label class="label-input-add-meal">餐點圖片：</label><input name="image" type="file" maxlength="100" class="input-text-add-meal2"></p>   
+                    <p>
+                        <label class="label-input-add-meal">餐點圖片：</label>
+                        <input name="image" ref="fileInput" type="file" maxlength="100" class="input-text-add-meal2" @change="Upload_Image()">
+                    </p>   
                     <h1 style="margin:10px; margin-bottom:20px">餐點推薦</h1>
                     <div>
-                        <p> 
-                                          
+                        <p>
+                            <label class="label-input-add-meal">是否要推薦？：</label>
+                            <input v-model="recommend_Meal.want_to_recmd" type="radio" value="1" /><label class="label-input-add-meal">是</label>
+                            <input v-model="recommend_Meal.want_to_recmd" type="radio" value="0" /><label class="label-input-add-meal">否</label>
+                        </p>
+                        <p>                                         
                             <label class="label-input-add-meal">推薦年齡：</label>
                             <select v-model="recommend_Meal.target_Age">
                                 <option disabled value="">請選擇</option>
-                                <option value="-1">不限年齡</option>
-                                <option v-for="n in 100" v-bind:key="n">{{n}}</option>
+                                <option value="null">不限年齡</option>
+                                <option v-for="n in 70" v-bind:key="n">{{71 - n}}</option>
                             </select> 
                         </p>
                         <p>            
                             <label class="label-input-add-meal">推薦性別：</label>
                             <input v-model="recommend_Meal.target_Gender" type="radio" value="male" /><label class="label-input-add-meal">男性</label>
                             <input v-model="recommend_Meal.target_Gender" type="radio" value="female" /><label class="label-input-add-meal">女性</label>
-                            <input v-model="recommend_Meal.target_Gender" type="radio" value="none" /><label class="label-input-add-meal">不限性別</label>
+                            <input v-model="recommend_Meal.target_Gender" type="radio" value="null" /><label class="label-input-add-meal">不限性別</label>
+                        </p>
+                        <p>
+                            <label class="label-input-add-meal">推薦內容：</label>
+                            <input v-model="copy_meal_des" type="radio" value="true" /><label class="label-input-add-meal">同餐點內容</label>
+                            <input v-model="copy_meal_des" type="radio" value="false" /><label class="label-input-add-meal">自訂</label>
+                        </p>
+                        <p>
+                            <textarea v-model="recommend_Meal.description" maxlength="100" class="input-area-add-meal"></textarea>
                         </p>
                     </div>                       
                     <p style="text-align:center;">
                         <button id="btn-adding" type="submit">新增</button>  
-                        <button id="btn-adding" type="reset">重設</button>
+                        <button id="btn-adding" type="reset" @click="Reset()">重設</button>
                         <button id="btn-adding" type="button" @click="Cancel_and_Return()">取消</button>
                     </p>
                 </form>  
             </div>
             <p>result = "{{res}}"</p>
+            <!-- <p>shop_ID = "{{shop_ID}}"</p>
+            <p>image = "{{this.temp_Meal.image}}"</p>
+            <img :src="this.temp_Meal.image" /> -->
         </div>        
     </div>
 </template>
@@ -118,7 +136,6 @@ export default {
         return {
             temp_Meal : {
                 user_ID : "U77655323afc0252221566348b3558317",
-                shop_ID : "1",
                 name : "",             // 餐點名稱 char[20]        
                 calories : 0,          // 熱量
                 carbohydrates : 0,     // 碳水化合物
@@ -131,28 +148,68 @@ export default {
                 size : 0,              // 餐點份量
                 description : "",      // 餐點內容 char[100]     
                 price : 0,
-                image :`https://mhealth-service.feveral.me/${this.$route.query.image}`   // 圖片路徑 char[100]
+                image : null
+                // `https://mhealth-service.feveral.me/${this.$route.query.image}`   // 圖片路徑 char[100]
             },
 
             recommend_Meal : {
                 shop_ID : 1,
                 meal_ID : 0,
-                target_ID : 0,
-                target_Age : 0,
-                target_Gender : "none"
+                target_Age : null,
+                target_Gender : null,
+                description : "",
+                want_to_recmd : 0
             },
-            res : ""
+            copy_meal_des : false,
+            shop_ID : "",
+            res : "",
+            preview : null
         }
     },  // data()
+    async mounted() {
+        await this.Set_All_Vars()
+    },
 
     methods: {
         async Add_Meal() {
-            // 寫入 DB
-            this.res = await MealService.Insert_Meal( this.temp_Meal )
-            // this.$router.push( { name: 'meal-record-page' } ) 
+            // 寫入 DB          
+            this.res = await MealService.Insert_Meal( this.temp_Meal, this.shop_ID )
+            if ( this.res.errorID == 0 )
+                alert( "新增成功！" )
+            else
+                alert( "Error ID : " + this.res.errorID + "\nError Msg : " + this.res.errorMsg )
+
+            if ( this.copy_meal_des )
+                this.recommend_Meal.description = this.temp_Meal.description
+            this.recommend_Meal.shop_ID = this.shop_ID
+            this.recommend_Meal.meal_ID = this.res.insMID
+            this.res = await MealService.Insert_Target( this.recommend_Meal )
+            if ( this.res.errorID == 0 )
+                alert( "新增推薦成功！" )
+            else
+                alert( "Error ID : " + this.res.errorID + "\nError Msg : " + this.res.errorMsg )
+
+            this.$router.push( { name: 'meal-record-page' } ) 
         },
         async Cancel_and_Return() {
             this.$router.push( { name: 'meal-record-page' } )
+        },
+        async Set_All_Vars() {
+            this.shop_ID = this.$route.params.shop_ID
+            console.log( this.shop_ID )
+        },
+        async Upload_Image() {
+            this.temp_Meal.image = this.$refs.fileInput.files[0]        
+        },
+        async Reset() {
+            this.recommend_Meal.target_Age = -1
+            this.recommend_Meal.target_Gender = null
+        },
+        async PushMsgChange( same ) {
+            if ( same )
+                this.recommend_Meal.description = this.temp_Meal.description
+            else
+                this.recommend_Meal.description = ""
         }
     }
 }
@@ -214,6 +271,19 @@ export default {
     font-size: 20px;
     font-family: 宋體;
     width: 120px;
+    height: 30px;
+    margin: 25px;
+    line-height: 28px;
+    text-align: center;
+    color: black;
+    border-radius: 6px;
+    border: 2px black solid;
+}
+
+#btn-copy {
+    font-size: 20px;
+    font-family: 宋體;
+    width: 200px;
     height: 30px;
     margin: 25px;
     line-height: 28px;

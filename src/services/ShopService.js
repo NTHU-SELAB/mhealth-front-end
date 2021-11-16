@@ -12,10 +12,6 @@ export default {
         return response.data
     },
     
-    // async Get_Shop_By_Owner( user_ID ) {
-    //     const response = await Api().get(`Shop/GetShopsByOwner.php?shopOwner=${user_ID}`)
-    //     return response.data
-    // },
     async Get_Shop_By_Owner( user_ID ) {
         var formdata = new FormData()
         formdata.append( "shopOwner", user_ID )
@@ -38,8 +34,11 @@ export default {
         const response = await Api().post( 'Shop/UpdateShop.php', formdata )
         return response.data
     },
-    async Delete_Shop() {
-        
+    async Delete_Shop( shop_ID ) {
+        var formdata = new FormData()
+        formdata.append( "shopID", shop_ID ) 
+        const response = await Api().post( 'Shop/DeleteShop.php', formdata )
+        return response.data
     }
 
 }

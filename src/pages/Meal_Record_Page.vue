@@ -1,7 +1,7 @@
 <template>
     <div id = "meal-record-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,7 +31,7 @@
         <div class="view-page">
             <!--檢視頁面-->
             <div class="adding-form">               
-                <h1>餐點資訊</h1>
+                <h1>餐點內容</h1>
                 <div>
                     <select v-model="selected_shop" @change="Refresh_Meal_Records()">
                         <option disabled value="">請選擇餐廳</option>
@@ -40,16 +40,16 @@
                     <!-- <p>ID = {{this.error_Msg}}</p> -->
                 </div>
                 <!--從下拉式清單選擇餐廳後印出它的餐點-->
+                <p v-if="selected_shop != ''">
+                    <button id="btn-adding" type="submit" @click="Add_Meal()">新增餐點</button>
+                </p>
                 <div v-if="meal_List.length > 0">
-                    <p>
-                        <button id="btn-adding" type="submit" @click="Add_Meal()">新增餐點</button>
-                    </p>
                     <div class="row" >
                         <div class="col-12 col-sm-4 col-lg-3 mb-4" v-for="meal in meal_List" v-bind:key="meal">
                             <div class="card">
-                                <div class="img_area">
-                                    <div class="pl-4 pr-4 pt-4 pb-4" @click="To_Edit_Page( meal )">
-                                        <img src="../assets/pork_don.jpg" class="card-img-top food-icon">
+                                <div class="img-area">
+                                    <div class="pl-4 pr-4 pt-4 pb-4">
+                                        <img :src="'https://selab1.cs.nthu.edu.tw/mhealth/' + meal.img" class="img-area">
                                     </div>
                                     
                                 </div>
@@ -58,13 +58,19 @@
                                     <p class="card-text" style="margin-bottom: 3px; font-weight: bold; color: #8e9191;">價格：{{meal.price}} 元</p>
                                     <p class="card-text" style="color: red;margin-bottom: 3px;">熱量：{{meal.calorie}} 大卡</p>
                                     <!-- <a href="#" class="btn btn-primary">查看明細</a> -->
+                                    
+                                    <button id="btn-menu" @click="To_Edit_Page( meal )">修改</button>
+                                    <button id="btn-menu" @click="Delete_Meal( meal.mealID, meal.mealName )">刪除</button>
+                                    
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>   
+        <!-- <p>Select = {{selected_shop}}</p>      -->
     </div>
 </template>
 
@@ -78,7 +84,7 @@ export default {
             error_Msg : -1,
             user_ID : "U77655323afc0252221566348b3558317",
             selected_shop : "",
-            shop_List : [ { shopName : "好吃的丼飯店"} ],    // 從DB讀取到的餐廳清單
+            shop_List : [],    // 從DB讀取到的餐廳清單
             // 根據選擇的餐廳對應的餐點資訊  
             meal_List : []            
         }
@@ -89,10 +95,8 @@ export default {
 
     methods: {
         async Add_Meal() {
-            this.$router.push( { name: 'add-meal-page' } )
-        },
-        async Delete_Meal() {
-
+            var shop_ID = this.selected_shop
+            this.$router.push( { name: 'add-meal-page', params : { shop_ID } } )
         },
         async Get_Shop_List() {
             // 用 selected_shop 到 DB 查詢已選取的餐廳對應的餐點
@@ -104,11 +108,37 @@ export default {
         async Refresh_Shop_List() {
             var temp_List = await ShopService.Get_Shop_By_Owner( this.user_ID )
             this.shop_List = temp_List.shopList
+            if ( this.shop_List.length > 0 )
+                this.selected_shop = this.shop_List[0].shopID
+            else
+                this.selected_shop = ""
+            this.Refresh_Meal_Records()
         },
         async To_Edit_Page( meal ) {
             // this.error_Msg = meal.mealName
-
-            this.$router.push( { name: 'edit-meal-page', params : { meal } } )
+            var shop_ID = this.selected_shop
+            this.$router.push( { name: 'edit-meal-page', params : { meal, shop_ID } } )
+        },
+        async Delete_Meal( meal_ID, meal_Name ) {
+            var del = confirm( "確定要刪除 " + meal_Name + " 嗎？" )
+            if ( ! del )
+                return
+            var target_ID = -1
+            var data = await MealService.Get_Targets_By_Shop( this.selected_shop )
+            data.targetList.forEach( tar => {
+                if ( tar.targetMealID == meal_ID ) {
+                    target_ID = tar.targetID
+                }   // if
+            });
+            if ( target_ID > -1 )
+                var res = await MealService.Delete_Target( target_ID )
+            res = await MealService.Delete_Meal( meal_ID )
+            if ( res.errorID == 0 )
+                alert( "刪除成功！" )
+            else
+                alert( "Error ID : " + res.errorID + "\nError Msg : " + res.errorMsg )
+            await this.Refresh_Meal_Records()
+            window.scrollTo( 0, 0 )
         }
     }
 }
@@ -155,9 +185,10 @@ export default {
     line-height: 20px;
     text-align: center;
 }
-.img_area {
+.img-area {
     width: 100%;
-    height: 260px;
+    height: 240px;
+    margin-bottom: 15px;
 }
 
 .card {
@@ -167,5 +198,19 @@ export default {
 .card-body {
     padding-bottom: 15px;
     font-size: 20px;
+}
+
+#btn-menu {
+    position :sticky;
+    font-size: 20px;
+    font-family: 宋體;
+    width: 100px;
+    height: 30px;
+    margin: 25px;
+    line-height: 28px;
+    text-align: center;
+    color: black;
+    border-radius: 6px;
+    border: 2px black solid;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div id = "shop-info-page" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >Health Chat</a>
+            <a class="navbar-brand" href="../" >智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,7 +48,7 @@
                         </div>
                         <div>
                             <button id="btn-adding" @click="To_Eidt_Shop_Page( shop )">修改</button>
-                            <button id="btn-adding">刪除</button>
+                            <button id="btn-adding" @click="Delete_Shop( shop.shopID, shop.shopName )">刪除</button>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,12 @@ export default {
         }
     },  // data()
     async mounted() {
-        await this.Get_Shop_List()
+        try {
+            await this.Get_Shop_List()
+        }
+        catch ( err ) {
+            console.log( err )
+        }
     },
     methods: {
         async Add_Shop() {
@@ -80,6 +85,18 @@ export default {
         },
         async To_Eidt_Shop_Page( shop ) {
             this.$router.push( { name: 'edit-shop-page', params : { shop } } )
+        },
+        async Delete_Shop( shop_ID, shop_Name ) {
+            var del = confirm( "確定要刪除 " + shop_Name + " 嗎？" )
+            if ( ! del )
+                return
+            var res = await ShopService.Delete_Shop( shop_ID )
+            if ( res.errorID == 0 )
+                alert( "刪除成功！" )
+            else
+                alert( "Error ID : " + res.errorID + "\nError Msg : " + res.errorMsg )
+            await this.Get_Shop_List()
+            window.scrollTo( 0, 0 )
         }
     }
 }
