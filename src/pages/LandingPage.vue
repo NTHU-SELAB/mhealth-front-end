@@ -42,7 +42,8 @@ export default {
     },
     methods: {
         start() {
-            this.$router.push({name: 'food-calendar-web-page'})
+            const p = this.$route.params.userID
+            this.$router.push(`/food-calendar-web/${p}`)
         }
     }
 }
