@@ -33,7 +33,12 @@
                 </ul>
             </div>
         </nav>
-
+        <div>
+        <p>{{this.userID}}</p>
+        <p>{{this.warn}}</p>
+        <p>{{this.pictureURL}}</p>
+        <p>{{this.hasWarn}}</p>
+        </div>
         <div class="container">
             <img :src="pictureURL">
             <p v-if="hasWarn">{{this.warn}}</p>
