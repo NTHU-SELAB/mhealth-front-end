@@ -1,7 +1,7 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../land" >智慧e聊健康</a>
+            <a class="navbar-brand">智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -9,32 +9,32 @@
             <!--網頁目錄在router/index內-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li>
-                    <router-link :to ="{name:food-calendar-web, params:{userID:this.userID}}">飲食日曆</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:food-calendar-web, params:{userID:this.userID}}">飲食日曆</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:food-record-web, params:{userID:this.userID}}">飲食紀錄</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:food-record-web, params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:exercise-record, params:{userID:this.userID}}">運動紀錄</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:exercise-record, params:{userID:this.userID}}">運動紀錄</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:water-record, params:{userID:this.userID}}">飲水紀錄</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:water-record, params:{userID:this.userID}}">飲水紀錄</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:temperature-record, params:{userID:this.userID}}">體溫紀錄</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:temperature-record, params:{userID:this.userID}}">體溫紀錄</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:bloodpressure-record, params:{userID:this.userID}}">血壓紀錄</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:bloodpressure-record, params:{userID:this.userID}}">血壓紀錄</router-link>
                     </li>
-                    <li>
-                    <router-link :to ="{name:login-page}">登出</router-link>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:login-page}">登出</router-link>
                     </li>
                     <!--
                     <li class="nav-item active">
                         <a class="nav-link" href="../food-calendar-web">飲食日曆<span class="sr-only">(current)</span></a>
                     </li>
-                    
+
                     <li class="nav-item active">
                         <a class="nav-link" href="../food-dairy">食物日誌</a>
                     </li>
@@ -113,7 +113,7 @@ export default {
             this.userID = this.$route.params.userID
         },
         routeToCalendarDetail(index,m,y){
-            this.$router.push(`/calendar-detail/${this.userID}/${y}/${m}/${index}`)
+            this.$router.push(`/calendar-detail-web/${this.userID}/${y}/${m}/${index}`)
         },
         async calendarSet(){
             let time = new Date();
