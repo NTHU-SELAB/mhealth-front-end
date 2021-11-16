@@ -70,7 +70,7 @@ const router = new Router({
                 },
                 {
                     path: '/food-calendar-web/:userID',
-                    name: 'food-calendar-web-page',
+                    name: 'food-calendar-web',
                     component: FoodCalendarWebPage,
                 },
                 {
