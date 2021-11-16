@@ -37,19 +37,19 @@
         <div class="container">
             <ul class="nav nav-pills nav-fill">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
+                    <a class="nav-link" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='week'}" @click="changeTimeFilter('week')">一週</a>
+                    <a class="nav-link" :class="{'active': timeFilter==='week'}" @click="changeTimeFilter('week')">一週</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='month'}" @click="changeTimeFilter('month')">一個月</a>
+                    <a class="nav-link" :class="{'active': timeFilter==='month'}" @click="changeTimeFilter('month')">一個月</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='three-month'}" @click="changeTimeFilter('three-month')">三個月</a>
+                    <a class="nav-link" :class="{'active': timeFilter==='three-month'}" @click="changeTimeFilter('three-month')">三個月</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
+                    <a class="nav-link" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
                 </li>
             </ul>
 
