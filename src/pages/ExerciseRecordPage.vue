@@ -47,7 +47,7 @@
 import FoodService from '@/services/FoodService.js'
 
 export default {
-    name: 'temperature-record',
+    name: 'exercise-record',
 
     /*components: {
         GChart
@@ -74,7 +74,7 @@ export default {
         },
         async getSport(){
             var sport = await FoodService.getSportPicture(this.userID)
-            this.data = sport
+            this.pictureURL = sport
         },
     }
 }

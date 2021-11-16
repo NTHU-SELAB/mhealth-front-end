@@ -75,7 +75,7 @@ export default {
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
         formdata.append( "queryTime", t)
         const response = await Api1().post('graph/temperature_warn.php',formdata)
-        return response.data    
+        return response.data
     },
     async getSportPicture(userID){
         var formdata = new FormData()

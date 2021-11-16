@@ -35,6 +35,9 @@
         </nav>
         <div class="container" v-if="dataReady">
             <p>DataReady</p>
+            <p>{{this.pictureURL}}</p>
+            <p>{{this.warn}}</p>
+            <p>{{this.data}}</p>
             <img :src="pictureURL">
             <p v-if="hasWarn">{{this.warn}}</p>
         </div>
@@ -61,6 +64,7 @@ export default {
             warn : "",
             pictureURL :"",
             hasWarn : false,
+            data : [],
         }
     },
 
@@ -74,6 +78,7 @@ export default {
         async refreshUserID(){
             this.userID = this.$route.params.userID
         },
+
         async getTemperature(){
             var temperature = await FoodService.getTemperature(this.userID)
             if(temperature.HasWarn==1){
@@ -81,6 +86,7 @@ export default {
                 this.warn = temperature.HealthWarn
             }
             this.pictureURL = temperature.GraphURL
+            this.data = temperature
         },
     }
 }

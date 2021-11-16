@@ -48,7 +48,7 @@
 import FoodService from '@/services/FoodService.js'
 
 export default {
-    name: 'food-record',
+    name: 'water-record',
 /*
     components: {
         GChart
