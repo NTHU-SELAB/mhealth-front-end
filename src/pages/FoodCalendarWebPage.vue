@@ -9,13 +9,27 @@
             <!--網頁目錄在router/index內-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <li>
                     <router-link :to ="{name:food-calendar-web, params:{userID:this.userID}}">飲食日曆</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:food-record-web, params:{userID:this.userID}}">飲食紀錄</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:exercise-record, params:{userID:this.userID}}">運動紀錄</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:water-record, params:{userID:this.userID}}">飲水紀錄</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:temperature-record, params:{userID:this.userID}}">體溫紀錄</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:bloodpressure-record, params:{userID:this.userID}}">血壓紀錄</router-link>
+                    </li>
+                    <li>
                     <router-link :to ="{name:login-page}">登出</router-link>
+                    </li>
                     <!--
                     <li class="nav-item active">
                         <a class="nav-link" href="../food-calendar-web">飲食日曆<span class="sr-only">(current)</span></a>
@@ -89,7 +103,7 @@ export default {
         }
     },
     async mounted() {
-        await refreshUserID();
+        await this.refreshUserID();
         await this.calendarSet();
         await this.countCalorieDay();
         this.dataReady = true
