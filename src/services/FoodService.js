@@ -46,5 +46,13 @@ export default {
     async getAllUserInfo(){
         const response = await Api1().post('lineUser/queryUserInfo.php')
         return response.data    
+    },
+    async getBloodPressure(){
+        var formdata = new FormData()
+        formdata.append( "userID", this.userID )
+        formdata.append( "getGraph", true)
+        formdata.append( "queryTime", Date.now())
+        const response = await Api1().post('graph/blood_pressure_warn.php',formdata)
+        return response.data    
     }
 }

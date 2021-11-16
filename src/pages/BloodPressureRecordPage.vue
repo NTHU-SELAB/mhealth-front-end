@@ -35,6 +35,9 @@
         </nav>
 
         <div class="container">
+            <img :src="pictureURL">
+            <p v-if="hasWarn">{{this.warn}}</p>
+            <!--
             <ul class="nav nav-pills nav-fill">
                 <li class="nav-item">
                     <a class="nav-link" href="#" :class="{'active': timeFilter==='today'}" @click="changeTimeFilter('today')">當日</a>
@@ -52,7 +55,7 @@
                     <a class="nav-link" href="#" :class="{'active': timeFilter==='year'}" @click="changeTimeFilter('year')">一年</a>
                 </li>
             </ul>
-
+            
             <GChart style="height:210px;width:100%;" v-show="isChartShow"
                 type="LineChart"
                 :data="chartContent()"
@@ -64,160 +67,55 @@
                 <div v-else>今日平均血壓：{{avgBloodPressurePerDay}}mmHg</div>
                 <div>註:平均血壓=(收縮壓 + 2 x 舒張壓)/3</div>
             </div>
+            -->
         </div>
     </div>
 </template>
 
 <script>
 
-import { GChart } from 'vue-google-charts'
-import LiffService from '@/services/LiffService.js'
+//import { GChart } from 'vue-google-charts'
+//import LiffService from '@/services/LiffService.js'
 import FoodService from '@/services/FoodService.js'
 
 export default {
     name: 'bloodpressure-record',
 
-    components: {
+    /*components: {
         GChart
-    },
+    },*/
 
     data() {
         return {
-            timeFilter: 'today',
             userID : '',
-            avgBloodPressurePerDay : 0.0,
-            healthRecords: [],
-            isChartShow: true,
-            chartDataHeader: ['Time', '平均血壓'],
-            chartData: [],
-            chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# mmHg', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
-            }
+            warn : "",
+            pictureURL :"",
+            hasWarn : false,
         }
     },
 
     async mounted() {
         await this.refreshUserID()
-        this.changeTimeFilter('today')
+        await this.getBloodPressure()
     },
 
     methods: {
-
-        chartContent() {
-            return [this.chartDataHeader, ...this.chartData]
-        },
         async refreshUserID(){
             this.userID = this.$route.params.userID
         },
-        async changeTimeFilter(filter) {
-            this.timeFilter = filter
-            if ( this.timeFilter !== 'today' ) 
-                this.isChartShow = true
-            else 
-                this.isChartShow = false
-            await 
-                this.refreshFoodRecord()
-            if ( this.timeFilter === 'today' || this.timeFilter === 'week' || this.timeFilter === 'month' ) {
-                this.refreshChart_Week_Month()
-            }  // if
-            else if ( this.timeFilter === 'three-month' || this.timeFilter === 'year' ) {
-                this.refreshChart_ThreeMonths_Year()
-            }  // else if
-            
+        async getBloodPressure(){
+            let bloodPressure = await FoodService.getBloodPressure(this.userID)
+            if(bloodPressure.HasWarn==1){
+                this.hasWarn = true
+                this.warn = bloodPressure.HealthWarn
+            }
+            this.pictureURL = bloodPressure.GraphURL
         },
-
         recordImage(imagePath) {
             if (imagePath.indexOf('https://') === 0) {
                 return imagePath
             } else return require('../assets/food-icon.png')
         },
-
-        async refreshChart_Week_Month() {
-            const data = []
-            let tmpCalorie = 0      // 當天熱量
-            let tmpDate = false     // 當天日期
-
-            let count_Day = 0       // 總天數
-            let count_Cal = 0       // 總卡路里數
-            this.foodRecords.forEach( ( r ) => {
-                if ( ! tmpDate ) {
-                    count_Day++             
-                    tmpDate = new Date( r.recordTime )
-                    tmpCalorie = 0
-                }  // 初始化
-
-                if ( tmpDate.getDate() != new Date( r.recordTime ).getDate() ) {
-                    data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )
-                    count_Day++
-                    count_Cal += r.calorie
-                    tmpDate = new Date( r.recordTime )
-                    tmpCalorie = r.calorie
-                }  // if
-                else {
-                    count_Cal += r.calorie
-                    tmpCalorie += r.calorie
-                }  // else
-            })
-
-            data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )  // push 最後一筆資料
-
-            this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
-            this.chartData = data.reverse()
-        },
-        async refreshChart_ThreeMonths_Year() {
-            const data = []
-            let tmpCalorie = 0      // 當天熱量
-            let tmpDate = false     // 當天日期
-
-            let count_Day = 0       // 總天數
-            let count_Cal = 0       // 總卡路里數
-            this.foodRecords.forEach( ( r ) => {
-                if ( ! tmpDate ) {                
-                    count_Day++
-                    
-                    tmpDate = new Date( r.recordTime )
-                    tmpCalorie = 0
-                }  // 初始化
-
-                if ( tmpDate.getDate() != new Date( r.recordTime ).getDate() ) 
-                    count_Day++
-
-                if ( tmpDate.getMonth() != new Date( r.recordTime ).getMonth() ) {
-                    data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )
-                    tmpDate = new Date( r.recordTime )
-                    count_Cal += r.calorie
-                    tmpCalorie = r.calorie
-                }  // if
-                else {
-                    count_Cal += r.calorie
-                    tmpCalorie += r.calorie
-                }  // else
-            })
-
-            data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )  // push 最後一筆資料
-
-            this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
-            this.chartData = data.reverse()
-        },
-        
-        async refreshHealthRecord() {
-            const userId = await LiffService.getUserId()
-            var dateNow = Date.now()
-            if (this.timeFilter === 'today') {
-                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24)
-            } else if (this.timeFilter === 'week') {
-                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*7)
-            } else if (this.timeFilter === 'month') {
-                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30)
-            } else if (this.timeFilter === 'three-month') {
-                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*3)
-            } else if (this.timeFilter === 'year') {
-                this.healthRecords = await FoodService.getFoodRecords(userId, dateNow - 1000*3600*24*30*12)
-            }
-        },
-
         
     }
 }

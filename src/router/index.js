@@ -20,6 +20,8 @@ import WaterRecordPage from '@/pages/WaterRecordPage.vue'
 import BloodPressureRecordPage from '@/pages/BloodPressureRecordPage.vue'
 import TemperatureRecordPage from '@/pages/TemperatureRecordPage.vue'
 
+import FuturePage from '@/pages/FuturePage.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -31,6 +33,11 @@ const router = new Router({
             name: 'main-page',
             component: MainPage,
             children: [
+                {
+                    path: '/future',
+                    name: 'future-page',
+                    component: FuturePage,
+                },
                 {
                     path: '/land/:userID',
                     name: 'landing-page',
