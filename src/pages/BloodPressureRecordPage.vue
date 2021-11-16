@@ -39,7 +39,7 @@
         <p>{{this.pictureURL}}</p>
         <p>{{this.hasWarn}}</p>
         </div>
-        <div class="container">
+        <div class="container" v-if="dataReady">
             <img :src="pictureURL">
             <p v-if="hasWarn">{{this.warn}}</p>
         </div>
@@ -61,6 +61,7 @@ export default {
 
     data() {
         return {
+            dataReady: false,
             userID : '',
             warn : "",
             pictureURL :"",
@@ -70,7 +71,8 @@ export default {
 
     async mounted() {
         await this.refreshUserID()
-        this.getBloodPressure()
+        await this.getBloodPressure()
+        this.dataReady = true
     },
 
     methods: {
