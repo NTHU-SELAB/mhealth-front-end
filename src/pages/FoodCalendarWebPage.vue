@@ -30,34 +30,6 @@
                     <li class="nav-item active">
                         <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
-                    <!--
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../food-calendar-web">飲食日曆<span class="sr-only">(current)</span></a>
-                    </li>
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
-                    </li>
-                    
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../food-record-web">飲食紀錄</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../water-record">飲水紀錄</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../">登出</a>
-                    </li>
-                    -->
                 </ul>
             </div>
         </nav>

@@ -1,7 +1,7 @@
 <template>
     <div id="food-calendar-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../land" >智慧e聊健康</a>
+            <a class="navbar-brand">智慧e聊健康</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -10,30 +10,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-calendar-web">飲食日曆<span class="sr-only">(current)</span></a>
-                    </li>
-                    <!--
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
-                    </li>
-                    -->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../food-record-web">飲食紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../water-record">飲水紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../">登出</a>
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
+                    </li>
+                    <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
                 </ul>
             </div>
@@ -76,15 +71,16 @@
 
 <script>
 import FoodService from '@/services/FoodService.js'
-import LiffService from '@/services/LiffService.js'
 
 export default {
     data() {
         return {
+            userID : "",
             mealList : []
         }
     },
     async mounted() {
+        await this.refreshUserID();
         await this.refreshMealList();
     },
     computed:{
@@ -99,10 +95,12 @@ export default {
         },
     },
     methods: {
+        async refreshUserID(){
+            this.userID = this.$route.params.userID
+        },
         async refreshMealList(){
             let time = new Date(this.$route.params.year,this.$route.params.month-1,this.$route.params.day).getTime();
-            const userID = await LiffService.getUserId()
-            this.mealList = await FoodService.getFoodRecordsByDay(userID,time);
+            this.mealList = await FoodService.getFoodRecordsByDay(this.userID,time);
             //console.log(time);
         },
         recordImage(imagePath) {
