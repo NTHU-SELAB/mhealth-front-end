@@ -64,7 +64,7 @@ export default {
 
     async mounted() {
         await this.refreshUserID()
-        await this.getTemperature()
+        await this.getSport()
         this.dataReady = true
     },
 

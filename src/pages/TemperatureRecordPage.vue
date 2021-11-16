@@ -34,6 +34,7 @@
             </div>
         </nav>
         <div class="container" v-if="dataReady">
+            <p>DataReady</p>
             <img :src="pictureURL">
             <p v-if="hasWarn">{{this.warn}}</p>
         </div>
