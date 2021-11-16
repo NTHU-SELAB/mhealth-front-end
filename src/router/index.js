@@ -32,7 +32,7 @@ const router = new Router({
             component: MainPage,
             children: [
                 {
-                    path: '/land',
+                    path: '/land/:userID',
                     name: 'landing-page',
                     component: LandingPage,
                 },

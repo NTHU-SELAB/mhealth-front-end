@@ -50,12 +50,12 @@ export default {
     async mounted(){
         await this.refreshAccountList()
         await this.showLogin()
-        console.log("showLogin")
+        //console.log("showLogin")
     },
     methods: {
         login() {
             if(this.user_password=='selab')
-                this.$router.push( { name: 'landing-page' } )
+                this.$router.push(`land/${this.user_account}`)
             else
                 alert("Wrong Password") 
         },
