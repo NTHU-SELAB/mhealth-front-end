@@ -42,9 +42,11 @@
                 :resizeDebounce="500"
                 ref="chart"/>
         </div>
+        <!--
         <div>
             <p>{{this.chartData}}</p>
         </div>
+        -->
     </div>
 </template>
 
@@ -81,13 +83,12 @@ export default {
             let data = this.chartData
             //ARMA(5,3)
             for(var i=0;i<times;i++){
-                let sum = 0.6*data[i+9][1]+0.2*data[i+8][1]+0.1*data[i+7][1]+0.1*data[i+6][1]
+                let sum = 0.5*data[i+9][1]+0.25*data[i+8][1]+0.15*data[i+7][1]+0.1*data[i+6][1]
                 let sd = 0
                 for(var j=0;j<3;j++){
-                    sd = sd + (sum-data[j+6][1])*(sum-data[j+6][1])
+                    sd = sd + (sum-data[i+j+6][1])*(sum-data[i+j+6][1])
                 } 
-                sum = sum+ (data[i+9][1]/2.0)
-                data.push([i+11,sum + 0.5 * Math.sqrt(sd) * (data[i+9][1]>data[i+8][1]? 1 : -1) + Math.random()*0.4 - 0.2])
+                data.push([i+11, sum + 0.5 * Math.sqrt(sd) * (data[i+9][1]>data[i+8][1]? 1 : -1) + Math.random()*0.4-0.2])
             }
             this.chartData = data.slice()
             this.isChartShow = 'true'
