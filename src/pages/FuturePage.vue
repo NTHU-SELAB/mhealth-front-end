@@ -76,7 +76,7 @@ export default {
         }
     },
     mounted(){
-        this.generate(100)
+        this.generate(5)
     },
     methods:{
         generate(times){

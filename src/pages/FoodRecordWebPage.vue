@@ -84,7 +84,7 @@
                 </div>
             </div> -->
             <div class="row">
-                <div class="col-12 col-md-8 col-lg-3 mb-2 food-record" v-for="record in foodRecords" v-bind:key="record.recordTime">
+                <div class="col-12 col-md-8 col-lg-3 mb-2 food-record" v-for="(record,index) in foodRecords" v-bind:key="index">
                     <div class="card">
                         <div class="col-12">
                             <div class="pl-2 pr-2 pt-2 pb-2"><img class="card-img-top food-icon" :src="recordImage(record.image)" alt=""></div>
@@ -126,7 +126,7 @@ export default {
             foodRecords: [],
             isChartShow: true,
             dataReady : false,
-            chartDataHeader: ['Time', '卡路里'],
+            chartDataHeader: ['Time', '卡路里','建議攝取','預測卡路里'],
             chartData: [],
             userID:"",
             chartOptions: {
@@ -174,7 +174,7 @@ export default {
         },
 
         async refreshChart_Week_Month() {
-            const data = []
+            let data = []
             let tmpCalorie = 0      // 當天熱量
             let tmpDate = false     // 當天日期
 
@@ -188,7 +188,7 @@ export default {
                 }  // 初始化
 
                 if ( tmpDate.getDate() != new Date( r.recordTime ).getDate() ) {
-                    data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )
+                    data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie, 1000, 0] )
                     count_Day++
                     count_Cal += r.calorie
                     tmpDate = new Date( r.recordTime )
@@ -200,8 +200,15 @@ export default {
                 }  // else
             })
 
-            data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie ] )  // push 最後一筆資料
-
+            data.push( [ ( tmpDate.getMonth() + 1 ) + '/' + tmpDate.getDate(), tmpCalorie, 1000, 0] )  // push 最後一筆資料
+            for(let i = 0;i<data.length;i++){
+                if(i == data.length-1){
+                    data[i][3] = data[i][1]
+                }
+                else{
+                    data[i][3] = data[i+1][1]
+                }
+            }
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
             //this.dataReady = true
@@ -225,7 +232,7 @@ export default {
                     count_Day++
 
                 if ( tmpDate.getMonth() != new Date( r.recordTime ).getMonth() ) {
-                    data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )
+                    data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie, 10000,0 ] )
                     tmpDate = new Date( r.recordTime )
                     count_Cal += r.calorie
                     tmpCalorie = r.calorie
@@ -236,8 +243,15 @@ export default {
                 }  // else
             })
 
-            data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie ] )  // push 最後一筆資料
-
+            data.push( [ tmpDate.getFullYear() + '/' + ( tmpDate.getMonth() + 1 ), tmpCalorie, 10000,0 ] )  // push 最後一筆資料
+            for(let i = 0;i<data.length;i++){
+                if(i == data.length-1){
+                    data[i][3] = data[i][1]
+                }
+                else{
+                    data[i][3] = data[i+1][1]
+                }
+            }
             this.avgCaloriesPerDay = ( count_Cal / count_Day ).toFixed( 1 )
             this.chartData = data.reverse()
             //this.dataReady = true
