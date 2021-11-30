@@ -53,7 +53,7 @@
                 </li>
             </ul>
 
-            <GChart style="height:210px;width:100%;" v-show="isChartShow"
+            <GChart style="height:210px;width:90%;" v-show="isChartShow"
                 type="LineChart"
                 :data="chartContent()"
                 :options="chartOptions"
@@ -109,7 +109,7 @@
 <script>
 
 import { GChart } from 'vue-google-charts'
-import LiffService from '@/services/LiffService.js'
+//import LiffService from '@/services/LiffService.js'
 import FoodService from '@/services/FoodService.js'
 
 export default {
@@ -130,9 +130,8 @@ export default {
             chartData: [],
             userID:"",
             chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
+                //legend: { position: 'none' }, 
+                vAxis: { minValue: 0, format: '# kcal' }
             }
         }
     },
@@ -258,7 +257,7 @@ export default {
         },
         
         async refreshFoodRecord() {
-            const userId = await LiffService.getUserId()
+            //  const userId = await LiffService.getUserId()
             var dateNow = Date.now()
             if (this.timeFilter === 'today') {
                 this.foodRecords = await FoodService.getFoodRecords(this.userID, dateNow - 1000*3600*24)

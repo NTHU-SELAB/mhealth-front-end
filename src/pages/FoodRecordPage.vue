@@ -137,9 +137,8 @@ export default {
             chartDataHeader: ['Time', '卡路里','建議攝取','預測卡路里'],
             chartData: [],
             chartOptions: {
-                legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal', gridlines: { color: 'none' } },
-                hAxis: { gridlines: { color: 'none' }}
+                //legend: { position: 'none' }, 
+                vAxis: { minValue: 0, format: '# kcal' }
             }
         }
     },
