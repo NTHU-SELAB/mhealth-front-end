@@ -28,6 +28,9 @@
                         <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
                     </li>
                     <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
+                    </li>
+                    <li class="nav-item active">
                         <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
                 </ul>

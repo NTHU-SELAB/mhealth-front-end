@@ -28,6 +28,9 @@
                         <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
                     </li>
                     <li class="nav-item active">
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
+                    </li>
+                    <li class="nav-item active">
                         <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
                 </ul>
@@ -53,7 +56,7 @@
                 </li>
             </ul>
 
-            <GChart style="height:210px;width:90%;" v-show="isChartShow"
+            <GChart style="height:250px;width:100%;" v-show="isChartShow"
                 type="LineChart"
                 :data="chartContent()"
                 :options="chartOptions"
@@ -131,7 +134,10 @@ export default {
             userID:"",
             chartOptions: {
                 //legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal' }
+                vAxis: { title:"熱量", minValue: 0, format: '# kcal',textStyle:{fontSize:20} },
+                hAxis: { textStyle:{fontSize:20}},
+                legend: {position:"bottom", textStyle:{fontSize:20}},
+                lineWidth: 7
             }
         }
     },

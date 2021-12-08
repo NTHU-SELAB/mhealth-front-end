@@ -138,7 +138,10 @@ export default {
             chartData: [],
             chartOptions: {
                 //legend: { position: 'none' }, 
-                vAxis: { minValue: 0, format: '# kcal' }
+                vAxis: { title:"熱量", minValue: 0, format: '# kcal',textStyle:{fontSize:20} },
+                hAxis: { textStyle:{fontSize:20}},
+                legend: {position:"bottom", textStyle:{fontSize:20}},
+                lineWidth: 7
             }
         }
     },
