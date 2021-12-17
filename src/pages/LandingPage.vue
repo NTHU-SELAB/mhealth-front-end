@@ -18,7 +18,7 @@
 export default {
     data() {
         return {
-            title: '智慧e聊健康',
+            title: '健談HealthTalker',
             allOpacity: 0,
             titleOpacity: 100,
             startButtonOpacity: 0 

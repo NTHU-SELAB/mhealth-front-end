@@ -1,7 +1,7 @@
 <template>
     <div id="water-record-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand">智慧e聊健康</a>
+            <a class="navbar-brand">健談HealthTalker</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

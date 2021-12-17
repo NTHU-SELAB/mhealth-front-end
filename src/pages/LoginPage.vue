@@ -21,7 +21,7 @@ import FoodService from '../services/FoodService'
 export default {
     data() {
         return {
-            title: '智慧e療健康',
+            title: '健談HealthTalker',
             user_account : '',
             user_password : '',
             /*accounts_lists:[
