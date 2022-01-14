@@ -33,7 +33,7 @@
             <!--新增頁面-->
             <div class="adding-form">
                 <h1 style="margin:10px; margin-bottom:20px">新增推播訊息</h1>
-                <form @submit.prevent="Add_Msg()">              
+                <form @submit.prevent="Update_Msg()">              
                     <p><label class="label-input-add-meal">訊息內容：</label></p>
                     <p><textarea v-model="recommend_Msg.description" maxlength="100" class="input-area-add-meal"></textarea></p>
                     <!-- <p>
@@ -81,6 +81,7 @@
 
 
 <script>
+import HospitalService from '@/services/HospitalService.js'
 export default {
     name : 'pushing-data',
     data() {
@@ -93,6 +94,8 @@ export default {
                 description : "",
                 it : 0
             },
+            push_type : "text",
+            consider_Age : false,
             exist_recmd : false,
             copy_msg_des : false,
             hospital_ID : "",
@@ -106,8 +109,22 @@ export default {
 
     methods: {
         async Update_Msg() {
-            // 寫入 DB          
+            // 寫入 DB
+            var filter = "bmi:null,"
+            if ( this.consider_Age )
+                filter += "age:" + this.recommend_Msg.target_Age_min + "~" + this.recommend_Msg.target_Age_max + ","
+            else
+                filter += "age:null,"
 
+            if ( this.recommend_Msg.target_Gender != null )
+                filter += "gender:" + this.recommend_Msg.target_Gender + "~" + this.recommend_Msg.target_Gender
+            else
+                filter += "gender:null"    
+            var temp_res = await HospitalService.Update_Message( this.recommend_Msg.msg_ID, this.push_type, this.recommend_Msg.description, filter, this.recommend_Msg.it )           
+            if ( temp_res.errorID == 0 )
+                alert( "修改成功！" )
+            else
+                alert( "Error ID : " + temp_res.errorID + "\nError Msg : " + temp_res.errorMsg )
             this.$router.push( { name: 'medical-msg-record-page' } ) 
         },
         async Cancel_and_Return() {

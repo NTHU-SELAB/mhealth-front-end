@@ -59,15 +59,13 @@ export default {
         return response.data
     },
 
-    async Update_Message( message_ID, type, beacon_ID, text, filter, it, hospital_ID ) {
+    async Update_Message( message_ID, type, text, filter, it ) {
         var formdata = new FormData() 
-        formdata.append( "message_ID", message_ID )
+        formdata.append( "messageID", message_ID )
         formdata.append( "type", type ) 
-        formdata.append( "beaconID", beacon_ID )
         formdata.append( "text", text )
         formdata.append( "filter", filter )
         formdata.append( "it", it )
-        formdata.append( "hospitalID", hospital_ID )
         const response = await Api().post( 'Hospital/UpdateMessage.php', formdata )
         return response.data
     },

@@ -101,7 +101,11 @@ export default {
     methods: {
         async Add_Msg() {
             var hospital_ID = this.selected_hospital
-            var beacon_ID = this.selected_hospital
+            var beacon_ID = null
+            this.hospital_List.forEach( ( hospital ) => {
+                if ( hospital.ID == hospital_ID )
+                    beacon_ID = hospital.beaconID
+            } )
             this.$router.push( { name: 'add-medical-msg-page', params : { hospital_ID, beacon_ID } } )
         },
         async Get_Hospital_List() {
@@ -141,17 +145,16 @@ export default {
             var hospital_ID = this.selected_hospital
             this.$router.push( { name: 'edit-medical-msg-page', params : { msg, hospital_ID } } )
         },
-        async Delete_Msg( oneMsg ) {
-            
-            var del = confirm( "確定要刪除此訊息嗎？" )
+        async Delete_Msg( oneMsg ) {       
+            var del = confirm( "確定要刪除此訊息嗎？" )           
             if ( ! del )
                 return
-            var res = await HospitalService.Delete_Message( oneMsg.ID )
+            var res = await HospitalService.Delete_Message( oneMsg.message_ID )
             if ( res.errorID == 0 )
                 alert( "刪除成功！" )
             else
                 alert( "Error ID : " + res.errorID + "\nError Msg : " + res.errorMsg )
-            await this.Refresh_Hospital_Records()
+            await this.Refresh_Msg_Records()
             window.scrollTo( 0, 0 )
         }
     }
