@@ -84,7 +84,7 @@ export default {
             this.shop_List = temp_List.shopList
         },
         async To_Eidt_Shop_Page( shop ) {
-            this.$router.push( { name: 'edit-shop-page', params : { shop } } )
+            this.$router.push( { name : 'edit-shop-page', params : { shop } } )
         },
         async Delete_Shop( shop_ID, shop_Name ) {
             var del = confirm( "確定要刪除 " + shop_Name + " 嗎？" )

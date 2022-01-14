@@ -120,7 +120,7 @@
                     </p>
                 </form>  
             </div>
-            <p>result = "{{res}}"</p>
+            <!-- <p>result = "{{res}}"</p> -->
             <!-- <p>shop_ID = "{{shop_ID}}"</p>
             <p>image = "{{this.temp_Meal.image}}"</p>
             <img :src="this.temp_Meal.image" /> -->
@@ -184,10 +184,10 @@ export default {
             this.recommend_Meal.shop_ID = this.shop_ID
             this.recommend_Meal.meal_ID = this.res.insMID
             this.res = await MealService.Insert_Target( this.recommend_Meal )
-            if ( this.res.errorID == 0 )
-                alert( "新增推薦成功！" )
-            else
-                alert( "Error ID : " + this.res.errorID + "\nError Msg : " + this.res.errorMsg )
+            // if ( this.res.errorID == 0 )
+            //     alert( "新增推薦成功！" )
+            // else
+            //     alert( "Error ID : " + this.res.errorID + "\nError Msg : " + this.res.errorMsg )
 
             this.$router.push( { name: 'meal-record-page' } ) 
         },

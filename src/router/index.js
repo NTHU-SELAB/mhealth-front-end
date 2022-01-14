@@ -19,6 +19,12 @@ import Shop_Info_Page from '@/pages/Shop_Info_Page.vue'
 import Add_New_Shop_Page from '@/pages/Add_New_Shop_Page.vue'
 import Edit_Shop_Page from '@/pages/Edit_Shop_Page.vue'
 import Edit_Meal_Page from '@/pages/Edit_Meal_Page.vue'
+import Add_Hospital_Page from '@/pages/Add_Hospital_Page.vue'
+import Edit_Hospital_Page from '@/pages/Edit_Hospital_Page.vue'
+import Add_Medical_Msg_Page from '@/pages/Add_Medical_Msg_Page.vue'
+import Edit_Medical_Msg_Page from '@/pages/Edit_Medical_Msg_Page.vue'
+import Hospital_Info_Page from '@/pages/Hospital_Info_Page.vue'
+import Medical_Msg_Record_Page from '@/pages/Medical_Msg_Record_Page.vue'
 
 Vue.use(Router)
 
@@ -66,7 +72,37 @@ export default new Router({
                     path: '/edit-shop',
                     name: 'edit-shop-page',
                     component : Edit_Shop_Page
-                }
+                },
+                {
+                    path:'/add-hospital',
+                    name:'add-hospital-page',
+                    component: Add_Hospital_Page 
+                },{
+                    path:'/add-medical-msg',
+                    name:'add-medical-msg-page',
+                    component: Add_Medical_Msg_Page 
+                },
+                {
+                    path:'/edit-hospital',
+                    name:'edit-hospital-page',
+                    component: Edit_Hospital_Page 
+                },
+                
+                {
+                    path:'/edit-medical-msg',
+                    name:'edit-medical-msg-page',
+                    component: Edit_Medical_Msg_Page
+                },
+                {
+                    path:'/hospital-info',
+                    name:'hospital-info-page',
+                    component: Hospital_Info_Page 
+                },
+                {
+                    path:'/medical-msg-record',
+                    name:'medical-msg-record-page',
+                    component: Medical_Msg_Record_Page
+                }            
                 /*
                 {
                     path: '/landing',

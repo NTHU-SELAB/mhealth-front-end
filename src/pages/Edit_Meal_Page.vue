@@ -301,7 +301,7 @@ export default {
 #btn-adding {
     font-size: 20px;
     font-family: 宋體;
-    width: 120px;
+    width: 150px;
     height: 30px;
     margin: 25px;
     line-height: 28px;

@@ -6,7 +6,8 @@
                 <p><label class="label-input">LINE ID</label><input v-model="user_account" class="text-field"></p>
                 <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
                 
-                <button id="btn-login" type="submit" @click = "login()">登入</button>
+                <p><button id="btn-login" type="submit" @click = "login_Shop()">店家登入</button></p>
+                <p><button id="btn-login" type="submit" @click = "login_Hospital()">醫療院所</button></p>
             </div>
 
 
@@ -25,9 +26,12 @@ export default {
         }
     },
     methods: {
-        login() {
+        async login_Shop() {
             this.$router.push( { name: 'meal-record-page' } )
-        }
+        },
+        async login_Hospital() {
+            this.$router.push( { name: 'hospital-info-page' } )
+        },
     }
 }
 
@@ -65,7 +69,7 @@ export default {
 
 #login-frame {
 width: 20%;
-height: 350px;
+height: 400px;
 position: absolute;
 margin-top: 300px;
 margin-left: 40%;
