@@ -1,9 +1,9 @@
 <template>
     <div id="landing-page" :style="{opacity: allOpacity}">
         <div>
-            <h1 class="display-4 title mb-4" :style="{opacity: titleOpacity, 'padding-top': '233px'}">{{title}}</h1>
+            <h1 class="display-4 title mb-4 text-black" :style="{opacity: titleOpacity, 'padding-top': '233px'}">{{title}}</h1>
             <!-- <hr class="my-4"> -->
-            <h3 class="mt-4 mb-4" style="font-weight: bold;">您的最佳健康助手</h3>
+            <h3 class="mt-4 mb-4 text-black" style="font-weight: bold;">您的最佳健康助手</h3>
             <button class="btn btn-primary btn-lg mt-4 startbutton"
                     :style="{opacity: startButtonOpacity, 'margin-bottom': '245px'}"
                     @click="start()">
@@ -53,10 +53,9 @@ export default {
 <style scoped>
 
 #landing-page {
-    background-image:url('../assets/landing-background.jpeg');
+    background-image:url('../assets/forest.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;
     transition-property: opacity;
     transition-duration: 1.2s;
     transition-timing-function: ease-in-out;

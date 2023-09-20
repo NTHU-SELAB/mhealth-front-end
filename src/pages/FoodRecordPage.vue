@@ -1,46 +1,40 @@
 <template>
     <div id="food-record-page" v-if="dataReady">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <a class="navbar-brand" href="../" >健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #91c5ea;">
+            <a class="navbar-brand">健談HealthTalker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
             <!--網頁目錄在router/index內-->
-            <!--
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-calendar">首頁<span class="sr-only">(current)</span></a>
+                        <router-link class="nav-link" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-dairy">食物日誌</a>
+                        <router-link class="nav-link" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../food-record">飲食紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../exercise-record">運動紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../water-record">飲水紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../temperature-record">體溫紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../bloodpressure-record">血壓紀錄</a>
+                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">聯絡我們</a>
+                        <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="輸入文字以搜尋..." aria-label="Search">
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜尋</button>
-                </form>
             </div>
-            -->
         </nav>
         <div class="container">
             <ul class="nav nav-pills nav-fill">

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/pages/MainPage.vue'
 import AddFoodManuallyPage from '@/pages/AddFoodManuallyPage.vue'
 import AddFoodCameraPage from '@/pages/AddFoodCameraPage.vue'
 //import RestaurantPage from '@/pages/RestaurantPage.vue'
@@ -28,11 +27,6 @@ const router = new Router({
     mode: 'history',
     base: __dirname,
     routes: [
-        {
-            path: '/',
-            name: 'main-page',
-            component: MainPage,
-            children: [
                 {
                     path: '/future',
                     name: 'future-page',
@@ -115,8 +109,7 @@ const router = new Router({
                     redirect: '/',
                 }
             ]
-        }
-    ]
+    
 })
 /*
 router.beforeEach((to, from, next) => {

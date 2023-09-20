@@ -1,8 +1,9 @@
 <template>
-    <div id="temperature-record-page">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #91c5ea;">
+            <h1><i class="bi bi-arrow-through-heart-fill"></i></h1>
             <a class="navbar-brand">健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -67,7 +68,7 @@ export default {
         }
     },
 
-    async mounted() {
+    async created() {
         await this.refreshUserID()
         await this.getTemperature()
         this.dataReady = true

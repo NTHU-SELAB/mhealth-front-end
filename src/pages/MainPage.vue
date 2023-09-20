@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+//useless component
 export default {
     name: 'mainPage',
     components: {

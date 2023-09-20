@@ -1,8 +1,10 @@
 <template>
     <div id="food-calendar-page">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <!-- Image and text -->
+        <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #91c5ea;">
+            <h1><i class="bi bi-arrow-through-heart-fill"></i></h1>
             <a class="navbar-brand">健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -38,10 +40,14 @@
         </nav>
         
         <div class="container" v-if="dataReady">
-            <p>{{year}}/{{month+1}}</p>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-primary p-2 m-2" @click="changeToLastMonth()">上個月</button>
+                <button class="btn btn-light p-2 m-2">{{year}}/{{month+1}}</button>
+                <button class="btn btn-primary p-2 m-2" @click="changeToNextMonth()">下個月</button>
+            </div>
             <div class="row">
                 <div class="col-6 col-sm-3 col-lg-2 mb-3" v-for="(item,index) in calorieDay" v-bind:key="index">
-                    <div class="card">
+                    <div class="card bg-body bg-opacity-50 shadow-lg">
                         <div class="card-body" @click="routeToCalendarDetail(index+1,month+1,year)">
                             <h5 class="card-title" style="margin-bottom: 3px;">{{month+1}}/{{index+1}}</h5>
                             <p class="card-text" style="color: red;margin-bottom: 3px;">{{item}}大卡</p>
@@ -50,9 +56,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" @click="changeToLastMonth()">上個月</button>
         <!--<button type="button" @click="countCalorieDay()">載入食物日曆</button>-->
-        <button type="button" @click="changeToNextMonth()">下個月</button>
 
     </div>
     
@@ -77,7 +81,7 @@ export default {
             days : 31
         }
     },
-    async mounted() {
+    async created() {
         await this.refreshUserID();
         await this.calendarSet();
         await this.countCalorieDay();
@@ -153,6 +157,14 @@ export default {
 <style>
 .food-icon {
     max-width: 100%;
+}
+.special-card {
+  background-color: rgb(19, 101, 217);
+  opacity: 0.5;
+}
+.card-title{
+  color: black;
+  opacity: 1
 }
 </style>
 

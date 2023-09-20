@@ -1,8 +1,9 @@
 <template>
     <div id="food-dairy-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <h1><i class="bi bi-arrow-through-heart-fill"></i></h1>
             <a class="navbar-brand" href="../" >健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 

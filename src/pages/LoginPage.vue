@@ -1,16 +1,29 @@
 <template>
-    <div id="sign-in-page" v-if="readyLogin">
-        <div>       
-            <div id="login-frame">
-                <h2 class="mt-4 mb-4" style="font-weight: bold; font-size : 37px;">登入頁面</h2>
-                <p><label class="label-input">LINE ID</label>
-                <select v-model="user_account">
-                    <option value="">請選擇</option>
-                    <option v-for="account in accounts_lists" v-bind:key=account v-bind:value="account.lineID">{{account.name}}</option>
-                </select></p>
-                <p><label class="label-input">密碼</label><input v-model="user_password" class="text-field" type="password"></p>
-                <button id="btn-login" type="submit" @click = "login()">登入</button>
+    <div v-if="readyLogin">       
+        <div class="container">
+            <h2 class="p-5"><strong>登入頁面</strong></h2><br>
+            <div class="form-group">
+                <h5><label><strong>LINE ID</strong></label></h5>
+                <div class="form-group">
+                    <select class="form-control mb-3" v-model="user_account">
+                        <option value="">請選擇</option>
+                        <option v-for="account in accounts_lists" v-bind:key=account.lineID v-bind:value="account.lineID">{{account.name}}</option>
+                    </select>
+                </div>
             </div>
+            <div class="form-group">
+                <h5><label><strong>密碼</strong></label></h5><br>
+                <input v-model="user_password" class="form-control" type="password">
+            </div><br>
+            <button class="btn btn-primary" type="submit" @click = "login()">登入</button>
+        </div><br>
+        <div id="footer">
+            <footer class="flex-shrink-0 py-4 bg-dark text-white-50">
+                <div class="container text-center">
+                    <small>Copyright &copy; 2023 NTHU Software Engineering Lab</small><br>
+                    <small>版權所有</small>
+                </div>
+            </footer>
         </div>
     </div>
 </template>
@@ -72,77 +85,9 @@ export default {
 </script>
 
 <style scoped>
-
-#sign-in-page {
-    /* background-image:url('../assets/landing-background.jpeg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    transition-property: opacity;*/
-    transition-duration: 1.2s;
-    transition-timing-function: ease-in-out;
-    color: black;
-}
-
-#landing-page::before {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.title {
-    transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-    font-weight: bold;
-}
-
-.startbutton {
-    transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
-}
-
-#login-frame {
-width: 20%;
-height: 350px;
-position: absolute;
-margin-top: 300px;
-margin-left: 40%;
-margin-right: 40%;
-background-color: cyan;
-border: 5px black solid;
-text-align: center;
-}
-
-.label-input {
-font-size: 20px;
-font-family: 宋體;
-width: 40%;
-margin-left: 30%;
-margin-right: 30%;
-height: 28px;
-line-height: 28px;
-color: black;
-text-align: center;
-}
-
-.text-field {
-font-size: 20px;
-width: 200px;
-height: 28px;
-}
-
-#btn-login {
-font-size: 20px;
-font-family: 宋體;
-width: 120px;
-height: 30px;
-padding-top: 1px;
-margin-top: 10px;
-line-height: 28px;
-text-align: center;
-color: black;
-border-radius: 6px;
-border: 2px black solid;
-/* float: left; */
+#footer{
+ position:fixed;
+ bottom:0;
+ width: 100%;
 }
 </style>
