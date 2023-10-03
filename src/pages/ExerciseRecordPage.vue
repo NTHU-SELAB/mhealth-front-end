@@ -1,45 +1,21 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #91c5ea;">
-            <h1><i class="bi bi-arrow-through-heart-fill"></i></h1>
-            <a class="navbar-brand">健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!--網頁目錄在router/index內-->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
-                    </li>
-                </ul>
+        <nav-bar/>
+        <h3><strong>運動紀錄</strong></h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="bg-white bg-opacity-50 text-dark p-4">
+                    <bar-chart/>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="container" v-if="dataReady">
+                        <img :src="pictureURL">
+                        <!--<p>{{this.data}}</p>-->
+                    </div>
+                </div>
             </div>
-        </nav>
-        <div class="container" v-if="dataReady">
-            <img :src="pictureURL">
-            <!--<p>{{this.data}}</p>-->
         </div>
     </div>
 </template>
@@ -49,14 +25,8 @@
 //import { GChart } from 'vue-google-charts'
 //import LiffService from '@/services/LiffService.js'
 import FoodService from '@/services/FoodService.js'
-
 export default {
     name: 'exercise-record',
-
-    /*components: {
-        GChart
-    },*/
-
     data() {
         return {
             dataReady: false,

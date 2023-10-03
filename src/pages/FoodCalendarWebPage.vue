@@ -1,45 +1,20 @@
 <template>
     <div id="food-calendar-page">
         <!-- Image and text -->
-        <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #91c5ea;">
-            <h1><i class="bi bi-arrow-through-heart-fill"></i></h1>
-            <a class="navbar-brand">健談HealthTalker</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!--網頁目錄在router/index內-->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link" :to ="{name:'login-page'}">登出</router-link>
-                    </li>
-                </ul>
+        <nav-bar/>
+        <h3>Food Calendar</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <v-date-picker v-model="date" is-expanded color="Teal" :attributes='attrs'/>
+                    <strong>{{ this.date }}</strong>
+                </div>
+                <div class="col-sm-6 p-4 bg-white bg-opacity-50 text-dark">
+
+                </div>
             </div>
-        </nav>
-        
-        <div class="container" v-if="dataReady">
+        </div>
+        <!-- <div class="container" v-if="dataReady">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button class="btn btn-primary p-2 m-2" @click="changeToLastMonth()">上個月</button>
                 <button class="btn btn-light p-2 m-2">{{year}}/{{month+1}}</button>
@@ -55,7 +30,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!--<button type="button" @click="countCalorieDay()">載入食物日曆</button>-->
 
     </div>
@@ -67,7 +42,37 @@
 import FoodService from '@/services/FoodService.js'
 export default {
     data() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth();
         return {
+            attrs: [
+                {
+                    key: 'today',
+                    highlight: 'teal',
+                    dates: new Date(),
+                    popover: {
+                        label: this.dates,
+                        visibility: 'hover'
+                    }
+                },
+                {
+                    highlight: {
+                        color: 'red',
+                        fillMode: 'light',
+                    },
+                    dates: new Date(year, month, 13),
+                },
+            ],
+            customer: {
+                name: 'Nathan Reyes',
+                birthday: '1983-01-21',
+            },
+            modelConfig: {
+                type: 'string',
+                mask: 'YYYY-MM-DD', // Uses 'iso' if missing
+            },
+            date: new Date(),
             dataReady : false,
             //dataReady1: false,
             //dataReady2: false,
