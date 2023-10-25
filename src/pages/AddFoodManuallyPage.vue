@@ -1,16 +1,17 @@
 <template>
     <div id="add-food-manually">
+        <h3>輸入食物紀錄</h3>
         <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <select class="browser-default custom-select" v-model="timeSlot" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
-                <option timeSlot >時段</option>
-                <option>早餐</option>
-                <option >午餐</option>
-                <option >晚餐</option>
-                <option>點心</option>
-            </select>
-        </div>
-        <input type="text" class="form-control" placeholder="食物名" v-model="foodName" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;">
+            <div class="input-group-prepend">
+                <select class="browser-default custom-select p-2" v-model="timeSlot" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
+                    <option timeSlot >時段</option>
+                    <option>早餐</option>
+                    <option >午餐</option>
+                    <option >晚餐</option>
+                    <option>點心</option>
+                </select>
+            </div>
+            <input type="text" class="form-control" placeholder="食物名" v-model="foodName" style="border:2px #ccc solid; border-radius:0px 20px 20px 0px;">
         </div>
 
         <div class="input-group mb-3">
@@ -72,7 +73,8 @@ export default {
             if (this.timeSlot == '時段') {
                 alert('請選擇時段')
             }
-            const userId = (await liff.getProfile()).userId
+            //const userId = (await liff.getProfile()).userId
+            const userId=this.$route.params.userID;
             try {
                 const response = await FoodService.postFoodRecord(
                     userId,
@@ -87,6 +89,7 @@ export default {
                     Date.now()+8*60*60*1000
                 )
                 this.clearnInput()
+                console.log(response)
                 alert('新增飲食成功')
             } catch (error) {
                 console.log(error)
@@ -105,7 +108,7 @@ export default {
         },
 
         cancelManual() {
-            liff.closeWindow()
+            //liff.closeWindow()
         }
     }
 

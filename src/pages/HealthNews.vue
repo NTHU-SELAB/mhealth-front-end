@@ -4,6 +4,9 @@
         <h1>健康新聞查詢</h1>
         <div class="container">
             <div class="input-group mb-3">
+                <button type="button" class="btn btn-danger p-2" v-on:click="cleansearch">
+                    <i class="bi bi-house"></i>
+                </button>
                 <input class="form-control mr-sm-2 p-2" v-model="search" placeholder="輸入癌症/疫苗/血壓等關鍵字...">
                 <button type="button" class="btn btn-primary p-2" v-on:click="changeurl">
                 <i class="bi bi-search"></i>
@@ -110,6 +113,10 @@ export default {
             }).catch((error) => {
                 console.error("An error occurred:", error);
             });
+        },
+        cleansearch(){
+            this.search="";   
+            this.changeurl();    
         }
     },
 }

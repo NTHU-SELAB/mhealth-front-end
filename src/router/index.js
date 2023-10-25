@@ -21,6 +21,7 @@ import TemperatureRecordPage from '@/pages/TemperatureRecordPage.vue'
 
 import FuturePage from '@/pages/FuturePage.vue'
 import HealthNews from '@/pages/HealthNews.vue'
+import InputFoodPage from '@/pages/InputFoodPage.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -108,6 +109,11 @@ const router = new Router({
                     path: '/healthnews/:userID',
                     name: 'health-news',
                     component: HealthNews,
+                },
+                {
+                    path: '/inputfoodpage/:userID',
+                    name: 'Input-FoodPage',
+                    component: InputFoodPage,
                 },
                 {
                     path: '*',

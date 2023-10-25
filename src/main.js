@@ -13,11 +13,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import navbar from './components/navbar.vue'
 import barchart from './components/barchart.vue'
 import linechart from './components/linechart.vue'
-
+import addfoodmanuallypage from './pages/AddFoodManuallyPage.vue'
 Vue.config.productionTip = false
 Vue.component('nav-bar', navbar)
 Vue.component('bar-chart', barchart)
 Vue.component('line-chart', linechart)
+Vue.component('add-food-manually-page', addfoodmanuallypage)
 new Vue({
   router,
   render: h => h(App),
