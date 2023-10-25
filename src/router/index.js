@@ -20,7 +20,7 @@ import BloodPressureRecordPage from '@/pages/BloodPressureRecordPage.vue'
 import TemperatureRecordPage from '@/pages/TemperatureRecordPage.vue'
 
 import FuturePage from '@/pages/FuturePage.vue'
-
+import HealthNews from '@/pages/HealthNews.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -103,6 +103,11 @@ const router = new Router({
                     path: '/bloodpressure-record/:userID',
                     name: 'bloodpressure-record',
                     component: BloodPressureRecordPage,
+                },
+                {
+                    path: '/healthnews/:userID',
+                    name: 'health-news',
+                    component: HealthNews,
                 },
                 {
                     path: '*',

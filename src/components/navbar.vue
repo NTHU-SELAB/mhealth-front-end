@@ -13,6 +13,9 @@
                         <router-link class="nav-link text-white" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">飲食日曆</router-link>
                     </li>
                     <li class="nav-item active">
+                        <router-link class="nav-link text-white" :to ="{name:'health-news', params:{userID:this.userID}}">健康新聞</router-link>
+                    </li>
+                    <li class="nav-item active">
                         <router-link class="nav-link text-white" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
                     <li class="nav-item active">
