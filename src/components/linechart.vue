@@ -1,15 +1,19 @@
 <template>
-    <LineChartGenerator
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
+    <div class="container">
+        <LineChartGenerator
+        :chart-options="chartOptions"
+        :chart-data="chartData"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+        />
+        <p>{{ this.datanull }}</p>
+    </div>
+    
 </template>
 
 <script>
@@ -37,66 +41,176 @@ ChartJS.register(
 )
 
 export default {
-name: 'LineChart',
-components: {
-    LineChartGenerator
-},
-props: {
-    chartId: {
-        type: String,
-        default: 'line-chart'
+    name: 'LineChart',
+    components: {
+        LineChartGenerator
     },
-    datasetIdKey: {
-        type: String,
-        default: 'label'
-    },
-    width: {
-        type: Number,
-        default: 400
-    },
-    height: {
-        type: Number,
-        default: 400
-    },
-    cssClasses: {
-        default: '',
-        type: String
-    },
-    styles: {
-        type: Object,
-        default: () => {}
-    },
-    plugins: {
-        type: Object,
-        default: () => {}
-    }
-},
-data() {
-    return {
-    chartData: {
-        labels: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July'
-        ],
-        datasets: [
-        {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40]
+    props: {
+        bloodData:[Array,String],
+        sportData:[Array,String],
+        datatype:[String],
+        chartId: {
+            type: String,
+            default: 'line-chart'
+        },
+        datasetIdKey: {
+            type: String,
+            default: 'label'
+        },
+        width: {
+            type: Number,
+            default: 400
+        },
+        height: {
+            type: Number,
+            default: 400
+        },
+        cssClasses: {
+            default: '',
+            type: String
+        },
+        styles: {
+            type: Object,
+            default: () => {}
+        },
+        plugins: {
+            type: Object,
+            default: () => {}
         }
-        ]
     },
-    chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false
+    data() {
+        return {
+            chartData: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'low blood pressure',
+                        backgroundColor: '#f87979',
+                        data: [40, 39, 10, 40, 39, 80, 40]
+                    },
+                    {
+                        label: '',
+                        backgroundColor: '',
+                        data: []
+                    }
+                ]
+            },
+            chartOptions: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 200,
+                        ticks: {
+                            stepsize: 30,
+                            maxtickslimit: 3
+                        }
+                    }
+                }
+            },
+            datax:[],
+            datax2:[],
+            datay:[],
+            datanull:"",
+            dataready:false
+        }
+    },
+    created() {
+        console.log(this.datatype)
+        if(this.datatype=="blood"){
+            if(this.bloodData==null){
+                this.datax=[0,0,0,0,0,0,0];
+                this.datay=['null','null','null','null','null','null','null'];
+                this.datanull="您近期的血壓資料不足!";
+            }else{
+                var len=this.bloodData.length,count=6;
+                //get the lastest new 7 data algo.(may be better..)
+                for(var k=len-1;k>=0;k--){
+                    this.datax[count]=parseInt(this.bloodData[k].dbp);
+                    this.datax2[count]=parseInt(this.bloodData[k].sbp);
+                    if(count>0 && k==0){
+                        count--;
+                        while(count>=0){
+                            this.datax[count]=0;
+                            this.datax2[count]=0;
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && k>=0){
+                        break;
+                    }
+                    count--;
+                }
+                count=6;
+                for(var j=len-1;j>=0;j--){
+                    this.datay[count]=this.bloodData[j].time.slice(0,10);
+                    if(count>=0 && j==0){
+                        count--;
+                        while(count>=0){
+                            this.datay[count]="null";
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && j>=0){
+                        break;
+                    }
+                    count--;
+                }
+            }
+            this.chartData.datasets[0].label="血壓資料(低)";
+            this.chartData.datasets[1].label="血壓資料(高)";
+            this.chartData.datasets[1].backgroundColor="#4363e0"
+            this.chartData.datasets[0].data=this.datax;
+            this.chartData.datasets[1].data=this.datax2;
+            this.chartData.labels=this.datay;
+            this.dataready=true;
+        }else if(this.datatype=="sport"){
+            console.log(this.datatype)
+            if(this.sportData==null){
+                this.datax=[0,0,0,0,0,0,0];
+                this.datay=['null','null','null','null','null','null','null'];
+                this.datanull="您近期的運動資料不足"
+            }else{
+                //console.log(this.sportData)
+                len=this.sportData.length;
+                count=6;
+                for(var k1=len-1;k1>=0;k1--){
+                    this.datax[count]=parseInt(this.sportData[k1].car);
+                    if(count>0 && k1==0){
+                        count--;
+                        while(count>=0){
+                            this.datax[count]=0;
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && k1>=0){
+                        break;
+                    }
+                    count--;
+                }
+                count=6;
+                for(var j1=len-1;j1>=0;j1--){
+                    this.datay[count]=this.sportData[j1].time.slice(0,10);
+                    if(count>=0 && j1==0){
+                        count--;
+                        while(count>=0){
+                            this.datay[count]="null";
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && j1>=0){
+                        break;
+                    }
+                    count--;
+                }
+            }
+            this.chartData.datasets[0].label="運動資料";
+            this.chartData.datasets[0].data=this.datax;
+            this.chartData.labels=this.datay;
+            this.dataready=true;
+        }
     }
-    }
-}
 }
 </script>
   

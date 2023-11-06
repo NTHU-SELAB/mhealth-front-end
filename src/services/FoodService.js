@@ -54,7 +54,7 @@ export default {
         let timeNow = new Date()
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
         formdata.append( "queryTime", t)
-        const response = await Api1().post('graph/blood_pressure_warn.php',formdata)
+        const response = await Api1().post('chartdata/bloodchart.php',formdata)
         return response.data    
     },
     async getWater(userID){
@@ -64,7 +64,7 @@ export default {
         let timeNow = new Date()
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
         formdata.append( "queryTime", t)
-        const response = await Api1().post('graph/water_warn.php',formdata)
+        const response = await Api1().post('chartdata/waterchart.php',formdata)
         return response.data    
     },
     async getTemperature(userID){
@@ -74,7 +74,7 @@ export default {
         let timeNow = new Date()
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
         formdata.append( "queryTime", t)
-        const response = await Api1().post('graph/temperature_warn.php',formdata)
+        const response = await Api1().post('chartdata/tepchart.php',formdata)
         return response.data
     },
     async getSportPicture(userID){
@@ -84,7 +84,7 @@ export default {
         let timeNow = new Date()
         let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
         formdata.append( "queryTime", t)
-        const response = await Api1().post('graph/sport.php',formdata)
+        const response = await Api1().post('chartdata/sportchart.php',formdata)
         return response.data    
     },
 }

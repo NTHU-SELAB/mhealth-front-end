@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-light mb-4 bg-dark bg-opacity-75 text-white">
             <h1 class="p-2"><i class="bi bi-hospital-fill"></i></h1>
-            <router-link class="navbar-brand text-white" :to ="{name:'food-calendar-web', params:{userID:this.userID}}">  健談HealthTalker</router-link>
+            <router-link class="navbar-brand text-white" :to ="{name:'food-calendar-web', params:{userID:this.userID}}"> <strong>Chat食有料</strong></router-link>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

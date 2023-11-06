@@ -1,15 +1,15 @@
 <template>
     <div id="blood-record-page">
         <nav-bar/>
-        <h3>血壓紀錄</h3>
+        <h3><strong>血壓紀錄</strong></h3>
+        <p><strong>顯示最近前 7 筆資料 若資料少於7筆 剩餘填0</strong></p>
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 p-4 bg-white bg-opacity-75 text-dark">
-                    <line-chart></line-chart>
+                <div class="col-md-6 p-4 bg-white bg-opacity-75 text-dark" v-if="dataReady">
+                    <line-chart v-bind:blood-data="bloodPressureshow" v-bind:datatype="'blood'"></line-chart>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="container" v-if="dataReady">
-                        <img :src="pictureURL">
                         <p v-if="hasWarn">{{this.warn}}</p>
                     </div>
                 </div>
@@ -33,6 +33,7 @@ export default {
 
     data() {
         return {
+            bloodPressureshow:"",
             dataReady: false,
             userID : '',
             warn : "",
@@ -42,8 +43,13 @@ export default {
     },
 
     async created() {
-        await this.refreshUserID()
-        await this.getBloodPressure()
+        await this.refreshUserID();
+        await this.getBloodPressure().then(
+            response => {
+                this.bloodPressureshow=response
+            },
+        );
+        //console.log(this.bloodPressureshow);
         this.dataReady = true
     },
 
@@ -53,11 +59,12 @@ export default {
         },
         async getBloodPressure(){
             var bloodPressure = await FoodService.getBloodPressure(this.userID)
-            if(bloodPressure.HasWarn==1){
-                this.hasWarn = true
-                this.warn = bloodPressure.HealthWarn
-            }
-            this.pictureURL = bloodPressure.GraphURL
+            // if(bloodPressure.HasWarn==1){
+            //     this.hasWarn = true
+            //     this.warn = bloodPressure.HealthWarn
+            // }
+            return bloodPressure;
+            //this.pictureURL = bloodPressure.GraphURL
         },
     }
 }

@@ -2,16 +2,17 @@
     <div>
         <nav-bar/>
         <h3><strong>運動紀錄</strong></h3>
+        <p><strong>顯示最近前 7 筆資料 若資料少於7筆 剩餘填0</strong></p>
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="bg-white bg-opacity-50 text-dark p-4">
-                    <bar-chart/>
+                <div class="col-md-6">
+                    <div class="bg-white bg-opacity-50 text-dark p-4" v-if="dataReady">
+                    <line-chart v-bind:sport-data="sportshow" v-bind:datatype="'sport'"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="container" v-if="dataReady">
-                        <img :src="pictureURL">
+                        <!-- <img :src="pictureURL"> -->
                         <!--<p>{{this.data}}</p>-->
                     </div>
                 </div>
@@ -29,6 +30,7 @@ export default {
     name: 'exercise-record',
     data() {
         return {
+            sportshow:"",
             dataReady: false,
             userID : '',
             pictureURL :"",
@@ -38,7 +40,11 @@ export default {
 
     async created() {
         await this.refreshUserID()
-        await this.getSport()
+        await this.getSport().then(
+            response => {
+                this.sportshow=response
+            },
+        );
         this.dataReady = true
     },
 
@@ -48,7 +54,8 @@ export default {
         },
         async getSport(){
             var sport = await FoodService.getSportPicture(this.userID)
-            this.pictureURL = sport
+            //this.pictureURL = sport
+            return sport;
         },
     }
 }

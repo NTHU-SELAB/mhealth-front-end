@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-bar/>
-        <h1>健康新聞查詢</h1>
+        <h3><strong>健康新聞查詢</strong></h3>
         <div class="container">
             <div class="input-group mb-3">
                 <button type="button" class="btn btn-danger p-2" v-on:click="cleansearch">
