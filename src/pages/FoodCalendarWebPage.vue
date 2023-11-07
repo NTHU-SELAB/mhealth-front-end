@@ -6,11 +6,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <v-date-picker v-model="date" is-expanded color="Teal" :attributes='attrs'/>
+                    <v-date-picker v-model="date" color="Teal" :attributes='attrs' :model-config="modelConfig" :rows="1" is-expanded/>
                     <strong>{{ this.date }}</strong>
                 </div>
-                <div class="col-sm-6 p-4 bg-white bg-opacity-50 text-dark">
-
+                <div class="col-sm-6 p-3">
+                    <div class="alert alert-success">
+                        <strong>近期7筆飲食紀錄</strong>
+                    </div>
+                    <div class="container p-3 bg-white bg-opacity-50 overflow-auto" style="height: 600px">
+                        <div v-for="(item,index) in fooddata" v-bind:key="index" class="p-2 mb-3 bg-dark bg-opacity-75 text-white border border-primary border-2 rounded-5" >
+                            <strong class="text-green">{{ item.name }}</strong><br>
+                            <strong class="text-danger">{{ item.cal }} cal</strong><br>
+                            <strong>{{ item.time }}</strong><br>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -42,14 +52,15 @@
 import FoodService from '@/services/FoodService.js'
 export default {
     data() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
+        // const date = new Date();
+        // const day = date.getDate();
+        // const year = date.getFullYear();
+        // const month = date.getMonth();
         return {
             attrs: [
                 {
                     key: 'today',
-                    highlight: 'teal',
+                    dot: true,
                     dates: new Date(),
                     popover: {
                         label: this.dates,
@@ -61,18 +72,15 @@ export default {
                         color: 'red',
                         fillMode: 'light',
                     },
-                    dates: new Date(year, month, 13),
+                    dot: true,
+                    dates: new Date(),
                 },
             ],
-            customer: {
-                name: 'Nathan Reyes',
-                birthday: '1983-01-21',
-            },
             modelConfig: {
                 type: 'string',
                 mask: 'YYYY-MM-DD', // Uses 'iso' if missing
             },
-            date: new Date(),
+            date: "",
             dataReady : false,
             //dataReady1: false,
             //dataReady2: false,
@@ -83,18 +91,26 @@ export default {
             calorieDay : [],
             year : 0,
             month : 0,
-            days : 31
+            days : 31,
+            fooddata:"",
         }
     },
     async created() {
         await this.refreshUserID();
-        await this.calendarSet();
-        await this.countCalorieDay();
+        // await this.calendarSet();
+        // await this.countCalorieDay();
+        await this.Recentfoodrecord();
         this.dataReady = true
     },
     methods: {
         async refreshUserID(){
             this.userID = this.$route.params.userID
+        },
+        async Recentfoodrecord(){
+            let time = new Date();
+            var foodrecordrecent = await FoodService.getFoodRecordsRecent(this.userID,time);
+            foodrecordrecent =foodrecordrecent.slice(0,7);
+            this.fooddata=foodrecordrecent;
         },
         routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail-web/${this.userID}/${y}/${m}/${index}`)

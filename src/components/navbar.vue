@@ -16,23 +16,25 @@
                     <li class="nav-item active">
                         <router-link class="nav-link text-white" :to ="{name:'health-news', params:{userID:this.userID}}">健康新聞</router-link>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">身體數值紀錄</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item active p-2">
+                                <router-link class="nav-link text-black" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
+                            </li>
+                            <li class="nav-item active p-2">
+                                <router-link class="nav-link text-black" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
+                            </li>
+                            <li class="nav-item active p-2">
+                                <router-link class="nav-link text-black" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
+                            </li>
+                            <li class="nav-item active p-2">
+                                <router-link class="nav-link text-black" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item active">
                         <router-link class="nav-link text-white" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'exercise-record', params:{userID:this.userID}}">運動紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'water-record', params:{userID:this.userID}}">飲水紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'temperature-record', params:{userID:this.userID}}">體溫紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">血壓紀錄</router-link>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'bloodpressure-record', params:{userID:this.userID}}">體重預測</router-link>
                     </li>
                     <li class="nav-item active">
                         <router-link class="nav-link text-white" :to ="{name:'Input-FoodPage', params:{userID:this.userID}}">輸入食物紀錄</router-link>

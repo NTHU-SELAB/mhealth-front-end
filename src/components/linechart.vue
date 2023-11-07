@@ -48,6 +48,7 @@ export default {
     props: {
         bloodData:[Array,String],
         sportData:[Array,String],
+        foodData:[Array,String],
         datatype:[String],
         chartId: {
             type: String,
@@ -85,12 +86,14 @@ export default {
                 datasets: [
                     {
                         label: 'low blood pressure',
-                        backgroundColor: '#f87979',
-                        data: [40, 39, 10, 40, 39, 80, 40]
+                        backgroundColor: '#FFB1C1',
+                        data: [40, 39, 10, 40, 39, 80, 40],
+                        borderColor: '#FF6384',
                     },
                     {
                         label: '',
                         backgroundColor: '',
+                        borderColor: '#157d34',
                         data: []
                     }
                 ]
@@ -118,6 +121,7 @@ export default {
     },
     created() {
         console.log(this.datatype)
+        var k1,j1;
         if(this.datatype=="blood"){
             if(this.bloodData==null){
                 this.datax=[0,0,0,0,0,0,0];
@@ -160,7 +164,7 @@ export default {
             }
             this.chartData.datasets[0].label="血壓資料(低)";
             this.chartData.datasets[1].label="血壓資料(高)";
-            this.chartData.datasets[1].backgroundColor="#4363e0"
+            this.chartData.datasets[1].backgroundColor="#51ed80"
             this.chartData.datasets[0].data=this.datax;
             this.chartData.datasets[1].data=this.datax2;
             this.chartData.labels=this.datay;
@@ -175,7 +179,7 @@ export default {
                 //console.log(this.sportData)
                 len=this.sportData.length;
                 count=6;
-                for(var k1=len-1;k1>=0;k1--){
+                for(k1=len-1;k1>=0;k1--){
                     this.datax[count]=parseInt(this.sportData[k1].car);
                     if(count>0 && k1==0){
                         count--;
@@ -190,7 +194,7 @@ export default {
                     count--;
                 }
                 count=6;
-                for(var j1=len-1;j1>=0;j1--){
+                for(j1=len-1;j1>=0;j1--){
                     this.datay[count]=this.sportData[j1].time.slice(0,10);
                     if(count>=0 && j1==0){
                         count--;
@@ -208,6 +212,52 @@ export default {
             this.chartData.datasets[0].label="運動資料";
             this.chartData.datasets[0].data=this.datax;
             this.chartData.labels=this.datay;
+            this.dataready=true;
+        }else if(this.datatype=="cal"){
+            console.log(this.datatype)
+            if(this.foodData==null){
+                this.datax=[0,0,0,0,0,0,0];
+                this.datay=['null','null','null','null','null','null','null'];
+                this.datanull="您近期的運動資料不足"
+            }else{
+                //console.log(this.sportData)
+                len=this.foodData.length;
+                count=80;
+                for(k1=len-1;k1>=0;k1--){
+                    this.datax[count]=parseInt(this.foodData[k1].cal);
+                    if(count>0 && k1==0){
+                        count--;
+                        while(count>=0){
+                            this.datax[count]=0;
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && k1>=0){
+                        break;
+                    }
+                    count--;
+                }
+                count=80;
+                for(j1=len-1;j1>=0;j1--){
+                    //this.datay[count]=this.foodData[j1].time.slice(0,10);
+                    this.datay[count]=count;
+                    if(count>=0 && j1==0){
+                        count--;
+                        while(count>=0){
+                            this.datay[count]="null";
+                            count--;
+                        }
+                        break;
+                    }else if(count==0 && j1>=0){
+                        break;
+                    }
+                    count--;
+                }
+            }
+            this.chartData.datasets[0].label="卡洛里紀錄";
+            this.chartData.datasets[0].data=this.datax;
+            this.chartData.labels=this.datay;
+            this.chartOptions.scales.y.max=5000;
             this.dataready=true;
         }
     }

@@ -24,8 +24,22 @@ export default {
         const response = await Api().get(`food/record?userID=${userID}&timestamp=${timestamp}`)
         return response.data.foodRecords        
     },
+    async getFoodRecordsRecent(userID, timestamp) {
+        console.log(timestamp);
+        var formdata = new FormData()
+        formdata.append( "userID", userID )
+        formdata.append( "getGraph", 1)
+        let timeNow = new Date()
+        let t = `${timeNow.getFullYear()}-${timeNow.getMonth()+1}-${timeNow.getDate()} 00:00:00`
+        formdata.append( "queryTime", t)
+        const response = await Api1().post('chartdata/foodrecord.php',formdata)
+        return response.data    
 
-    async getFoodRecordsByDay(userID, timestamp) {
+        // const response = await Api().get(`food/record/today?userID=${userID}&timestamp=${timestamp}`)
+        // return response.data.foodRecords
+    },
+    async getFoodRecordsByDay(userID, timestamp) {   
+
         const response = await Api().get(`food/record/today?userID=${userID}&timestamp=${timestamp}`)
         return response.data.foodRecords
     },

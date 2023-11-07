@@ -65,7 +65,7 @@ export default {
             .then((res) => {
             this.data = res.data;
             for(var i=0;i<loopi;i++){
-                if(this.data[i]['內容'].includes("contentImg")) continue;
+                //if(this.data[i]['內容'].includes("contentImg")) continue;
                 this.data[i]['內容'] = this.data[i]['內容'].replace(/<img[^>]*>/g,"");
                 this.content.push({"key":i,"date":this.data[i]['發布日期'],"title":this.data[i]['標題'],"content":this.data[i]['內容']})
             }
@@ -89,7 +89,7 @@ export default {
                     if(this.data.length<10) loopi=this.data.length;
 
                     for(var i=0;i<loopi;i++){
-                        if(this.data[i]['內容'].includes("contentImg")) continue;
+                        //if(this.data[i]['內容'].includes("contentImg")) continue;
                         this.data[i]['內容'] = this.data[i]['內容'].replace(/<img[^>]*>/g,"");
                         this.content.push({"key":i,"date":this.data[i]['發布日期'],"title":this.data[i]['標題'],"content":this.data[i]['內容']})
                         //console.log(this.content);
