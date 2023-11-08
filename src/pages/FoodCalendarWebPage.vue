@@ -109,8 +109,8 @@ export default {
         async Recentfoodrecord(){
             let time = new Date();
             var foodrecordrecent = await FoodService.getFoodRecordsRecent(this.userID,time);
-            foodrecordrecent =foodrecordrecent.slice(0,7);
-            this.fooddata=foodrecordrecent;
+            foodrecordrecent =foodrecordrecent.slice(foodrecordrecent.length-8,foodrecordrecent.length);
+            this.fooddata=foodrecordrecent.reverse();
         },
         routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail-web/${this.userID}/${y}/${m}/${index}`)

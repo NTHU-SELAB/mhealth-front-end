@@ -116,7 +116,8 @@ export default {
             datax2:[],
             datay:[],
             datanull:"",
-            dataready:false
+            dataready:false,
+            foodshow:""
         }
     },
     created() {

@@ -19,6 +19,18 @@ export default {
         }))
         return response
     },
+    async posthealthdata(userID, sbp, dbp, water,tep) {
+        const response = await Api1().post('chartdata/healthdata.php', qs.stringify({
+            'record': 'record',
+            'userID': userID,
+            'sbp': sbp,
+            'dbp': dbp,
+            'water': water,
+            'tep': tep,
+            'recordTime': new Date(Date.now())
+        }))
+        return response
+    },
 
     async getFoodRecords(userID, timestamp) {
         const response = await Api().get(`food/record?userID=${userID}&timestamp=${timestamp}`)

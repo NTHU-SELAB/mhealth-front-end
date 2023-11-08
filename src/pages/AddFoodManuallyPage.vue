@@ -1,6 +1,6 @@
 <template>
     <div id="add-food-manually">
-        <h3>輸入食物紀錄</h3>
+        <h5><strong>輸入食物紀錄</strong></h5>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <select class="browser-default custom-select p-2" v-model="timeSlot" style="border:2px #ccc solid; border-radius:20px 0px 0px 20px;">
@@ -118,7 +118,5 @@ export default {
 </script>
 
 <style>
-#add-food-manually {
-    margin-top: 30px;
-}
+
 </style>

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="bg-white bg-opacity-50 text-dark p-4" v-if="dataReady">
-                        <line-chart v-bind:food-data="fooddata" v-bind:datatype="'cal'"></line-chart>
+                        <line-chart v-bind:food-data="fooddata1" v-bind:datatype="'cal'"></line-chart>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -16,7 +16,7 @@
                         <strong>近期飲食紀錄</strong>
                     </div>
                     <div class="container p-3 bg-white bg-opacity-50 overflow-auto" style="height: 600px">
-                        <div v-for="(item,index) in fooddata" v-bind:key="index" class="p-2 mb-3 bg-dark bg-opacity-75 text-white border border-primary border-2 rounded-5">
+                        <div v-for="(item,index) in fooddatashow" v-bind:key="index" class="p-2 mb-3 bg-dark bg-opacity-75 text-white border border-primary border-2 rounded-5">
                             <strong class="text-green">{{ item.name }}</strong><br>
                             <strong class="text-danger">{{ item.cal }} cal</strong><br>
                             <strong>{{ item.time }}</strong><br>
@@ -114,7 +114,8 @@ export default {
             timeFilter: 'today',
             avgCaloriesPerDay : 0.0,
             foodRecords: [],
-            fooddata:[],
+            fooddata1:[],
+            fooddatashow:[],
             isChartShow: true,
             dataReady : false,
             chartDataHeader: ['Time', '卡路里','建議攝取','預測卡路里'],
@@ -130,7 +131,7 @@ export default {
         }
     },
 
-    async mounted() {
+    async created() {
         await this.refreshUserID()
         //await this.changeTimeFilter('today')
         await this.Recentfoodrecord()
@@ -141,8 +142,11 @@ export default {
         async Recentfoodrecord(){
             let time = new Date();
             var foodrecordrecent = await FoodService.getFoodRecordsRecent(this.userID,time);
-            //foodrecordrecent =foodrecordrecent.slice(0,80);
-            this.fooddata=foodrecordrecent;
+            foodrecordrecent =foodrecordrecent.slice(foodrecordrecent.length-90,foodrecordrecent.length);
+            //foodrecordrecent.reverse()
+            this.fooddata1=foodrecordrecent.slice();
+            this.fooddatashow=foodrecordrecent.slice().reverse();
+            //console.log(this.fooddatashow);
         },
         chartContent() {
             return [this.chartDataHeader, ...this.chartData]
