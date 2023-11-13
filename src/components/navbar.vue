@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light mb-4 bg-dark bg-opacity-75 text-white">
+<nav class="navbar navbar-expand-lg navbar-light mb-4 bg-dark bg-opacity-75 text-white sticky-top">
             <h1 class="p-2"><i class="bi bi-hospital-fill"></i></h1>
             <router-link class="navbar-brand text-white" :to ="{name:'food-calendar-web', params:{userID:this.userID}}"> <strong>Chat食有料</strong></router-link>
             
@@ -37,7 +37,7 @@
                         <router-link class="nav-link text-white" :to ="{name:'food-record-web', params:{userID:this.userID}}">飲食紀錄</router-link>
                     </li>
                     <li class="nav-item active">
-                        <router-link class="nav-link text-white" :to ="{name:'Input-FoodPage', params:{userID:this.userID}}">輸入食物紀錄</router-link>
+                        <router-link class="nav-link text-white" :to ="{name:'Input-FoodPage', params:{userID:this.userID}}">各項紀錄輸入</router-link>
                     </li>
                     <li class="nav-item active">
                         <router-link class="nav-link text-white" :to ="{name:'login-page'}">登出</router-link>

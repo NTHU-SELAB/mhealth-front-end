@@ -14,7 +14,7 @@
             </div>
             <strong>{{ this.sword }}</strong>
         </div>
-        <div class="container p-3 overflow-auto img-max" style="height: 800px; background-color: rgba(232, 225, 225, 0.8);">
+        <div class="container p-3 overflow-auto img-max mb-5" style="height: 700px; background-color: rgba(232, 225, 225, 0.8);">
             <div v-if="showdiv" class="container">
                 <div class="row justify-content-md-center">
                     <div v-bind:key="x.key" v-for="x in this.content" class="col-sm-6 d-grid">

@@ -6,19 +6,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <v-date-picker v-model="date" color="Teal" :attributes='attrs' :model-config="modelConfig" :rows="1" is-expanded/>
+                    <v-date-picker  v-model="date" color="Teal" :attributes='attrs' :model-config="modelConfig" :rows="1" is-expanded/>
                     <strong>{{ this.date }}</strong>
                 </div>
                 <div class="col-sm-6 p-3">
                     <div class="alert alert-success">
-                        <strong>近期7筆飲食紀錄</strong>
+                        <strong>近期飲食紀錄</strong>
                     </div>
-                    <div class="container p-3 bg-white bg-opacity-50 overflow-auto" style="height: 600px">
-                        <div v-for="(item,index) in fooddata" v-bind:key="index" class="p-2 mb-3 bg-dark bg-opacity-75 text-white border border-primary border-2 rounded-5" >
+                    <div class="container p-5 bg-white bg-opacity-50 overflow-auto" style="height: 600px">
+                        <ul class="list-group">
+                            <li class="list-group-item mb-2 border border-light border-2 rounded-5" v-for="(item,index) in fooddata" v-bind:key="index" style="background-color:rgba(115, 160, 201, 0.75);;">
+                                <div class="row">
+                                    <div class="col"><h5><strong>{{ item.name }}</strong></h5></div>
+                                    <div class="col text-danger"><strong>{{ item.cal }} cal</strong></div>
+                                    <div class="col"><h4><i class="bi bi-cup-hot-fill"></i></h4></div>
+                                    <div class="col">{{ item.time }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <div v-for="(item,index) in fooddata" v-bind:key="index" class="p-2 mb-3 bg-dark bg-opacity-75 text-white border border-primary border-2 rounded-5" >
                             <strong class="text-green">{{ item.name }}</strong><br>
                             <strong class="text-danger">{{ item.cal }} cal</strong><br>
                             <strong>{{ item.time }}</strong><br>
-                        </div>
+                        </div> -->
                     </div>
                     
                 </div>
@@ -60,20 +70,45 @@ export default {
             attrs: [
                 {
                     key: 'today',
-                    dot: true,
                     dates: new Date(),
                     popover: {
                         label: this.dates,
                         visibility: 'hover'
-                    }
+                    },
+                    highlight: {
+                        color: 'blue',
+                        fillMode: 'outline',
+                    },
                 },
                 {
-                    highlight: {
-                        color: 'red',
-                        fillMode: 'light',
+                    bar: 'red',
+                    dates: [
+                         
+                    ],
+                    popover: {
+                        label: this.dates,
+                        visibility: 'hover'
                     },
-                    dot: true,
-                    dates: new Date(),
+                },
+                {
+                    bar: 'blue',
+                    dates: [
+                        
+                    ],
+                    popover: {
+                        label: this.dates,
+                        visibility: 'hover'
+                    },
+                },
+                {
+                    bar: 'purple',
+                    dates: [
+                        
+                    ],
+                    popover: {
+                        label: this.dates,
+                        visibility: 'hover'
+                    },
                 },
             ],
             modelConfig: {
@@ -106,12 +141,23 @@ export default {
         async refreshUserID(){
             this.userID = this.$route.params.userID
         },
+
         async Recentfoodrecord(){
             let time = new Date();
             var foodrecordrecent = await FoodService.getFoodRecordsRecent(this.userID,time);
-            foodrecordrecent =foodrecordrecent.slice(foodrecordrecent.length-8,foodrecordrecent.length);
+            //foodrecordrecent =foodrecordrecent.slice(foodrecordrecent.length-8,foodrecordrecent.length);
+            for(var i=0;i<foodrecordrecent.length;i++){
+                foodrecordrecent[i].time=foodrecordrecent[i].time.slice(0,19);
+                var tepyear=parseInt(foodrecordrecent[i].time.slice(0,4));
+                var tepmonth=parseInt(foodrecordrecent[i].time.slice(5,7));
+                var tepday=parseInt(foodrecordrecent[i].time.slice(8,10));
+                //console.log(tepyear+" "+tepmonth+" "+tepday);
+                var tepdate=new Date(tepyear,tepmonth-1,tepday);
+                this.attrs[i%3+1].dates.push(tepdate);
+            }
             this.fooddata=foodrecordrecent.reverse();
         },
+
         routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail-web/${this.userID}/${y}/${m}/${index}`)
         },
@@ -186,6 +232,23 @@ export default {
 .card-title{
   color: black;
   opacity: 1
+}
+
+.list-group-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.list-group-item:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 255, 0, 0.2); /* Natural green color with 20% opacity */
+}
+
+.list-group-item:hover .list-group-item {
+    background-color: rgba(255, 0, 0, 0.2); /* Natural red color with 20% opacity */
+}
+
+.list-group-item .col:first-child {
+    margin-right: 2em;
 }
 </style>
 

@@ -26,7 +26,10 @@ export default {
   color: #2c3e50;
 }
 body {
- background-image: url("./assets/forest.jpg");
- background-color: #cccccc;
+  background-image: url("./assets/forest.jpg");
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
 }
 </style>

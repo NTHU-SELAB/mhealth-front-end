@@ -261,7 +261,7 @@ export default {
             this.chartOptions.scales.y.max=5000;
             this.dataready=true;
         }
-    }
+    },
 }
 </script>
   

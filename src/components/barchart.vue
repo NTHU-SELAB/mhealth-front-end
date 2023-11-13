@@ -110,7 +110,7 @@ export default {
                 this.datay=['null','null','null','null','null','null','null'];
                 this.datanull="您近期的飲水資料不足"
             }else{
-                //console.log(this.waterData)
+                //this part should be refactoring if have time
                 var len=this.waterData.length,count=6;
                 for(var k=len-1;k>=0;k--){
                     this.datax[count]=parseInt(this.waterData[k].water);
