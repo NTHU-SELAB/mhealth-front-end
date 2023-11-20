@@ -28,4 +28,6 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).  
 
-change readme testing for chatgpt code review
+change readme testing for chatgpt code review  
+change readme testing for chatgpt code review twice  
+
