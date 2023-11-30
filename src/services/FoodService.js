@@ -31,6 +31,17 @@ export default {
         }))
         return response
     },
+    async postsportdata(userID, sportname, cal, sporttime) {
+        const response = await Api1().post('chartdata/sportdata.php', qs.stringify({
+            'record': 'record',
+            'userID': userID,
+            'sportname': sportname,
+            'cal': cal,
+            'sporttime': sporttime,
+            'recordTime': new Date(Date.now())
+        }))
+        return response
+    },
 
     async getFoodRecords(userID, timestamp) {
         const response = await Api().get(`food/record?userID=${userID}&timestamp=${timestamp}`)

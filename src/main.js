@@ -16,6 +16,8 @@ import linechart from './components/linechart.vue'
 import addfoodmanuallypage from './pages/AddFoodManuallyPage.vue'
 import calendardetailwebpage from './pages/CalendarDetailWebPage.vue'
 import addhealthdata from './pages/AddHealthData.vue'
+import addsportdata from './pages/AddSportData.vue'
+
 Vue.config.productionTip = false
 Vue.component('nav-bar', navbar)
 Vue.component('bar-chart', barchart)
@@ -23,6 +25,7 @@ Vue.component('line-chart', linechart)
 Vue.component('add-food-manually-page', addfoodmanuallypage)
 Vue.component('calendar-detail-web-page', calendardetailwebpage)
 Vue.component('add-health-data', addhealthdata)
+Vue.component('add-sport-data', addsportdata)
 new Vue({
   router,
   render: h => h(App),

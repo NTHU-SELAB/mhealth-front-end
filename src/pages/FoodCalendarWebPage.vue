@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <v-date-picker  v-model="date" color="Teal" :attributes='attrs' :model-config="modelConfig" :rows="1" is-expanded/>
+                    <v-calendar  v-model="date" color="Teal" :attributes='attrs' :model-config="modelConfig" :rows="1" is-expanded/>
                     <strong>{{ this.date }}</strong>
                 </div>
                 <div class="col-sm-6 p-3">
@@ -72,7 +72,7 @@ export default {
                     key: 'today',
                     dates: new Date(),
                     popover: {
-                        label: this.dates,
+                        label: "today !",
                         visibility: 'hover'
                     },
                     highlight: {
@@ -146,18 +146,37 @@ export default {
             let time = new Date();
             var foodrecordrecent = await FoodService.getFoodRecordsRecent(this.userID,time);
             //foodrecordrecent =foodrecordrecent.slice(foodrecordrecent.length-8,foodrecordrecent.length);
+            var colornum=1;
             for(var i=0;i<foodrecordrecent.length;i++){
                 foodrecordrecent[i].time=foodrecordrecent[i].time.slice(0,19);
                 var tepyear=parseInt(foodrecordrecent[i].time.slice(0,4));
                 var tepmonth=parseInt(foodrecordrecent[i].time.slice(5,7));
                 var tepday=parseInt(foodrecordrecent[i].time.slice(8,10));
-                //console.log(tepyear+" "+tepmonth+" "+tepday);
+                //console.log(foodrecordrecent[i]);
                 var tepdate=new Date(tepyear,tepmonth-1,tepday);
-                this.attrs[i%3+1].dates.push(tepdate);
+                colornum++;
+                if(colornum>3) colornum=1;
+                var color='blue'
+                if(colornum==1){color='blue'} 
+                else if(colornum==2){color='red'}
+                else if(colornum==3){color='purple'}
+                var ob={
+                    bar: color,
+                    dates: [
+                        tepdate
+                    ],
+                    popover: {
+                        label: "name: "+foodrecordrecent[i].name + " | calorie: " +foodrecordrecent[i].cal +"卡",
+                        visibility: 'hover'
+                    },
+                }
+                this.attrs.push(ob);
             }
             this.fooddata=foodrecordrecent.reverse();
         },
-
+        getRandomInt(max){
+            return Math.floor(Math.random() * max);
+        },
         routeToCalendarDetail(index,m,y){
             this.$router.push(`/calendar-detail-web/${this.userID}/${y}/${m}/${index}`)
         },
