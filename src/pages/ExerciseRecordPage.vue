@@ -11,9 +11,14 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="container" v-if="dataReady">
-                        <!-- <img :src="pictureURL"> -->
-                        <!--<p>{{this.data}}</p>-->
+                    <div
+                        class="container bg-light bg-gradient bg-opacity-75 mt-3 p-2"
+                        v-if="dataReady"
+                    >
+                        <chat-room
+                        v-bind:sport-data="sportshow"
+                        v-bind:datatype="'sport'"
+                        />
                     </div>
                 </div>
             </div>

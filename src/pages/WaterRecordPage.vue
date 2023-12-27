@@ -11,8 +11,14 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="container" v-if="dataReady">
-                        <p v-if="hasWarn">{{this.warn}}</p>
+                    <div
+                        class="container bg-light bg-gradient bg-opacity-75 mt-3 p-2"
+                        v-if="dataReady"
+                    >
+                        <chat-room
+                        v-bind:water-data="watershow"
+                        v-bind:datatype="'water'"
+                        />
                     </div>
                 </div>
             </div>

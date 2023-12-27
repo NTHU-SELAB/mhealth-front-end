@@ -9,8 +9,17 @@
                     <line-chart v-bind:blood-data="bloodPressureshow" v-bind:datatype="'blood'"></line-chart>
                 </div>
                 <div class="col-md-6">
-                    <div class="container" v-if="dataReady">
+                    <!-- <div class="container" v-if="dataReady">
                         <p v-if="hasWarn">{{this.warn}}</p>
+                    </div> -->
+                    <div
+                        class="container bg-light bg-gradient bg-opacity-75 mt-3"
+                        v-if="dataReady"
+                    >
+                        <chat-room
+                        v-bind:blood-data="bloodPressureshow"
+                        v-bind:datatype="'blood'"
+                        />
                     </div>
                 </div>
             </div>

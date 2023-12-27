@@ -23,7 +23,7 @@
                                     <div class="col text-danger"><strong>{{ item.cal }} cal</strong></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col"><h4><i class="bi bi-cup-hot-fill"></i></h4></div>
+                                    <div class="col"><icon-gen v-bind:foodname="item.name"></icon-gen></div>
                                     <div class="col">{{ item.time }}</div>
                                 </div>
                             </li>
